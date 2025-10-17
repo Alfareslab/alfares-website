@@ -1,0 +1,219 @@
+{
+  "brand": {
+    "full": "Al-Fares Center for Computer Repair and Data Recovery",
+    "short": "Al-Fares Center"
+  },
+  "meta": {
+    "title": "Al-Fares Center for Computer Repair and Data Recovery - Jeddah",
+    "description": "Al-Fares Center, Jeddah's specialist in computer repair and data recovery. We offer 12 years of professional experience in the field.",
+    "keywords": "Data Recovery, Computer Repair, Apple Repair, Jeddah, Al-Fares, PC-3000"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Our Services",
+    "capabilities": "Our Capabilities",
+    "process": "How We Work",
+    "reviews": "Client Reviews",
+    "tiktok": "Our Videos",
+    "contact": "Contact Us"
+  },
+  "hero": {
+    "slides": [
+      {
+        "title": "Al-Fares Center for Computer Repair and Data Recovery",
+        "description": "12 years of experience rescuing client data with cutting-edge technology",
+        "cta": "Contact Us Now via WhatsApp",
+        "link": "https://wa.me/966563747332",
+        "image": "store_front-min.png"
+      },
+      {
+        "title": "Professional Data Recovery with PC-3000",
+        "description": "We handle the toughest data loss cases with precision and expertise",
+        "cta": "Recover Your Data Now",
+        "link": "https://wa.me/966507322542",
+        "image": "pc3000_portable_pro-min.png"
+      },
+      {
+        "title": "Sterile Lab Environment for Sensitive Disk Processing",
+        "description": "Every repair is performed in our Clean Room to ensure your data's safety",
+        "cta": "Book Your Appointment Now",
+        "link": "https://wa.me/966507322542",
+        "image": "clean_room-min.png"
+      },
+      {
+        "title": "Specialists in Apple and MacBook Repair",
+        "description": "Professional inspection and repair for all MacBook and iMac models",
+        "cta": "Start Your Repair Now",
+        "link": "https://wa.me/966563747332",
+        "image": "apple_repair-min.png"
+      },
+      {
+        "title": "Fast Service and Immediate Response for Our Clients",
+        "description": "Get your device back after inspection in just a few hours",
+        "cta": "Request Service Now",
+        "link": "https://wa.me/966563747332",
+        "image": "fast_service-min.png"
+      }
+    ]
+  },
+  "about": {
+    "title": "About Us",
+    "heading": "Welcome to Al-Fares Center",
+    "intro": "Your dedicated specialist for computer repair and data recovery in Jeddah. We provide professional services backed by over 12 years of industry experience.",
+    "experience": {
+      "title": "12 Years of Experience",
+      "description": "Over 12 years of expertise in computer maintenance and data recovery, serving thousands of satisfied clients."
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "heading": "What We Offer",
+    "list": [
+      {
+        "title": "Data Recovery",
+        "description": "Professional services to retrieve lost data from hard drives and various storage devices using cutting-edge technology.",
+        "details": [
+          "Recovery from HDD & SSD",
+          "Recovery from USB & SD Cards",
+          "Mobile phone data recovery",
+          "RAID system recovery",
+          "DVR data recovery",
+          "Post-format recovery"
+        ],
+        "cta": "Recover Your Data",
+        "link": "https://wa.me/966507322542"
+      },
+      {
+        "title": "Apple Device Repair",
+        "description": "Comprehensive maintenance for all Apple devices, including iMac, MacBook, iPhone, and iPad, with genuine replacement parts.",
+        "details": [
+          "MacBook & iMac repair",
+          "iPhone & iPad repair",
+          "Genuine replacement parts",
+          "Professional comprehensive inspection",
+          "Memory and storage upgrades"
+        ],
+        "cta": "Start Repair",
+        "link": "https://wa.me/966563747332"
+      },
+      {
+        "title": "Comprehensive Solutions",
+        "description": "Integrated solutions for all computer and laptop issues, from maintenance and upgrades to software installation.",
+        "details": [
+          "Computer & laptop repair",
+          "Component upgrades",
+          "Software & OS installation",
+          "Network troubleshooting",
+          "Fast and guaranteed service"
+        ],
+        "cta": "Get Service",
+        "link": "https://wa.me/966563747332"
+      }
+    ]
+  },
+  "capabilities": {
+    "title": "Our Capabilities",
+    "heading": "Advanced Technologies and Equipment",
+    "list": [
+      {
+        "title": "Professional PC-3000 Technology",
+        "description": "Featuring the latest in data recovery with the PC-3000 Portable PRO. Advanced technology to recover data from the most challenging cases.",
+        "badge": "NEW 2025"
+      },
+      {
+        "title": "Specialized Clean Room",
+        "description": "We operate in a sterile, clean room environment to open hard drives and perform sensitive data recovery procedures with the highest quality standards."
+      },
+      {
+        "title": "Specialized Technical Team",
+        "description": "A team of experts specialized in computer repair and data recovery with over 12 years of experience in the field."
+      }
+    ]
+  },
+  "process": {
+    "title": "How We Work",
+    "heading": "Our Process",
+    "steps": [
+      {
+        "number": "1",
+        "title": "Reception",
+        "description": "We receive your device and perform an initial inspection to identify the issue"
+      },
+      {
+        "number": "2",
+        "title": "Diagnosis",
+        "description": "We conduct a comprehensive examination using the latest equipment and technologies"
+      },
+      {
+        "number": "3",
+        "title": "Cost Estimate",
+        "description": "We provide you with a detailed report and clear price quote before starting"
+      },
+      {
+        "number": "4",
+        "title": "Execution & Delivery",
+        "description": "After your approval, we begin work and deliver your device as quickly as possible"
+      }
+    ]
+  },
+  "reviews": {
+    "title": "Client Reviews",
+    "heading": "What Our Clients Say",
+    "aggregate": {
+      "rating": "4.8",
+      "total": "21",
+      "text": "rating out of 5 stars"
+    },
+    "cta": "Write Your Review on Google",
+    "showMore": "Show More",
+    "showLess": "Show Less"
+  },
+  "tiktok": {
+    "title": "Our Videos",
+    "heading": "Watch Our Work on TikTok"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "heading": "We're Here to Serve You",
+    "info": {
+      "address": {
+        "title": "Address",
+        "value": "8010 Khalid Ibn Al-Walid St, Al-Sharafiyah, Jeddah 23218"
+      },
+      "hours": {
+        "title": "Working Hours",
+        "morning": "Morning Shift: 10:00 AM - 2:00 PM",
+        "evening": "Evening Shift: 5:00 PM - 11:00 PM"
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "main": "Main Number",
+        "dataRecovery": "Data Recovery Department",
+        "computerRepair": "Computer Repair Department"
+      }
+    },
+    "form": {
+      "title": "Send Us a Message",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone Number",
+      "message": "Your Message",
+      "submit": "Send",
+      "note": "We'll get back to you as soon as possible"
+    }
+  },
+  "footer": {
+    "description": "Your dedicated specialist for computer repair and data recovery in Jeddah",
+    "quickLinks": "Quick Links",
+    "followUs": "Follow Us",
+    "copyright": "© 2025 Al-Fares Center for Computer Repair. All rights reserved.",
+    "development": "Website developed by Al-Fares Technical Team - Version v1.0"
+  },
+  "buttons": {
+    "whatsapp": "Contact via WhatsApp",
+    "viewOnMap": "View on Map",
+    "learnMore": "Learn More"
+  }
+}
+

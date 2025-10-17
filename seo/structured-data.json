@@ -1,0 +1,143 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://alfares-lab.com/#organization",
+      "name": "مركز الفارس لصيانة الكمبيوتر واستعادة البيانات",
+      "alternateName": "Al-Fares Center for Computer Repair and Data Recovery",
+      "url": "https://alfares-lab.com",
+      "logo": "https://alfares-lab.com/assets/images/hero-slider/store_front-min.png",
+      "image": "https://alfares-lab.com/assets/images/hero-slider/store_front-min.png",
+      "description": "مركز الفارس المتخصص في صيانة الكمبيوتر واستعادة البيانات في جدة. خبرة 12 سنة في المجال.",
+      "priceRange": "$$",
+      "telephone": "+966563747332",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "8010 شارع خالد بن وليد، الشرفية",
+        "addressLocality": "جدة",
+        "postalCode": "23218",
+        "addressCountry": "SA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 21.5678,
+        "longitude": 39.1234
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "10:00",
+          "closes": "14:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "17:00",
+          "closes": "23:00"
+        }
+      ],
+      "sameAs": [
+        "https://snapchat.com/add/alfaresrecovery",
+        "https://tiktok.com/@alfares.datarecovry",
+        "https://instagram.com/fares.datarecovery",
+        "https://facebook.com/615639735110001"
+      ],
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+966563747332",
+          "contactType": "customer service",
+          "areaServed": "SA",
+          "availableLanguage": ["ar", "en"]
+        },
+        {
+          "@type": "ContactPoint",
+          "telephone": "+966507322542",
+          "contactType": "data recovery",
+          "areaServed": "SA",
+          "availableLanguage": ["ar", "en"]
+        },
+        {
+          "@type": "ContactPoint",
+          "telephone": "+966508595762",
+          "contactType": "computer repair",
+          "areaServed": "SA",
+          "availableLanguage": ["ar", "en"]
+        }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "خدمات مركز الفارس",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "استعادة البيانات",
+              "description": "خدمة احترافية لاستعادة البيانات المفقودة من الأقراص الصلبة وأجهزة التخزين المختلفة"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "صيانة أجهزة Apple",
+              "description": "صيانة شاملة لجميع أجهزة Apple من iMac و MacBook و iPhone و iPad"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "صيانة الكمبيوتر",
+              "description": "حلول متكاملة لجميع مشاكل الكمبيوتر واللابتوب"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "AggregateRating",
+      "@id": "https://alfares-lab.com/#aggregateRating",
+      "itemReviewed": {
+        "@type": "LocalBusiness",
+        "@id": "https://alfares-lab.com/#organization"
+      },
+      "ratingValue": "4.8",
+      "bestRating": "5",
+      "worstRating": "1",
+      "ratingCount": "21",
+      "reviewCount": "21"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://alfares-lab.com/#website",
+      "url": "https://alfares-lab.com",
+      "name": "مركز الفارس لصيانة الكمبيوتر واستعادة البيانات",
+      "description": "مركز الفارس المتخصص في صيانة الكمبيوتر واستعادة البيانات في جدة",
+      "publisher": {
+        "@id": "https://alfares-lab.com/#organization"
+      },
+      "inLanguage": ["ar", "en"]
+    }
+  ]
+}
+
