@@ -15,7 +15,6 @@
     "capabilities": "Our Capabilities",
     "process": "How We Work",
     "reviews": "Client Reviews",
-    "tiktok": "Our Videos",
     "contact": "Contact Us"
   },
   "hero": {
@@ -76,7 +75,6 @@
         "details": [
           "Recovery from HDD & SSD",
           "Recovery from USB & SD Cards",
-          "Mobile phone data recovery",
           "RAID system recovery",
           "DVR data recovery",
           "Post-format recovery"
@@ -86,10 +84,9 @@
       },
       {
         "title": "Apple Device Repair",
-        "description": "Comprehensive maintenance for all Apple devices, including iMac, MacBook, iPhone, and iPad, with genuine replacement parts.",
+        "description": "Comprehensive maintenance for Apple devices, including iMac and MacBook, with genuine replacement parts.",
         "details": [
           "MacBook & iMac repair",
-          "iPhone & iPad repair",
           "Genuine replacement parts",
           "Professional comprehensive inspection",
           "Memory and storage upgrades"
