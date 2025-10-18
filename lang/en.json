@@ -68,46 +68,41 @@
   "services": {
     "title": "Our Services",
     "heading": "What We Offer",
-    "list": [
-      {
-        "title": "Data Recovery",
-        "description": "Professional services to retrieve lost data from hard drives and various storage devices using cutting-edge technology.",
-        "details": [
-          "Recovery from HDD & SSD",
-          "Recovery from USB & SD Cards",
-          "RAID system recovery",
-          "DVR data recovery",
-          "Post-format recovery"
-        ],
-        "cta": "Recover Your Data",
-        "link": "https://wa.me/966507322542"
+    "dataRecovery": {
+      "title": "Data Recovery",
+      "description": "Professional services to retrieve lost data from hard drives and various storage devices using cutting-edge technology.",
+      "details": {
+        "hddSsd": "Recovery from HDD & SSD",
+        "usbSd": "Recovery from USB & SD Cards",
+        "raid": "RAID system recovery",
+        "dvr": "DVR data recovery",
+        "format": "Post-format recovery"
       },
-      {
-        "title": "Apple Device Repair",
-        "description": "Comprehensive maintenance for Apple devices, including iMac and MacBook, with genuine replacement parts.",
-        "details": [
-          "MacBook & iMac repair",
-          "Genuine replacement parts",
-          "Professional comprehensive inspection",
-          "Memory and storage upgrades"
-        ],
-        "cta": "Start Repair",
-        "link": "https://wa.me/966563747332"
+      "cta": "Recover Your Data"
+    },
+    "appleRepair": {
+      "title": "Apple Device Repair",
+      "description": "Comprehensive maintenance for Apple devices, including iMac and MacBook, with genuine replacement parts.",
+      "details": {
+        "macRepair": "MacBook & iMac repair",
+        "genuineParts": "Genuine replacement parts",
+        "diagnostics": "Professional comprehensive inspection",
+        "upgrade": "Memory and storage upgrades"
       },
-      {
-        "title": "Comprehensive Solutions",
-        "description": "Integrated solutions for all computer and laptop issues, from maintenance and upgrades to software installation.",
-        "details": [
-          "Computer & laptop repair",
-          "Component upgrades",
-          "Software & OS installation",
-          "Network troubleshooting",
-          "Fast and guaranteed service"
-        ],
-        "cta": "Get Service",
-        "link": "https://wa.me/966563747332"
-      }
-    ]
+      "cta": "Start Your Repair Now"
+    },
+    "comprehensive": {
+      "title": "Comprehensive Solutions",
+      "description": "Integrated solutions for all computer and laptop issues, from maintenance and upgrades to software installation.",
+      "details": {
+        "repair": "Computer & laptop repair",
+        "upgrade": "Component upgrades",
+        "software": "Software & OS installation",
+        "network": "Network troubleshooting",
+        "fast": "Fast and guaranteed service"
+      },
+      "cta": "Get Service"
+    }
   },
   "capabilities": {
     "title": "Our Capabilities",
@@ -205,7 +200,7 @@
     "quickLinks": "Quick Links",
     "followUs": "Follow Us",
     "copyright": "© 2025 Al-Fares Center for Computer Repair. All rights reserved.",
-    "development": "Website developed by Al-Fares Technical Team - Version v1.0"
+    "development": "Website developed by Al-Fares Technical Team - Version v1.0.2"
   },
   "buttons": {
     "whatsapp": "Contact via WhatsApp",

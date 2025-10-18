@@ -155,13 +155,32 @@
 .service-details {
   list-style: none;
   margin-bottom: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 0;
+  min-height: 200px;
+  justify-content: center;
 }
 
 .service-details li {
-  padding: var(--spacing-xs) 0;
+  padding: 0.5rem 1rem;
   color: var(--color-text-secondary);
   position: relative;
-  padding-left: 1.5rem;
+  padding-left: 2.5rem;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.service-details li:hover {
+  transform: translateX(5px);
+  background: var(--color-primary);
+  color: white;
+}
+
+.service-details li:hover::before {
+  color: white;
 }
 
 .service-details li::before {
@@ -173,13 +192,23 @@
 }
 
 html[dir="rtl"] .service-details li {
-  padding-left: 0;
-  padding-right: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 2.5rem;
 }
 
 html[dir="rtl"] .service-details li::before {
   left: auto;
-  right: 0;
+  right: 0.5rem;
+}
+
+html[dir="rtl"] .service-details li:hover {
+  transform: translateX(-5px);
+}
+
+@media (max-width: 768px) {
+  .service-details {
+    min-height: auto;
+  }
 }
 
 /* Capabilities Section */

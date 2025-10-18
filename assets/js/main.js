@@ -67,7 +67,9 @@ function loadPreferences() {
  */
 async function loadLanguage(lang) {
   try {
-    const response = await fetch(`lang/${lang}.json`);
+    // Add cache busting to force reload of JSON files
+    const timestamp = new Date().getTime();
+    const response = await fetch(`lang/${lang}.json?v=${timestamp}`);
     if (!response.ok) throw new Error(`Failed to load ${lang}.json`);
     
     translations = await response.json();
