@@ -73,6 +73,13 @@
 - Updated SEO metadata (Title, Description, Canonical tags) tailored for each storage media.
 - Implemented valid Schema.org markup (Service, FAQPage, BreadcrumbList) for each specific service page.
 
+### 2026-05-03 — Plan 43: Phase 2 (Advanced Service Pages)
+- Generated `raid-server-recovery.html`, `dvr-data-recovery.html`, and `ransomware-database-recovery.html`.
+- Combined Ransomware and Database recovery into a single high-value page to capture unified intent.
+- Tailored RAID content to emphasize server recovery and NAS data protection in Jeddah.
+- Implemented specific Schema.org JSON-LD for RAID (4 FAQs), DVR (2 FAQs), and Ransomware (3 FAQs).
+- Verified canonical integrity and breadcrumb consistency across all generated files.
+
 ### Planned Changes
 - Add 10 service landing pages (HDD, External HDD, SSD, Laptop, Mac, RAID/NAS, Flash/SD, DVR/NVR, Ransomware, Database)
 - Add 2 geographic pages (Makkah, All Saudi Cities)

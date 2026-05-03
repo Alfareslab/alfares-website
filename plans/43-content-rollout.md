@@ -63,15 +63,15 @@ Rules:
 
 | Exec | Review | Task |
 | :---: | :---: | :--- |
-| `[ ]` | `[ ]` | عمل Commit محلي للتغييرات قبل بدء المرحلة (git add & git commit). |
-| `[ ]` | `[ ]` | إنشاء `services/raid-server-recovery.html` وتعبئة محتوى السيرفرات وأنظمة RAID. |
-| `[ ]` | `[ ]` | إنشاء `services/dvr-data-recovery.html` وتعبئة محتوى كاميرات المراقبة. |
-| `[ ]` | `[ ]` | إنشاء `services/ransomware-database-recovery.html` وتعبئة محتوى قواعد البيانات وفيروسات الفدية. |
-| `[ ]` | `[ ]` | تحديث الـ Meta Tags والـ Schema.org لكل صفحة. |
+| `[x]` | `[x]` | عمل Commit محلي للتغييرات قبل بدء المرحلة (git add & git commit). |
+| `[x]` | `[x]` | إنشاء `services/raid-server-recovery.html` وتعبئة محتوى السيرفرات وأنظمة RAID. |
+| `[x]` | `[x]` | إنشاء `services/dvr-data-recovery.html` وتعبئة محتوى كاميرات المراقبة. |
+| `[x]` | `[x]` | إنشاء `services/ransomware-database-recovery.html` وتعبئة محتوى قواعد البيانات وفيروسات الفدية. |
+| `[x]` | `[x]` | تحديث الـ Meta Tags والـ Schema.org لكل صفحة. |
 
 **🚪 بوابات ما قبل التنفيذ (Pre-Implementation Gates):**
-- [ ] المتطلبات واضحة 100% من `plan 38`.
-- [ ] المحتوى التقني الثقيل (مثل RAID) يتم نقله بدقة عالية.
+- [x] المتطلبات واضحة 100% من `plan 38`.
+- [x] المحتوى التقني الثقيل (مثل RAID) يتم نقله بدقة عالية.
 
 **Key Constraints:**
 - التأكد من مطابقة عدد الأسئلة الشائعة في الـ HTML لعددها في الـ FAQ Schema.

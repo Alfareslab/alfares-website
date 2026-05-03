@@ -70,14 +70,13 @@ Alfareslab_2026/                          ← Project root
 │   ├── service-page-template.html        ← Base service page template
 │   ├── hdd-data-recovery.html            ← Internal HDD data recovery page
 │   ├── external-hdd-data-recovery.html   ← External HDD data recovery page
-│   ├── ssd-nvme-data-recovery.html       ← SSD / NVMe data recovery page
+│   ├── ssd-data-recovery.html            ← SSD data recovery page
 │   ├── laptop-pc-data-recovery.html      ← Laptop / PC data recovery page
 │   ├── mac-data-recovery.html            ← Mac data recovery page
-│   ├── raid-nas-data-recovery.html       ← RAID / NAS / server recovery page
-│   ├── flash-sd-data-recovery.html       ← Flash / SD card recovery page
-│   ├── dvr-nvr-data-recovery.html        ← DVR / NVR / CCTV recovery page
-│   ├── ransomware-data-recovery.html     ← Ransomware data recovery page
-│   ├── database-erp-recovery.html        ← Database / ERP recovery page
+│   ├── raid-server-recovery.html         ← RAID / NAS / Server recovery page
+│   ├── flash-sd-recovery.html            ← Flash / SD card recovery page
+│   ├── dvr-data-recovery.html            ← DVR / NVR / CCTV recovery page
+│   ├── ransomware-database-recovery.html ← Ransomware & Database recovery page
 │   ├── data-recovery-makkah.html         ← Makkah geographic page
 │   └── data-recovery-saudi-arabia.html   ← Saudi Arabia geographic page
 │
