@@ -23,17 +23,17 @@
 
 | Exec | Review | Task |
 | :---: | :---: | :--- |
-| `[ ]` | `[ ]` | عمل Commit محلي للتغييرات قبل بدء المرحلة (git add & git commit). |
-| `[ ]` | `[ ]` | إنشاء `services/ssd-data-recovery.html` وتعبئة محتوى SSD. |
-| `[ ]` | `[ ]` | إنشاء `services/flash-sd-recovery.html` وتعبئة محتوى الفلاشات وكروت الميموري. |
-| `[ ]` | `[ ]` | إنشاء `services/mac-data-recovery.html` وتعبئة محتوى أجهزة Apple و Mac. |
-| `[ ]` | `[ ]` | تحديث الـ Meta Tags والـ Schema.org (Service, FAQ, Breadcrumb) لكل صفحة. |
-| `[ ]` | `[ ]` | التأكد من استخدام `class="service-page"` على الـ `<main>`. |
+| `[x]` | `[x]` | عمل Commit محلي للتغييرات قبل بدء المرحلة (git add & git commit). |
+| `[x]` | `[x]` | إنشاء `services/ssd-data-recovery.html` وتعبئة محتوى SSD. |
+| `[x]` | `[x]` | إنشاء `services/flash-sd-recovery.html` وتعبئة محتوى الفلاشات وكروت الميموري. |
+| `[x]` | `[x]` | إنشاء `services/mac-data-recovery.html` وتعبئة محتوى أجهزة Apple و Mac. |
+| `[x]` | `[x]` | تحديث الـ Meta Tags والـ Schema.org (Service, FAQ, Breadcrumb) لكل صفحة. |
+| `[x]` | `[x]` | التأكد من استخدام `class="service-page"` على الـ `<main>`. |
 
 **🚪 بوابات ما قبل التنفيذ (Pre-Implementation Gates):**
-- [ ] المتطلبات واضحة 100% من `plan 38` ولا يوجد `[محتاج توضيح]`.
-- [ ] المحتوى سيتم نسخه كما هو بدون تغيير أو تأليف من النموذج.
-- [ ] كل ملف سيكون مستقلاً بدون الاعتماد على مكونات خارجية جديدة.
+- [x] المتطلبات واضحة 100% من `plan 38` ولا يوجد `[محتاج توضيح]`.
+- [x] المحتوى سيتم نسخه كما هو بدون تغيير أو تأليف من النموذج.
+- [x] كل ملف سيكون مستقلاً بدون الاعتماد على مكونات خارجية جديدة.
 
 **Key Constraints:**
 - استخدام قالب صفحة HDD كمرجع أساسي.

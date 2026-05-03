@@ -67,6 +67,12 @@
 - Added 4 specialized SEO questions in Schema JSON-LD.
 - Passed full QA on UI components, Dark Mode toggle, RTL/LTR translation switching, and mobile viewport limits.
 
+### 2026-05-03 — Plan 43: Phase 1 (Content Rollout)
+- Generated `ssd-data-recovery.html`, `flash-sd-recovery.html`, and `mac-data-recovery.html` based on the tested master template (`hdd-data-recovery.html`).
+- Injected specific Arabic content for each service, covering the 7-section layout (Hero, Symptoms, Methodology, Tools, FAQ, CTA).
+- Updated SEO metadata (Title, Description, Canonical tags) tailored for each storage media.
+- Implemented valid Schema.org markup (Service, FAQPage, BreadcrumbList) for each specific service page.
+
 ### Planned Changes
 - Add 10 service landing pages (HDD, External HDD, SSD, Laptop, Mac, RAID/NAS, Flash/SD, DVR/NVR, Ransomware, Database)
 - Add 2 geographic pages (Makkah, All Saudi Cities)

@@ -1,7 +1,7 @@
 # 🧠 Project Context — Al-Fares Lab Website
 > **Last Updated:** 2026-05-02
 > **Current Version:** v1.1.0 (in progress)
-> **Status:** 🟡 Active development (Plan 37 — Phase 3 complete)
+> **Status:** 🟡 Active development (Plan 43 — Phase 1 complete)
 
 ---
 
@@ -45,6 +45,17 @@ Al-Fares Lab website (`alfareslab.com`) is a static bilingual (AR + EN) single-p
 | **38** | Content Production Prompts | ✅ Complete | 14/14 Arabic pages done |
 | **40** | English Service Pages Content | ✅ Complete | 14/14 English pages done |
 | **41** | Service Page Rebuild (Pilot) | ✅ Complete | Pilot page done |
+| **43** | Content Rollout for Service Pages | 🟡 Active | Phase 2 next |
+
+### Plan 43 Progress (Content Rollout)
+
+| Phase | Description | Status |
+|-------|-------------|--------|
+| 1 | Build Basic Storage Pages (SSD, Flash/SD, Mac) | ✅ Complete |
+| 2 | Build Advanced Pages (RAID, DVR, Ransomware) | ⬜ Not started |
+| 3 | Build Geographic Pages | ⬜ Not started |
+| 4 | Build Special Pages (About Lab, Privacy) | ⬜ Not started |
+| 5 | Internal Linking & Sitemap | ⬜ Not started |
 
 ### Plan 37 Progress
 

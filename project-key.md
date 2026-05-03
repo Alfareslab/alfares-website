@@ -139,9 +139,10 @@ Alfareslab_2026/                          ← Project root
 
 | Plan | Status | Description |
 |------|--------|-------------|
-| Plan 37 | 🟡 In Progress | Service pages expansion (Phase 8 next) |
+| Plan 37 | ✅ Complete | Service pages expansion |
 | Plan 38 | ✅ Complete | Content production prompts |
 | Plan 40 | ✅ Complete | English service pages content |
+| Plan 43 | 🟡 In Progress | Content Rollout (Phase 2 next) |
 
 ---
 
