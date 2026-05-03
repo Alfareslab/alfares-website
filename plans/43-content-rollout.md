@@ -23,6 +23,7 @@
 
 | Exec | Review | Task |
 | :---: | :---: | :--- |
+| `[ ]` | `[ ]` | عمل Commit محلي للتغييرات قبل بدء المرحلة (git add & git commit). |
 | `[ ]` | `[ ]` | إنشاء `services/ssd-data-recovery.html` وتعبئة محتوى SSD. |
 | `[ ]` | `[ ]` | إنشاء `services/flash-sd-recovery.html` وتعبئة محتوى الفلاشات وكروت الميموري. |
 | `[ ]` | `[ ]` | إنشاء `services/mac-data-recovery.html` وتعبئة محتوى أجهزة Apple و Mac. |
@@ -62,6 +63,7 @@ Rules:
 
 | Exec | Review | Task |
 | :---: | :---: | :--- |
+| `[ ]` | `[ ]` | عمل Commit محلي للتغييرات قبل بدء المرحلة (git add & git commit). |
 | `[ ]` | `[ ]` | إنشاء `services/raid-server-recovery.html` وتعبئة محتوى السيرفرات وأنظمة RAID. |
 | `[ ]` | `[ ]` | إنشاء `services/dvr-data-recovery.html` وتعبئة محتوى كاميرات المراقبة. |
 | `[ ]` | `[ ]` | إنشاء `services/ransomware-database-recovery.html` وتعبئة محتوى قواعد البيانات وفيروسات الفدية. |
@@ -97,6 +99,7 @@ Rules:
 
 | Exec | Review | Task |
 | :---: | :---: | :--- |
+| `[ ]` | `[ ]` | عمل Commit محلي للتغييرات قبل بدء المرحلة (git add & git commit). |
 | `[ ]` | `[ ]` | إنشاء `services/data-recovery-riyadh.html` |
 | `[ ]` | `[ ]` | إنشاء `services/data-recovery-mecca.html` |
 | `[ ]` | `[ ]` | إنشاء `services/data-recovery-medina.html` |
@@ -132,6 +135,7 @@ Rules:
 
 | Exec | Review | Task |
 | :---: | :---: | :--- |
+| `[ ]` | `[ ]` | عمل Commit محلي للتغييرات قبل بدء المرحلة (git add & git commit). |
 | `[ ]` | `[ ]` | بناء `services/about-lab.html` باستخدام قالب Category C. |
 | `[ ]` | `[ ]` | بناء `services/privacy-policy.html` باستخدام قالب Category D. |
 
@@ -162,6 +166,7 @@ Rules:
 
 | Exec | Review | Task |
 | :---: | :---: | :--- |
+| `[ ]` | `[ ]` | عمل Commit محلي للتغييرات قبل بدء المرحلة (git add & git commit). |
 | `[ ]` | `[ ]` | إضافة روابط الصفحات الـ 14 إلى قسم الخدمات في `index.html`. |
 | `[ ]` | `[ ]` | إضافة روابط (عن المعمل، سياسة الخصوصية) في قائمة الفوتر (`index.html`). |
 | `[ ]` | `[ ]` | تحديث ملف `sitemap.xml` بجميع الـ URLs الجديدة. |
