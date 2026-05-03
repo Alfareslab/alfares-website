@@ -1,0 +1,309 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://alfareslab.com/#organization",
+      "name": "مركز الفارس لصيانة الكمبيوتر واستعادة البيانات",
+      "alternateName": "Al-Fares Center for Computer Repair and Data Recovery",
+      "url": "https://alfareslab.com",
+      "logo": "https://alfareslab.com/assets/images/hero-slider/store_front-min.png",
+      "image": "https://alfareslab.com/assets/images/hero-slider/store_front-min.png",
+      "description": "مركز الفارس المتخصص في صيانة الكمبيوتر واستعادة البيانات في جدة. خبرة 12 سنة في المجال.",
+      "priceRange": "$$",
+      "telephone": "+966563747332",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "8010 شارع خالد بن وليد، الشرفية",
+        "addressLocality": "جدة",
+        "postalCode": "23218",
+        "addressCountry": "SA"
+      },
+      "parentOrganization": {
+        "@id": "https://datacodexlab.com/#organization"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 21.5678,
+        "longitude": 39.1234
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "10:00",
+          "closes": "14:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "17:00",
+          "closes": "23:00"
+        }
+      ],
+      "sameAs": [
+        "https://snapchat.com/add/alfaresrecovery",
+        "https://tiktok.com/@alfares.datarecovry",
+        "https://instagram.com/fares.datarecovery",
+        "https://facebook.com/615639735110001"
+      ],
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+966563747332",
+          "contactType": "customer service",
+          "areaServed": "SA",
+          "availableLanguage": [
+            "ar",
+            "en"
+          ]
+        },
+        {
+          "@type": "ContactPoint",
+          "telephone": "+966507322542",
+          "contactType": "data recovery",
+          "areaServed": "SA",
+          "availableLanguage": [
+            "ar",
+            "en"
+          ]
+        },
+        {
+          "@type": "ContactPoint",
+          "telephone": "+966508595762",
+          "contactType": "computer repair",
+          "areaServed": "SA",
+          "availableLanguage": [
+            "ar",
+            "en"
+          ]
+        }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "خدمات مركز الفارس لاستعادة البيانات",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "url": "https://alfareslab.com/services/hdd-data-recovery.html",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "استعادة بيانات هارد ديسك داخلي",
+              "description": "Internal HDD data recovery service in Jeddah",
+              "url": "https://alfareslab.com/services/hdd-data-recovery.html",
+              "provider": {
+                "@id": "https://alfareslab.com/#organization"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "url": "https://alfareslab.com/services/external-hdd-data-recovery.html",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "استعادة بيانات هارد خارجي",
+              "description": "External hard drive recovery service in Jeddah",
+              "url": "https://alfareslab.com/services/external-hdd-data-recovery.html",
+              "provider": {
+                "@id": "https://alfareslab.com/#organization"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "url": "https://alfareslab.com/services/ssd-nvme-data-recovery.html",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "استعادة بيانات SSD و NVMe",
+              "description": "SSD and NVMe data recovery service in Jeddah",
+              "url": "https://alfareslab.com/services/ssd-nvme-data-recovery.html",
+              "provider": {
+                "@id": "https://alfareslab.com/#organization"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "url": "https://alfareslab.com/services/laptop-pc-data-recovery.html",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "استعادة بيانات اللابتوب والكمبيوتر",
+              "description": "Laptop and desktop computer data recovery service in Jeddah",
+              "url": "https://alfareslab.com/services/laptop-pc-data-recovery.html",
+              "provider": {
+                "@id": "https://alfareslab.com/#organization"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "url": "https://alfareslab.com/services/mac-data-recovery.html",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "استعادة بيانات أجهزة الماك",
+              "description": "MacBook and iMac data recovery service in Jeddah",
+              "url": "https://alfareslab.com/services/mac-data-recovery.html",
+              "provider": {
+                "@id": "https://alfareslab.com/#organization"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "url": "https://alfareslab.com/services/raid-nas-data-recovery.html",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "استعادة بيانات RAID و NAS والسيرفرات",
+              "description": "RAID, NAS, and server data recovery service in Jeddah",
+              "url": "https://alfareslab.com/services/raid-nas-data-recovery.html",
+              "provider": {
+                "@id": "https://alfareslab.com/#organization"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "url": "https://alfareslab.com/services/flash-sd-data-recovery.html",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "استعادة بيانات الفلاش وكروت الذاكرة",
+              "description": "USB flash drive and SD card data recovery service in Jeddah",
+              "url": "https://alfareslab.com/services/flash-sd-data-recovery.html",
+              "provider": {
+                "@id": "https://alfareslab.com/#organization"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "url": "https://alfareslab.com/services/dvr-nvr-data-recovery.html",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "استعادة بيانات DVR و NVR وكاميرات المراقبة",
+              "description": "DVR, NVR, and CCTV footage recovery service in Jeddah",
+              "url": "https://alfareslab.com/services/dvr-nvr-data-recovery.html",
+              "provider": {
+                "@id": "https://alfareslab.com/#organization"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "url": "https://alfareslab.com/services/ransomware-data-recovery.html",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "استرجاع بيانات فيروس الفدية",
+              "description": "Ransomware data recovery service in Jeddah",
+              "url": "https://alfareslab.com/services/ransomware-data-recovery.html",
+              "provider": {
+                "@id": "https://alfareslab.com/#organization"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "url": "https://alfareslab.com/services/database-erp-recovery.html",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "استعادة قواعد البيانات وأنظمة ERP",
+              "description": "Database, SQL, and ERP data recovery service in Jeddah",
+              "url": "https://alfareslab.com/services/database-erp-recovery.html",
+              "provider": {
+                "@id": "https://alfareslab.com/#organization"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "url": "https://alfareslab.com/services/data-recovery-makkah.html",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "استعادة البيانات لعملاء مكة",
+              "description": "Professional data recovery service for Makkah clients",
+              "url": "https://alfareslab.com/services/data-recovery-makkah.html",
+              "provider": {
+                "@id": "https://alfareslab.com/#organization"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "url": "https://alfareslab.com/services/data-recovery-saudi-arabia.html",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "استرجاع البيانات في السعودية",
+              "description": "Nationwide data recovery service for Saudi Arabia clients",
+              "url": "https://alfareslab.com/services/data-recovery-saudi-arabia.html",
+              "provider": {
+                "@id": "https://alfareslab.com/#organization"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "url": "https://alfareslab.com/privacy-policy.html",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "سياسة السرية والخصوصية",
+              "description": "Data privacy and confidentiality policy for recovery cases",
+              "url": "https://alfareslab.com/privacy-policy.html",
+              "provider": {
+                "@id": "https://alfareslab.com/#organization"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "url": "https://alfareslab.com/about-lab.html",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "معمل الفارس وتقنيات الاستعادة",
+              "description": "Al-Fares data recovery lab technology and capabilities",
+              "url": "https://alfareslab.com/about-lab.html",
+              "provider": {
+                "@id": "https://alfareslab.com/#organization"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://datacodexlab.com/#organization",
+      "name": "Datacodex",
+      "url": "https://datacodexlab.com",
+      "sameAs": "https://datacodexlab.com"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://alfareslab.com/#website",
+      "url": "https://alfareslab.com",
+      "name": "مركز الفارس لصيانة الكمبيوتر واستعادة البيانات",
+      "description": "مركز الفارس المتخصص في صيانة الكمبيوتر واستعادة البيانات في جدة",
+      "publisher": {
+        "@id": "https://alfareslab.com/#organization"
+      },
+      "inLanguage": [
+        "ar",
+        "en"
+      ]
+    }
+  ]
+}

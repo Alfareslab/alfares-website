@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../">
+    
+    <title>[PAGE_TITLE_PLACEHOLDER]</title>
+    <meta name="title" content="[PAGE_TITLE_PLACEHOLDER]">
+    <meta name="description" content="[PAGE_DESCRIPTION_PLACEHOLDER]">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://alfareslab.com/[PAGE_URL]">
+    <meta property="og:title" content="[PAGE_TITLE_PLACEHOLDER]">
+    <meta property="og:description" content="[PAGE_DESCRIPTION_PLACEHOLDER]">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://alfareslab.com/[PAGE_URL]">
+    <meta property="twitter:title" content="[PAGE_TITLE_PLACEHOLDER]">
+    <meta property="twitter:description" content="[PAGE_DESCRIPTION_PLACEHOLDER]">
+
+    <meta name="robots" content="noindex">
+
+    <link rel="icon" type="image/png" href="alfares_logo.png">
+    <link rel="canonical" href="https://alfareslab.com/[PAGE_URL]">
+
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/service-pages.css">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://alfareslab.com/[PAGE_URL]#webpage",
+          "name": "[PAGE_TITLE_PLACEHOLDER]",
+          "description": "[PAGE_DESCRIPTION_PLACEHOLDER]",
+          "url": "https://alfareslab.com/[PAGE_URL]"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://alfareslab.com/[PAGE_URL]#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "الرئيسية",
+              "item": "https://alfareslab.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "[BREADCRUMB_NAME_PLACEHOLDER]",
+              "item": "https://alfareslab.com/[PAGE_URL]"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <a href="#main-content" class="skip-to-content">تخطي إلى المحتوى الرئيسي</a>
+    
+    <!-- HEADER (Copied from existing) -->
+    <header class="header">
+        <nav class="navbar container">
+            <a href="./" class="navbar-brand">مركز الفارس لصيانة الكمبيوتر واستعادة البيانات</a>
+            <ul class="navbar-menu" id="nav-menu">
+                <li><a href="./#home">الرئيسية</a></li>
+                <li><a href="./#about">من نحن</a></li>
+                <li><a href="./#services">خدماتنا</a></li>
+                <li><a href="./#capabilities">إمكانياتنا</a></li>
+                <li><a href="./#process">آلية العمل</a></li>
+                <li><a href="./#reviews">آراء العملاء</a></li>
+                <li><a href="./#contact">تواصل معنا</a></li>
+            </ul>
+            <div class="navbar-controls">
+                <button id="theme-toggle" class="theme-toggle" aria-label="تبديل المظهر">🌙</button>
+                <button id="menu-toggle" class="navbar-toggle" aria-label="القائمة" aria-expanded="false">☰</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT - POLICY TEMPLATE -->
+    <!-- .service-page class ensures scoped CSS styling applies to typography and spacing -->
+    <main class="main service-page" id="main-content">
+        
+        <!-- Hero Section (Simple, calm) -->
+        <section class="section service-hero">
+            <div class="container">
+                <nav aria-label="Breadcrumb">
+                    <ol class="service-breadcrumb">
+                        <li><a href="./">الرئيسية</a></li>
+                        <li aria-current="page">[BREADCRUMB_NAME_PLACEHOLDER]</li>
+                    </ol>
+                </nav>
+                <div class="section-title">
+                    <h1 id="service-page-heading">[POLICY_H1_TITLE]</h1>
+                    <p>[HERO_INTRO_CALM_TEXT]</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Policy Content Sections (Pure Flowing Text) -->
+        <section class="section">
+            <div class="container">
+                <h2>[POLICY_SECTION_1_HEADING]</h2>
+                <p>[POLICY_SECTION_1_TEXT]</p>
+                <ul>
+                    <li>[POLICY_POINT_1]</li>
+                    <li>[POLICY_POINT_2]</li>
+                </ul>
+
+                <h2>[POLICY_SECTION_2_HEADING]</h2>
+                <p>[POLICY_SECTION_2_TEXT]</p>
+                
+                <h2>[POLICY_SECTION_3_HEADING]</h2>
+                <p>[POLICY_SECTION_3_TEXT]</p>
+                
+                <h2>[POLICY_SECTION_4_HEADING]</h2>
+                <p>[POLICY_SECTION_4_TEXT]</p>
+            </div>
+        </section>
+
+        <!-- NO CTA section here to maintain a calm, informational tone -->
+
+    </main>
+
+    <!-- FOOTER (Copied from existing) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>مركز الفارس لصيانة الكمبيوتر واستعادة البيانات</h3>
+                    <p>مركزكم المتخصص في صيانة الكمبيوتر واستعادة البيانات في جدة</p>
+                </div>
+                <div class="footer-section">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="./#home">الرئيسية</a></li>
+                        <li><a href="./#about">من نحن</a></li>
+                        <li><a href="./#services">خدماتنا</a></li>
+                        <li><a href="./#contact">تواصل معنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>تابعنا</h3>
+                    <div class="footer-social">
+                        <a href="https://snapchat.com/add/alfaresrecovery" target="_blank" rel="noopener" class="social-link" aria-label="Snapchat">SC</a>
+                        <a href="https://tiktok.com/@alfares.datarecovry" target="_blank" rel="noopener" class="social-link" aria-label="TikTok">TT</a>
+                        <a href="https://instagram.com/fares.datarecovery" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">IG</a>
+                        <a href="https://facebook.com/615639735110001" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">FB</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 مركز الفارس لصيانة الكمبيوتر. جميع الحقوق محفوظة.</p>
+                <p>تم تطوير الموقع بواسطة فريق الفارس التقني</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Default WhatsApp floating button (No dynamic switch needed for policy page) -->
+    <a href="https://wa.me/966563747332" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">WA</a>
+    
+    <button id="scroll-top" class="scroll-top" aria-label="العودة للأعلى">Top</button>
+
+    <script src="assets/js/main.js" defer></script>
+</body>
+</html>
