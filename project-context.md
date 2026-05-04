@@ -1,7 +1,7 @@
 # 🧠 Project Context — Al-Fares Lab Website
 > **Last Updated:** 2026-05-03
-> **Current Version:** v1.2.0
-> **Status:** ✅ Plan 44 Phase 5 complete — Bilingual site live
+> **Current Version:** v1.2.1
+> **Status:** ✅ Plan 46 Phase 5 complete — Bilingual routing and content reconciled
 
 ---
 
@@ -47,6 +47,17 @@ Al-Fares Lab website (`alfareslab.com`) is a static bilingual (AR + EN) single-p
 | **41** | Service Page Rebuild (Pilot) | ✅ Complete | Pilot page done |
 | **43** | Content Rollout for Service Pages | ✅ Complete | 5/5 phases done |
 | **44** | English Site Rollout (Bilingual) | ✅ Complete | 5/5 phases done |
+| **46** | Bilingual Routing & Content Reconciliation | ✅ Complete | 5/5 phases done |
+
+### Plan 46 Progress (Bilingual Routing & Reconciliation)
+
+| Phase | Description | Status |
+|-------|-------------|--------|
+| 1 | Critical Routing & Navigation Fixes | ✅ Complete |
+| 2 | Page Inventory Reconciliation | ✅ Complete |
+| 3 | Pilot Repair for One Damaged Approved Page | ✅ Complete |
+| 4 | Rollout Repair for Remaining Pages | ✅ Complete |
+| 5 | Cleanup and Documentation | ✅ Complete |
 
 ### Plan 43 Progress (Content Rollout)
 
@@ -194,6 +205,7 @@ No real hreflang tags, `/en/` URLs, or English rollout pages were added in Plan 
 | 2026-04-29 | Plan 37 created — service pages expansion |
 | 2026-05-01 | Plan 37 rewritten (6 → 14 pages), keyword research completed |
 | 2026-05-01 | **Project separated from Datacodex** into `Alfareslab_2026` |
+| 2026-05-04 | Plan 46 completed — Bilingual routing and content reconciled |
 
 ---
 

@@ -1,6 +1,6 @@
 # 📁 Project Key — Al-Fares Lab Website
-> **Version:** 1.2.0
-> **Last Updated:** 2026-05-03
+> **Version:** 1.2.1
+> **Last Updated:** 2026-05-04
 > **Total Files:** ~102 (excluding .git)
 
 ---
@@ -13,7 +13,7 @@
 | Domain | `alfareslab.com` |
 | Type | Static bilingual website (HTML/CSS/JS) |
 | Hosting | Cloudflare Pages |
-| Current Version | v1.2.0 |
+| Current Version | v1.2.1 |
 
 ---
 
@@ -67,7 +67,6 @@ Alfareslab_2026/                          ← Project root
 │   └── structured-data.json              ← Schema.org JSON-LD templates (Plan 37 Phase 6 offer catalog)
 │
 ├── 📂 services/                          ← Service pages workspace (Plan 37)
-│   ├── service-page-template.html        ← Base service page template
 │   ├── hdd-data-recovery.html            ← Internal HDD data recovery page
 │   ├── external-hdd-data-recovery.html   ← External HDD data recovery page
 │   ├── ssd-nvme-data-recovery.html       ← SSD / NVMe data recovery page
@@ -86,9 +85,9 @@ Alfareslab_2026/                          ← Project root
 │   ├── about-lab.html                    ← English About Lab trust page
 │   ├── privacy-policy.html               ← English Privacy Policy trust page
 │   └── 📂 services/
-│       ├── ssd-data-recovery.html
 │       ├── hdd-data-recovery.html
 │       ├── external-hdd-data-recovery.html
+│       ├── ssd-nvme-data-recovery.html
 │       ├── laptop-pc-data-recovery.html
 │       ├── mac-data-recovery.html
 │       ├── raid-nas-data-recovery.html
@@ -162,6 +161,7 @@ Alfareslab_2026/                          ← Project root
 | Plan 40 | ✅ Complete | English service pages content |
 | Plan 43 | ✅ Complete | Arabic content rollout complete |
 | Plan 44 | ✅ Complete | Bilingual site rollout (EN pages + hreflang + sitemap) |
+| Plan 46 | ✅ Complete | Bilingual Routing & Content Reconciliation |
 
 ---
 

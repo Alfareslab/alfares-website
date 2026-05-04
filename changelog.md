@@ -112,7 +112,19 @@
 
 ---
 
-## [v1.2.0] — 2026-05-03 (Plan 44: English Bilingual Rollout)
+## [1.2.1] - 2026-05-04
+
+### Added
+- Created `temp_archive/` directory for safe deprecation testing.
+
+### Changed
+- **Plan 46 Completed (Bilingual Routing & Content Reconciliation).**
+- Replaced `localStorage` language toggling with reliable URL path-based logic to prevent routing loops.
+- Standardized navigation elements (`ServicesDropdown`, `Footer`) across all pages to ensure consistent cross-language routing.
+- Reconciled `sitemap.xml` to include exactly 15 valid bilingual page pairs, removing deprecated slugs.
+- Safely relocated 16 deprecated files and templates to `temp_archive/` to test website integrity without them.
+
+## [1.2.0] - 2026-05-03 (Plan 44: English Bilingual Rollout)
 
 ### Plan 44: Phase 1 — English Service Pages (SSD, External HDD)
 - Created `en/services/ssd-data-recovery.html` (with full English content from Plan 40).
