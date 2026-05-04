@@ -235,8 +235,8 @@ Every service page MUST contain:
 | **MINOR** (0.X.0) | New pages, new features, significant content additions |
 | **PATCH** (0.0.X) | Bug fixes, content tweaks, SEO adjustments |
 
-> Current version: **v1.0.2**
-> Next planned version: **v1.1.0** (Plan 37 — service pages expansion)
+> Current version: **v1.2.2**
+> Next planned version: **v1.2.3** (Maintenance and UI Audit)
 
 ---
 

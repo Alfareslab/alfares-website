@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
@@ -156,24 +156,54 @@
   <!-- ===========================
        HEADER
        =========================== -->
+  <!-- ===========================
+       HEADER
+       =========================== -->
+  <!-- ===========================
+       HEADER
+       =========================== -->
   <header class="header">
     <nav class="navbar container">
-      <a href="en/" class="navbar-brand" data-i18n="brand.full">Al-Fares Center for Computer Repair and Data Recovery</a>
+      <!-- Brand -->
+      <a href="en/" class="navbar-brand">
+        <span class="brand-name">Al-Fares Center</span>
+        <span class="brand-tagline">Computer Repair & Data Recovery</span>
+      </a>
 
+      <!-- Navigation Menu -->
       <ul class="navbar-menu" id="nav-menu">
         <li><a href="en/#home" data-i18n="nav.home">Home</a></li>
         <li><a href="en/#about" data-i18n="nav.about">About Us</a></li>
-        <li><a href="en/#services" data-i18n="nav.services">Our Services</a></li>
+        <li class="nav-dropdown">
+          <a href="en/#services" data-i18n="nav.services">Our Services ▼</a>
+          <ul class="dropdown-menu">
+            <li><a href="en/services/hdd-data-recovery.html" data-i18n="nav.services.hdd">Internal HDD Data Recovery</a></li>
+            <li><a href="en/services/external-hdd-data-recovery.html" data-i18n="nav.services.externalHdd">External HDD Data Recovery</a></li>
+            <li><a href="en/services/ssd-nvme-data-recovery.html" data-i18n="nav.services.ssd">SSD & NVMe Data Recovery</a></li>
+            <li><a href="en/services/laptop-pc-data-recovery.html" data-i18n="nav.services.pc">Laptop & PC Data Recovery</a></li>
+            <li><a href="en/services/mac-data-recovery.html" data-i18n="nav.services.mac">Mac Data Recovery</a></li>
+            <li><a href="en/services/raid-nas-data-recovery.html" data-i18n="nav.services.raid">RAID & NAS Data Recovery</a></li>
+            <li><a href="en/services/flash-sd-data-recovery.html" data-i18n="nav.services.flash">Flash & Memory Card Recovery</a></li>
+            <li><a href="en/services/dvr-nvr-data-recovery.html" data-i18n="nav.services.dvr">DVR & CCTV Data Recovery</a></li>
+            <li><a href="en/services/ransomware-data-recovery.html" data-i18n="nav.services.ransomware">Ransomware Data Recovery</a></li>
+            <li><a href="en/services/database-erp-recovery.html" data-i18n="nav.services.database">Database & ERP Recovery</a></li>
+            <li><a href="en/services/data-recovery-makkah.html" data-i18n="nav.services.makkah">Data Recovery Makkah</a></li>
+            <li><a href="en/services/data-recovery-saudi-arabia.html" data-i18n="nav.services.saudi">Data Recovery Saudi Arabia</a></li>
+          </ul>
+        </li>
         <li><a href="en/#capabilities" data-i18n="nav.capabilities">Our Capabilities</a></li>
         <li><a href="en/#process" data-i18n="nav.process">How We Work</a></li>
         <li><a href="en/#reviews" data-i18n="nav.reviews">Client Reviews</a></li>
-        <li><a href="en/#contact" data-i18n="nav.contact">Contact Us</a></li>
+        <li><a href="en/#contact" class="btn btn-primary nav-cta" data-i18n="nav.contact">Contact Us</a></li>
       </ul>
 
+      <!-- Controls -->
       <div class="navbar-controls">
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">Moon</button>
-        <button id="lang-toggle" class="lang-toggle" aria-label="Toggle language">AR</button>
-        <button id="menu-toggle" class="navbar-toggle" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">🌙</button>
+        <button id="lang-toggle" class="icon-btn" aria-label="Toggle language">AR</button>
+        <button id="menu-toggle" class="navbar-toggle" aria-label="Toggle menu" aria-expanded="false">
+          ☰
+        </button>
       </div>
     </nav>
   </header>
@@ -252,38 +282,71 @@
   <!-- ===========================
        FOOTER
        =========================== -->
+  <!-- ===========================
+       FOOTER
+       =========================== -->
+  <!-- ===========================
+       FOOTER
+       =========================== -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-content">
+      <div class="footer-grid">
+        <!-- Column 1: Brand & Social -->
         <div class="footer-section">
-          <h3 data-i18n="brand.full">Al-Fares Center for Computer Repair and Data Recovery</h3>
-          <p data-i18n="footer.description">Your dedicated specialist for computer repair and data recovery in Jeddah</p>
+          <div class="footer-brand">
+            <img src="../../assets/images/logo-light.png" alt="Al-Fares Center" class="logo-img logo-light">
+            <img src="../../assets/images/logo-dark.png" alt="Al-Fares Center" class="logo-img logo-dark">
+          </div>
+          <p data-i18n="footer.description">Your trusted partner for professional data recovery and computer repair services in Jeddah, Saudi Arabia.</p>
+          <div class="footer-social">
+            <a href="https://snapchat.com/add/alfaresrecovery" target="_blank" rel="noopener" class="social-link" aria-label="Snapchat">👻</a>
+            <a href="https://tiktok.com/@alfares.datarecovry" target="_blank" rel="noopener" class="social-link" aria-label="TikTok">🎵</a>
+            <a href="https://instagram.com/fares.datarecovery" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">📸</a>
+            <a href="https://facebook.com/615639735110001" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">📘</a>
+          </div>
         </div>
 
+        <!-- Column 2: Personal Devices -->
         <div class="footer-section">
-          <h3 data-i18n="footer.quickLinks">Quick Links</h3>
+          <h3 data-i18n="footer.personalDevices">Personal Devices</h3>
           <ul class="footer-links">
-            <li><a href="en/#home" data-i18n="nav.home">Home</a></li>
-            <li><a href="en/#about" data-i18n="nav.about">About Us</a></li>
-            <li><a href="en/#services" data-i18n="nav.services">Our Services</a></li>
-            <li><a href="en/#contact" data-i18n="nav.contact">Contact Us</a></li>
+            <li><a href="en/services/hdd-data-recovery.html" data-i18n="nav.services.hdd">HDD Data Recovery</a></li>
+            <li><a href="en/services/external-hdd-data-recovery.html" data-i18n="nav.services.externalHdd">External Drive Recovery</a></li>
+            <li><a href="en/services/ssd-nvme-data-recovery.html" data-i18n="nav.services.ssd">SSD & NVMe Recovery</a></li>
+            <li><a href="en/services/laptop-pc-data-recovery.html" data-i18n="nav.services.pc">Laptop & PC Repair</a></li>
+            <li><a href="en/services/mac-data-recovery.html" data-i18n="nav.services.mac">Mac & iMac Services</a></li>
+            <li><a href="en/services/flash-sd-data-recovery.html" data-i18n="nav.services.flash">Flash & SD Card Recovery</a></li>
           </ul>
         </div>
 
+        <!-- Column 3: Business & Servers -->
         <div class="footer-section">
-          <h3 data-i18n="footer.followUs">Follow Us</h3>
-          <div class="footer-social">
-            <a href="https://snapchat.com/add/alfaresrecovery" target="_blank" rel="noopener" class="social-link" aria-label="Snapchat">SC</a>
-            <a href="https://tiktok.com/@alfares.datarecovry" target="_blank" rel="noopener" class="social-link" aria-label="TikTok">TT</a>
-            <a href="https://instagram.com/fares.datarecovery" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">IG</a>
-            <a href="https://facebook.com/615639735110001" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">FB</a>
-          </div>
+          <h3 data-i18n="footer.businessServers">Business & Servers</h3>
+          <ul class="footer-links">
+            <li><a href="en/services/raid-nas-data-recovery.html" data-i18n="nav.services.raid">RAID & NAS Recovery</a></li>
+            <li><a href="en/services/dvr-nvr-data-recovery.html" data-i18n="nav.services.dvr">DVR & CCTV Recovery</a></li>
+            <li><a href="en/services/ransomware-data-recovery.html" data-i18n="nav.services.ransomware">Ransomware Recovery</a></li>
+            <li><a href="en/services/database-erp-recovery.html" data-i18n="nav.services.database">Database & ERP Recovery</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Info & Regions -->
+        <div class="footer-section">
+          <h3 data-i18n="footer.infoRegional">Info & Regions</h3>
+          <ul class="footer-links">
+            <li><a href="en/about-lab.html" data-i18n="nav.trust.aboutLab">Our Lab & Technology</a></li>
+            <li><a href="en/privacy-policy.html" data-i18n="nav.trust.privacy">Privacy Policy</a></li>
+            <li><a href="en/services/data-recovery-makkah.html" data-i18n="nav.services.makkah">Service in Makkah</a></li>
+            <li><a href="en/services/data-recovery-saudi-arabia.html" data-i18n="nav.services.saudi">Across Saudi Arabia</a></li>
+            <li><a href="en/#contact" data-i18n="nav.contact">Contact Us</a></li>
+          </ul>
         </div>
       </div>
 
+      <!-- Footer Bottom -->
       <div class="footer-bottom">
-        <p data-i18n="footer.copyright">Copyright 2026 Al-Fares Center for Computer Repair. All rights reserved.</p>
-        <p data-i18n="footer.development">Website developed by Al-Fares Technical Team - Version v1.1.0</p>
+        <p data-i18n="footer.copyright">&copy; 2025 Al-Fares Center for Computer Repair. All rights reserved.</p>
+        <p data-i18n="footer.development">Developed by Al-Fares Technical Team - v1.2.2</p>
       </div>
     </div>
   </footer>
