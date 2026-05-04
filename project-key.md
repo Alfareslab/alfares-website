@@ -1,5 +1,5 @@
 # 📁 Project Key — Al-Fares Lab Website
-> **Version:** 1.2.1
+> **Version:** 1.2.2
 > **Last Updated:** 2026-05-04
 > **Total Files:** ~102 (excluding .git)
 
@@ -13,7 +13,7 @@
 | Domain | `alfareslab.com` |
 | Type | Static bilingual website (HTML/CSS/JS) |
 | Hosting | Cloudflare Pages |
-| Current Version | v1.2.1 |
+| Current Version | v1.2.2 |
 
 ---
 
@@ -162,6 +162,7 @@ Alfareslab_2026/                          ← Project root
 | Plan 43 | ✅ Complete | Arabic content rollout complete |
 | Plan 44 | ✅ Complete | Bilingual site rollout (EN pages + hreflang + sitemap) |
 | Plan 46 | ✅ Complete | Bilingual Routing & Content Reconciliation |
+| Plan 47 | ✅ Complete | UI/UX Enhancements & Fat Footer Redesign |
 
 ---
 

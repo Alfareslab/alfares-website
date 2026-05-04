@@ -1,5 +1,5 @@
 # 📜 Master Constitution — Al-Fares Lab Website
-> **Version:** 1.0.0
+> **Version:** 1.2.2
 > **Created:** 2026-05-01
 > **Domain:** alfareslab.com
 > **Project:** Alfareslab_2026
@@ -15,7 +15,7 @@
 | **Hosting** | Cloudflare Pages |
 | **Type** | Static bilingual website (AR + EN) |
 | **Industry** | Data Recovery Services — Jeddah, Saudi Arabia |
-| **Version** | v1.0.2 (inherited) |
+| **Version** | v1.2.2 |
 | **Sister Project** | Datacodex (`datacodexlab.com`) — cross-reference only, no dependency |
 
 ---

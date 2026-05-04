@@ -153,4 +153,18 @@
 - Bumped visible version from `v1.1.0` → `v1.2.0`.
 
 
+
 ---
+
+## [v1.2.2] — 2026-05-04 (Plan 47)
+
+### Summary
+- Comprehensive UI/UX redesign of Header and Footer.
+- Implemented "Fat Footer" with 4-column grid layout for better service discoverability.
+- Upgraded Desktop Header with dynamic Logo support (Light/Dark themes).
+- Standardized UI Controls (Toggles) with unified `.icon-btn` styling.
+- Added Navigation CTA button ("Contact Us") for improved conversion.
+- Removed redundant "Service Directory" section from homepage (integrated into footer).
+- Fixed "Directions" button localization bug in Hero Slider.
+- Enforced `white-space: nowrap` on navigation links to prevent layout breaking.
+- Updated visible version to `v1.2.2` across all pages.

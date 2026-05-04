@@ -222,12 +222,16 @@
     "quickLinks": "Quick Links",
     "followUs": "Follow Us",
     "copyright": "© 2025 Al-Fares Center for Computer Repair. All rights reserved.",
-    "development": "Website developed by Al-Fares Technical Team - Version v1.1.0"
+    "development": "Website developed by Al-Fares Technical Team - Version v1.2.2",
+    "personalDevices": "Personal Devices",
+    "businessServers": "Business & Servers",
+    "infoRegional": "Information & Regions"
   },
   "buttons": {
     "whatsapp": "Contact via WhatsApp",
     "viewOnMap": "View on Map",
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "directions": "Get Directions"
   },
   "servicePages": {
     "hddDataRecovery": {

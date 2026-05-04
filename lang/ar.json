@@ -222,12 +222,16 @@
     "quickLinks": "روابط سريعة",
     "followUs": "تابعنا",
     "copyright": "© 2025 مركز الفارس لصيانة الكمبيوتر. جميع الحقوق محفوظة.",
-    "development": "تم تطوير الموقع بواسطة فريق الفارس التقني - الإصدار v1.1.0"
+    "development": "تم تطوير الموقع بواسطة فريق الفارس التقني - الإصدار v1.2.2",
+    "personalDevices": "أجهزة شخصية",
+    "businessServers": "أعمال وخوادم",
+    "infoRegional": "معلومات ومناطق"
   },
   "buttons": {
     "whatsapp": "تواصل عبر واتساب",
     "viewOnMap": "عرض على الخريطة",
-    "learnMore": "اعرف المزيد"
+    "learnMore": "اعرف المزيد",
+    "directions": "احصل على الاتجاهات"
   },
   "servicePages": {
     "hddDataRecovery": {
