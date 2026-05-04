@@ -1,7 +1,7 @@
 # 📁 Project Key — Al-Fares Lab Website
-> **Version:** 1.0.0
-> **Last Updated:** 2026-05-02
-> **Total Files:** ~72 (excluding .git and .vite)
+> **Version:** 1.2.0
+> **Last Updated:** 2026-05-03
+> **Total Files:** ~102 (excluding .git)
 
 ---
 
@@ -13,7 +13,7 @@
 | Domain | `alfareslab.com` |
 | Type | Static bilingual website (HTML/CSS/JS) |
 | Hosting | Cloudflare Pages |
-| Current Version | v1.1.0 (in progress) |
+| Current Version | v1.2.0 |
 
 ---
 
@@ -70,15 +70,34 @@ Alfareslab_2026/                          ← Project root
 │   ├── service-page-template.html        ← Base service page template
 │   ├── hdd-data-recovery.html            ← Internal HDD data recovery page
 │   ├── external-hdd-data-recovery.html   ← External HDD data recovery page
-│   ├── ssd-data-recovery.html            ← SSD data recovery page
+│   ├── ssd-nvme-data-recovery.html       ← SSD / NVMe data recovery page
 │   ├── laptop-pc-data-recovery.html      ← Laptop / PC data recovery page
 │   ├── mac-data-recovery.html            ← Mac data recovery page
-│   ├── raid-server-recovery.html         ← RAID / NAS / Server recovery page
-│   ├── flash-sd-recovery.html            ← Flash / SD card recovery page
-│   ├── dvr-data-recovery.html            ← DVR / NVR / CCTV recovery page
-│   ├── ransomware-database-recovery.html ← Ransomware & Database recovery page
+│   ├── raid-nas-data-recovery.html       ← RAID / NAS recovery page
+│   ├── flash-sd-data-recovery.html       ← Flash / SD card recovery page
+│   ├── dvr-nvr-data-recovery.html        ← DVR / NVR recovery page
+│   ├── ransomware-data-recovery.html     ← Ransomware recovery page
+│   ├── database-erp-recovery.html        ← Database / ERP recovery page
 │   ├── data-recovery-makkah.html         ← Makkah geographic page
 │   └── data-recovery-saudi-arabia.html   ← Saudi Arabia geographic page
+│
+├── 📂 en/                                ← English pages (Plan 44)
+│   ├── index.html                        ← English homepage (mirrors index.html)
+│   ├── about-lab.html                    ← English About Lab trust page
+│   ├── privacy-policy.html               ← English Privacy Policy trust page
+│   └── 📂 services/
+│       ├── ssd-data-recovery.html
+│       ├── hdd-data-recovery.html
+│       ├── external-hdd-data-recovery.html
+│       ├── laptop-pc-data-recovery.html
+│       ├── mac-data-recovery.html
+│       ├── raid-nas-data-recovery.html
+│       ├── flash-sd-data-recovery.html
+│       ├── dvr-nvr-data-recovery.html
+│       ├── ransomware-data-recovery.html
+│       ├── database-erp-recovery.html
+│       ├── data-recovery-makkah.html
+│       └── data-recovery-saudi-arabia.html
 │
 ├── 📂 docs/                              ← Technical documentation
 │   ├── ARCHITECTURE_v1.0.md              ← System architecture
@@ -141,7 +160,8 @@ Alfareslab_2026/                          ← Project root
 | Plan 37 | ✅ Complete | Service pages expansion |
 | Plan 38 | ✅ Complete | Content production prompts |
 | Plan 40 | ✅ Complete | English service pages content |
-| Plan 43 | 🟡 In Progress | Content Rollout (Phase 2 next) |
+| Plan 43 | ✅ Complete | Arabic content rollout complete |
+| Plan 44 | ✅ Complete | Bilingual site rollout (EN pages + hreflang + sitemap) |
 
 ---
 

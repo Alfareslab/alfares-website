@@ -13,6 +13,57 @@ let currentLang = 'ar';
 let currentTheme = 'light';
 let translations = {};
 
+const SERVICE_NAV_ITEMS = [
+  {
+    slug: 'hdd-data-recovery.html',
+    key: 'hdd'
+  },
+  {
+    slug: 'external-hdd-data-recovery.html',
+    key: 'externalHdd'
+  },
+  {
+    slug: 'ssd-nvme-data-recovery.html',
+    key: 'ssd'
+  },
+  {
+    slug: 'laptop-pc-data-recovery.html',
+    key: 'pc'
+  },
+  {
+    slug: 'mac-data-recovery.html',
+    key: 'mac'
+  },
+  {
+    slug: 'raid-nas-data-recovery.html',
+    key: 'raid'
+  },
+  {
+    slug: 'flash-sd-data-recovery.html',
+    key: 'flash'
+  },
+  {
+    slug: 'dvr-nvr-data-recovery.html',
+    key: 'dvr'
+  },
+  {
+    slug: 'ransomware-data-recovery.html',
+    key: 'ransomware'
+  },
+  {
+    slug: 'database-erp-recovery.html',
+    key: 'database'
+  },
+  {
+    slug: 'data-recovery-makkah.html',
+    key: 'makkah'
+  },
+  {
+    slug: 'data-recovery-saudi-arabia.html',
+    key: 'saudi'
+  }
+];
+
 // Initialize on DOM load
 document.addEventListener('DOMContentLoaded', () => {
   initializeApp();
@@ -46,10 +97,13 @@ async function initializeApp() {
  * Load user preferences from localStorage
  */
 function loadPreferences() {
+  const pathLang = getLanguageFromPath();
   const savedLang = localStorage.getItem('alfares-lang');
   const savedTheme = localStorage.getItem('alfares-theme');
   
-  if (savedLang && (savedLang === 'ar' || savedLang === 'en')) {
+  if (pathLang) {
+    currentLang = pathLang;
+  } else if (savedLang && (savedLang === 'ar' || savedLang === 'en')) {
     currentLang = savedLang;
   }
   
@@ -61,6 +115,54 @@ function loadPreferences() {
       currentTheme = 'dark';
     }
   }
+}
+
+/**
+ * Determine the visible language from the current path.
+ */
+function getLanguageFromPath(path = window.location.pathname) {
+  return /(^|\/)en(\/|$)/.test(path) ? 'en' : 'ar';
+}
+
+/**
+ * Normalize generated paths and prevent accidental nested English prefixes.
+ */
+function normalizeLanguagePath(path) {
+  let normalized = path || '/';
+  normalized = normalized.replace(/\/{2,}/g, '/');
+  normalized = normalized.replace(/\/en\/en(\/|$)/g, '/en/');
+  normalized = normalized.replace(/\/en\/index\.html$/g, '/en/');
+  normalized = normalized.replace(/\/index\.html$/g, '/');
+  return normalized;
+}
+
+/**
+ * Build the counterpart URL for the other language.
+ */
+function buildLanguageUrl(path = window.location.pathname) {
+  const safePath = normalizeLanguagePath(path);
+  const currentPathLang = getLanguageFromPath(safePath);
+  let nextPath;
+
+  if (currentPathLang === 'en') {
+    nextPath = safePath.replace(/\/en\/services\//, '/services/');
+    nextPath = nextPath.replace(/\/en\//, '/');
+    nextPath = nextPath.replace(/\/en$/, '/');
+    localStorage.setItem('alfares-lang', 'ar');
+  } else if (safePath.includes('/services/')) {
+    nextPath = safePath.replace('/services/', '/en/services/');
+    localStorage.setItem('alfares-lang', 'en');
+  } else if (safePath.endsWith('/') || safePath.endsWith('/index.html')) {
+    nextPath = safePath.replace(/index\.html$/, '') + 'en/';
+    localStorage.setItem('alfares-lang', 'en');
+  } else {
+    const parts = safePath.split('/');
+    const file = parts.pop();
+    nextPath = `${parts.join('/')}/en/${file}`;
+    localStorage.setItem('alfares-lang', 'en');
+  }
+
+  return normalizeLanguagePath(nextPath) + window.location.search + window.location.hash;
 }
 
 /**
@@ -188,9 +290,12 @@ function toggleTheme() {
 /**
  * Toggle language
  */
-async function toggleLanguage() {
-  const newLang = currentLang === 'ar' ? 'en' : 'ar';
-  await loadLanguage(newLang);
+function toggleLanguage() {
+  const newUrl = buildLanguageUrl();
+
+  if (newUrl) {
+    window.location.href = newUrl;
+  }
 }
 
 /**
@@ -208,6 +313,8 @@ function setupEventListeners() {
   if (langToggle) {
     langToggle.addEventListener('click', toggleLanguage);
   }
+
+  initializeServiceDropdown();
   
   // Mobile menu toggle
   const menuToggle = document.getElementById('menu-toggle');
@@ -246,6 +353,45 @@ function setupEventListeners() {
       });
     });
   }
+}
+
+/**
+ * Ensure the services dropdown exists on internal pages too.
+ */
+function initializeServiceDropdown() {
+  const navMenu = document.getElementById('nav-menu');
+  if (!navMenu) return;
+
+  const servicesLink = Array.from(navMenu.querySelectorAll('a')).find(link => {
+    const i18nKey = link.getAttribute('data-i18n');
+    const href = link.getAttribute('href') || '';
+    return i18nKey === 'nav.services' || href.includes('#services');
+  });
+
+  if (!servicesLink || !servicesLink.parentElement) return;
+
+  const currentPathLang = getLanguageFromPath();
+  const parent = servicesLink.parentElement;
+  parent.classList.add('nav-dropdown');
+
+  let dropdown = parent.querySelector(':scope > .dropdown-menu');
+  if (!dropdown) {
+    dropdown = document.createElement('ul');
+    dropdown.className = 'dropdown-menu';
+    parent.appendChild(dropdown);
+  }
+
+  if (dropdown.children.length > 0) return;
+
+  const servicePrefix = currentPathLang === 'en' ? 'en/services/' : 'services/';
+  SERVICE_NAV_ITEMS.forEach(item => {
+    const listItem = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = `${servicePrefix}${item.slug}`;
+    link.textContent = getTranslation(`nav.serviceLinks.${item.key}`) || item.slug;
+    listItem.appendChild(link);
+    dropdown.appendChild(listItem);
+  });
 }
 
 /**

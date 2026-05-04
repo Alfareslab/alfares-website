@@ -42,13 +42,13 @@ This plan does not treat Plan 43 or Plan 44 as failed work. It treats the curren
 
 ## Phase 1: Critical Routing and Navigation Fixes
 
-- [ ] [🤖] Inspect `assets/js/main.js`, `index.html`, `en/index.html`, Arabic service pages, and English service pages to confirm the exact language-toggle failure path.
-- [ ] [🤖] Fix global language toggle logic so the current language is derived from the current URL path, with `localStorage` used only as a preference hint.
-- [ ] [🤖] Prevent nested `/en/en/` paths on homepage, service pages, and special pages.
-- [ ] [🤖] Ensure Arabic pages switch to the correct `/en/` counterpart.
-- [ ] [🤖] Ensure English pages switch back to the correct Arabic counterpart.
-- [ ] [🤖] Fix the Services dropdown behavior so it works consistently on homepage and internal pages.
-- [ ] [🤖] Verify the language toggle on at least these samples:
+- [x] [🤖] Inspect `assets/js/main.js`, `index.html`, `en/index.html`, Arabic service pages, and English service pages to confirm the exact language-toggle failure path.
+- [x] [🤖] Fix global language toggle logic so the current language is derived from the current URL path, with `localStorage` used only as a preference hint.
+- [x] [🤖] Prevent nested `/en/en/` paths on homepage, service pages, and special pages.
+- [x] [🤖] Ensure Arabic pages switch to the correct `/en/` counterpart.
+- [x] [🤖] Ensure English pages switch back to the correct Arabic counterpart.
+- [x] [🤖] Fix the Services dropdown behavior so it works consistently on homepage and internal pages.
+- [x] [🤖] Verify the language toggle on at least these samples:
   - `index.html`
   - `services/hdd-data-recovery.html`
   - `en/services/hdd-data-recovery.html`
@@ -56,7 +56,7 @@ This plan does not treat Plan 43 or Plan 44 as failed work. It treats the curren
   - `en/services/external-hdd-data-recovery.html`
   - `about-lab.html`
   - `en/about-lab.html`
-- [ ] [🤖] Confirm there are no console errors from the routing/navigation changes.
+- [x] [🤖] Confirm there are no console errors from the routing/navigation changes.
 
 ### Phase 1 Acceptance Criteria
 
@@ -74,19 +74,21 @@ Wait for developer approval before moving to Phase 2.
 
 ## Phase 2: Page Inventory Reconciliation
 
-- [ ] [🤖] Build a full inventory of `services/` and `en/services/` HTML files.
-- [ ] [🤖] Compare every service page filename against `docs/service-pages-decisions-report.md`.
-- [ ] [🤖] Classify every service page file as one of:
+- [x] [🤖] Build a full inventory of `services/` and `en/services/` HTML files.
+- [x] [🤖] Compare every service page filename against `docs/service-pages-decisions-report.md`.
+- [x] [🤖] Classify every service page file as one of:
   - Approved final URL - keep as-is.
   - Approved final URL - repair in place.
   - Deprecated old URL - deletion candidate.
   - Template/temp file - archive or cleanup candidate.
-- [ ] [🤖] Apply the deletion safety criteria from Plan 45 before marking any file as a deletion candidate.
-- [ ] [🤖] Check `index.html` for old or deprecated service links.
-- [ ] [🤖] Check `en/index.html` for old links, untranslated Arabic strings, and incorrect service paths.
-- [ ] [🤖] Check `sitemap.xml` for approved final AR/EN URL pairs only.
-- [ ] [🤖] Check canonical and hreflang tags on approved sample pages.
-- [ ] [🤖] Produce a concise inventory table inside this plan or a linked audit note before any deletion.
+- [x] [🤖] Apply the deletion safety criteria from Plan 45 before marking any file as a deletion candidate.
+- [x] [🤖] Check `index.html` for old or deprecated service links.
+- [x] [🤖] Check `en/index.html` for old links, untranslated Arabic strings, and incorrect service paths.
+- [x] [🤖] Check `sitemap.xml` for approved final AR/EN URL pairs only.
+- [x] [🤖] Check canonical and hreflang tags on approved sample pages.
+- [x] [🤖] Produce a concise inventory table inside this plan or a linked audit note before any deletion.
+
+Phase 2 findings are documented in `plans/46-phase2-page-inventory-reconciliation.md`.
 
 ### Phase 2 Acceptance Criteria
 
@@ -102,14 +104,21 @@ Wait for developer approval before moving to Phase 3.
 
 ## Phase 3: Pilot Repair for One Damaged Approved Page
 
-- [ ] [🤖] Select one damaged approved service page as the pilot, preferably `services/external-hdd-data-recovery.html` and `en/services/external-hdd-data-recovery.html` if Phase 2 confirms the mismatch.
-- [ ] [🤖] Keep the approved filenames unchanged.
-- [ ] [🤖] Rebuild the Arabic pilot page in place using `services/hdd-data-recovery.html` as the structural reference.
-- [ ] [🤖] Insert exact Arabic content from Plan 38 for the pilot page.
-- [ ] [🤖] Rebuild the English pilot page in place using `en/services/hdd-data-recovery.html` as the structural reference.
-- [ ] [🤖] Insert exact English content from Plan 40 for the pilot page.
-- [ ] [🤖] Verify title, meta description, canonical, Open Graph, Twitter tags, Schema.org, FAQPage, BreadcrumbList, LocalBusiness, and areaServed where applicable.
-- [ ] [🤖] Verify AR/EN language toggle, hreflang, sitemap target, dropdown behavior, and no mixed-language visible content.
+- [x] [🤖] Select one damaged approved service page as the pilot, preferably `services/external-hdd-data-recovery.html` and `en/services/external-hdd-data-recovery.html` if Phase 2 confirms the mismatch.
+- [x] [🤖] Keep the approved filenames unchanged.
+- [x] [🤖] Rebuild the Arabic pilot page in place using `services/hdd-data-recovery.html` as the structural reference.
+- [x] [🤖] Insert exact Arabic content from Plan 38 for the pilot page.
+- [x] [🤖] Rebuild the English pilot page in place using `en/services/hdd-data-recovery.html` as the structural reference.
+- [x] [🤖] Insert exact English content from Plan 40 for the pilot page.
+- [x] [🤖] Verify title, meta description, canonical, Open Graph, Twitter tags, Schema.org, FAQPage, BreadcrumbList, LocalBusiness, and areaServed where applicable.
+- [x] [🤖] Verify AR/EN language toggle, hreflang, sitemap target, dropdown behavior, and no mixed-language visible content.
+
+Phase 3 pilot pair completed:
+
+- `services/external-hdd-data-recovery.html`
+- `en/services/external-hdd-data-recovery.html`
+
+Validated pilot pattern: approved filename preserved, old bilingual-in-one-page markers removed from the Arabic page, exact Plan 38/40 External HDD content used, and the pair verified for canonical, hreflang, JSON-LD schema, language toggle, and Services dropdown behavior.
 
 ### Phase 3 Acceptance Criteria
 
@@ -126,12 +135,12 @@ Wait for developer approval before moving to Phase 4.
 
 ## Phase 4: Rollout Repair for Remaining Damaged Approved Pages
 
-- [ ] [🤖] Apply the approved pilot repair approach to remaining damaged approved Arabic service pages.
-- [ ] [🤖] Apply the approved pilot repair approach to remaining damaged approved English service pages.
-- [ ] [🤖] Keep all approved filenames and canonical URLs unchanged.
-- [ ] [🤖] Use exact Plan 38 Arabic content and exact Plan 40 English content.
-- [ ] [🤖] Remove old bilingual-in-one-page visible structure from approved pages only where the separate `/en/` counterpart exists and is verified.
-- [ ] [🤖] Verify each repaired page pair for language toggle, canonical, hreflang, schema, breadcrumb, and dropdown behavior.
+- [x] [🤖] Apply the approved pilot repair approach to remaining damaged approved Arabic service pages.
+- [x] [🤖] Apply the approved pilot repair approach to remaining damaged approved English service pages.
+- [x] [🤖] Keep all approved filenames and canonical URLs unchanged.
+- [x] [🤖] Use exact Plan 38 Arabic content and exact Plan 40 English content.
+- [x] [🤖] Remove old bilingual-in-one-page visible structure from approved pages only where the separate `/en/` counterpart exists and is verified.
+- [x] [🤖] Verify each repaired page pair for language toggle, canonical, hreflang, schema, breadcrumb, and dropdown behavior.
 
 ### Phase 4 Acceptance Criteria
 

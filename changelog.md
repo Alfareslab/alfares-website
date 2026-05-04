@@ -80,6 +80,26 @@
 - Implemented specific Schema.org JSON-LD for RAID (4 FAQs), DVR (2 FAQs), and Ransomware (3 FAQs).
 - Verified canonical integrity and breadcrumb consistency across all generated files.
 
+### 2026-05-03 — Plan 43: Phase 3 (Geographic Pages)
+- Rebuilt `services/data-recovery-makkah.html` from the approved service-page template using the full Makkah content from Plan 38.
+- Added `Makkah / Mecca` targeting to the English page metadata while keeping `data-recovery-makkah.html` as the canonical URL.
+- Rebuilt `services/data-recovery-saudi-arabia.html` as the broad national geographic page targeting Riyadh, Dammam, Madinah, and all listed Saudi cities.
+- Updated Service, FAQPage, and BreadcrumbList JSON-LD for both geographic pages.
+- Avoided creating duplicate city pages for Riyadh, Madinah, and Dammam because the approved content source provides one national Saudi Arabia page for those targets.
+
+### 2026-05-03 — Plan 43: Phase 4 (Special Pages)
+- Rebuilt `about-lab.html` at the project root as a Category C overview page focused on clean room, PC-3000, and micro-soldering capabilities.
+- Rebuilt `privacy-policy.html` at the project root as a Category D policy page with calm informational content.
+- Replaced incorrect Service/FAQ schema on the privacy page with WebPage + BreadcrumbList JSON-LD.
+- Kept Phase 4 Arabic-only and did not add real hreflang tags, index links, or sitemap changes.
+
+### 2026-05-03 — Plan 43: Phase 5 (Internal Linking and Sitemap)
+- Added the approved 14 Arabic Plan 43 page links to the homepage services section.
+- Verified About Lab and Privacy Policy footer links, and refreshed `sitemap.xml` for the approved Arabic URLs only.
+- Added `LocalBusiness` JSON-LD to the 10 approved service pages alongside Service, FAQPage, and BreadcrumbList.
+- Added the Plan 44 hreflang placeholder comment to page headers without adding real hreflang tags or `/en/` URLs.
+- Updated the visible site version to `v1.1.0`.
+
 ### Planned Changes
 - Add 10 service landing pages (HDD, External HDD, SSD, Laptop, Mac, RAID/NAS, Flash/SD, DVR/NVR, Ransomware, Database)
 - Add 2 geographic pages (Makkah, All Saudi Cities)
@@ -89,5 +109,36 @@
 - Update navigation with services dropdown
 - Update sitemap with 14 new URLs
 - Make homepage service cards clickable
+
+---
+
+## [v1.2.0] — 2026-05-03 (Plan 44: English Bilingual Rollout)
+
+### Plan 44: Phase 1 — English Service Pages (SSD, External HDD)
+- Created `en/services/ssd-data-recovery.html` (with full English content from Plan 40).
+- Created reference page structure for `en/services/` directory.
+
+### Plan 44: Phase 2 — English Service Pages (7 pages)
+- Created 7 additional English service pages under `en/services/`:
+  - `hdd-data-recovery.html`, `external-hdd-data-recovery.html`, `laptop-pc-data-recovery.html`
+  - `mac-data-recovery.html`, `raid-nas-data-recovery.html`, `flash-sd-data-recovery.html`
+  - `dvr-nvr-data-recovery.html`, `ransomware-data-recovery.html`, `database-erp-recovery.html`
+- All pages include canonical, bidirectional hreflang (ar/en/x-default), Schema.org Service + FAQ + Breadcrumb.
+
+### Plan 44: Phase 3 — Geographic English Pages
+- Created `en/services/data-recovery-makkah.html` and `en/services/data-recovery-saudi-arabia.html`.
+
+### Plan 44: Phase 4 — Special English Pages
+- Created `en/about-lab.html` (Organization schema) and `en/privacy-policy.html` (WebPage schema).
+- Footer links to both trust pages included in all English service pages.
+
+### Plan 44: Phase 5 — Bilingual Infrastructure (Final)
+- Injected real bidirectional hreflang tags (ar, en, x-default) into all 15 Arabic source pages replacing placeholder comments.
+- Rebuilt `sitemap.xml` with full xhtml:link annotations for all 15 AR + 15 EN URL pairs (30 entries total).
+- Created `en/index.html` — English homepage mirroring `index.html` with corrected nav/footer links and English fallback text.
+- Updated `assets/js/main.js` `toggleLanguage()` to redirect to physical AR/EN counterpart pages instead of in-page lang swap.
+- Language toggle button shows "AR" on EN pages and "EN" on AR pages.
+- Bumped visible version from `v1.1.0` → `v1.2.0`.
+
 
 ---

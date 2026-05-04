@@ -1,101 +1,275 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
-  <!-- Homepage -->
+
   <url>
     <loc>https://alfareslab.com/</loc>
-    <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/"/>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  
-  <!-- Services Pages -->
+  <url>
+    <loc>https://alfareslab.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/"/>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
   <url>
     <loc>https://alfareslab.com/services/hdd-data-recovery.html</loc>
-    <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/hdd-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/hdd-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/hdd-data-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alfareslab.com/en/services/hdd-data-recovery.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/hdd-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/hdd-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/hdd-data-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://alfareslab.com/services/external-hdd-data-recovery.html</loc>
-    <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/external-hdd-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/external-hdd-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/external-hdd-data-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alfareslab.com/en/services/external-hdd-data-recovery.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/external-hdd-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/external-hdd-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/external-hdd-data-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://alfareslab.com/services/ssd-nvme-data-recovery.html</loc>
-    <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/ssd-nvme-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/ssd-nvme-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/ssd-nvme-data-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alfareslab.com/en/services/ssd-nvme-data-recovery.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/ssd-nvme-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/ssd-nvme-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/ssd-nvme-data-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://alfareslab.com/services/laptop-pc-data-recovery.html</loc>
-    <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/laptop-pc-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/laptop-pc-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/laptop-pc-data-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alfareslab.com/en/services/laptop-pc-data-recovery.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/laptop-pc-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/laptop-pc-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/laptop-pc-data-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://alfareslab.com/services/mac-data-recovery.html</loc>
-    <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/mac-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/mac-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/mac-data-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alfareslab.com/en/services/mac-data-recovery.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/mac-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/mac-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/mac-data-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://alfareslab.com/services/raid-nas-data-recovery.html</loc>
-    <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/raid-nas-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/raid-nas-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/raid-nas-data-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alfareslab.com/en/services/raid-nas-data-recovery.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/raid-nas-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/raid-nas-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/raid-nas-data-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://alfareslab.com/services/flash-sd-data-recovery.html</loc>
-    <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/flash-sd-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/flash-sd-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/flash-sd-data-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alfareslab.com/en/services/flash-sd-data-recovery.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/flash-sd-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/flash-sd-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/flash-sd-data-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://alfareslab.com/services/dvr-nvr-data-recovery.html</loc>
-    <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/dvr-nvr-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/dvr-nvr-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/dvr-nvr-data-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alfareslab.com/en/services/dvr-nvr-data-recovery.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/dvr-nvr-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/dvr-nvr-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/dvr-nvr-data-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://alfareslab.com/services/ransomware-data-recovery.html</loc>
-    <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/ransomware-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/ransomware-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/ransomware-data-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alfareslab.com/en/services/ransomware-data-recovery.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/ransomware-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/ransomware-data-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/ransomware-data-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://alfareslab.com/services/database-erp-recovery.html</loc>
-    <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/database-erp-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/database-erp-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/database-erp-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alfareslab.com/en/services/database-erp-recovery.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/database-erp-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/database-erp-recovery.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/database-erp-recovery.html"/>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://alfareslab.com/services/data-recovery-makkah.html</loc>
-    <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/data-recovery-makkah.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/data-recovery-makkah.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/data-recovery-makkah.html"/>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alfareslab.com/en/services/data-recovery-makkah.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/data-recovery-makkah.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/data-recovery-makkah.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/data-recovery-makkah.html"/>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://alfareslab.com/services/data-recovery-saudi-arabia.html</loc>
-    <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/data-recovery-saudi-arabia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/data-recovery-saudi-arabia.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/data-recovery-saudi-arabia.html"/>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
-  <!-- Trust Pages -->
+  <url>
+    <loc>https://alfareslab.com/en/services/data-recovery-saudi-arabia.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/data-recovery-saudi-arabia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/data-recovery-saudi-arabia.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/data-recovery-saudi-arabia.html"/>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <url>
     <loc>https://alfareslab.com/privacy-policy.html</loc>
-    <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/privacy-policy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/privacy-policy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/privacy-policy.html"/>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://alfareslab.com/en/privacy-policy.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/privacy-policy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/privacy-policy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/privacy-policy.html"/>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://alfareslab.com/about-lab.html</loc>
-    <lastmod>2026-05-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/about-lab.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/about-lab.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/about-lab.html"/>
+    <lastmod>2026-05-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
-
+  <url>
+    <loc>https://alfareslab.com/en/about-lab.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alfareslab.com/about-lab.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alfareslab.com/en/about-lab.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alfareslab.com/about-lab.html"/>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>

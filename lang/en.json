@@ -15,7 +15,21 @@
     "capabilities": "Our Capabilities",
     "process": "How We Work",
     "reviews": "Client Reviews",
-    "contact": "Contact Us"
+    "contact": "Contact Us",
+    "serviceLinks": {
+      "hdd": "Internal HDD Data Recovery",
+      "externalHdd": "External HDD Data Recovery",
+      "ssd": "SSD & NVMe Data Recovery",
+      "pc": "Laptop & PC Data Recovery",
+      "mac": "Mac Data Recovery",
+      "raid": "RAID & NAS Data Recovery",
+      "flash": "Flash & Memory Card Recovery",
+      "dvr": "DVR & CCTV Data Recovery",
+      "ransomware": "Ransomware Data Recovery",
+      "database": "Database & ERP Recovery",
+      "makkah": "Data Recovery Makkah",
+      "saudi": "Data Recovery Saudi Arabia"
+    }
   },
   "hero": {
     "slides": [
@@ -208,7 +222,7 @@
     "quickLinks": "Quick Links",
     "followUs": "Follow Us",
     "copyright": "© 2025 Al-Fares Center for Computer Repair. All rights reserved.",
-    "development": "Website developed by Al-Fares Technical Team - Version v1.0.2"
+    "development": "Website developed by Al-Fares Technical Team - Version v1.1.0"
   },
   "buttons": {
     "whatsapp": "Contact via WhatsApp",

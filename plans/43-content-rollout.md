@@ -1,7 +1,9 @@
 # 🗺️ Plan 43: Content Rollout for Service Pages
-> **Version:** 1.0.0
+> **Version:** 1.1.0
 > **Date:** 2026-05-03
 > **Methodology:** Multi-Model Development
+> **Changelog:** v1.1.0 clarifies Arabic-only scope, fixes special-page paths, and defers English rollout to Plan 44.
+> **Scope Note:** This plan covers Arabic content rollout only. English content rollout (from `plans/40-en-service-pages-content.md`), hreflang implementation, and the `/en/` directory structure are deferred to Plan 44 and are intentionally out of scope here.
 > **Reference:** `docs/service-pages-decisions-report.md`
 
 ---
@@ -94,24 +96,26 @@ Rules:
 
 ### **المرحلة 3: بناء الصفحات الجغرافية الفروع (Category B) 🗺️**
 > **النموذج:** `Gemini Flash` 🟢
-> **الهدف:** إنشاء صفحات الاستهداف الجغرافي (الرياض، مكة، المدينة، الدمام)
+> **الهدف:** تحديث صفحة مكة المستقلة وصفحة السعودية العامة للاستهداف الجغرافي الواسع
 > **يعتمد على:** المرحلة 2 ✅
 
 | Exec | Review | Task |
 | :---: | :---: | :--- |
 | `[ ]` | `[ ]` | عمل Commit محلي للتغييرات قبل بدء المرحلة (git add & git commit). |
-| `[ ]` | `[ ]` | إنشاء `services/data-recovery-riyadh.html` |
-| `[ ]` | `[ ]` | إنشاء `services/data-recovery-mecca.html` |
-| `[ ]` | `[ ]` | إنشاء `services/data-recovery-medina.html` |
-| `[ ]` | `[ ]` | إنشاء `services/data-recovery-dammam.html` |
-| `[ ]` | `[ ]` | تحديث `AreaServed` في Schema.org ليتوافق مع المدينة. |
+| `[x]` | `[x]` | تحديث `services/data-recovery-makkah.html` كمكة الأساسية مع استهداف `Mecca` داخل الـ English title. |
+| `[x]` | `[x]` | تحديث `services/data-recovery-saudi-arabia.html` كصفحة عامة لكل مدن المملكة المذكورة (الرياض، الدمام، المدينة، وغيرها). |
+| `[x]` | `[x]` | عدم إنشاء صفحات مكررة للرياض/المدينة/الدمام لتجنب Duplicate Content لأن المحتوى المعتمد لها صفحة وطنية واحدة. |
+| `[x]` | `[x]` | تحديث `AreaServed` في Schema.org ليتوافق مع مكة والسعودية. |
 
 **🚪 بوابات ما قبل التنفيذ (Pre-Implementation Gates):**
-- [ ] التمييز بوضوح بين محتوى كل مدينة وتجنب النسخ العشوائي.
-- [ ] تحديث روابط الكانونيكال لتشير لاسم المدينة باللغة الإنجليزية في الـ URL.
+- [x] التمييز بوضوح بين محتوى مكة المستقل والمحتوى الوطني العام.
+- [x] تثبيت `data-recovery-makkah.html` كالرابط الأساسي لمكة وتجنب إنشاء `data-recovery-mecca.html` كمكرر.
+- [x] تثبيت `data-recovery-saudi-arabia.html` كالرابط الأساسي للاستهداف الوطني الواسع.
 
 **Key Constraints:**
-- تعديل فقرة الـ H1 ومقدمة الـ CTA لتناسب المدينة المقصودة (كما هو محدد في الخطة 38).
+- عدم إنشاء صفحات مكررة بنفس النص للرياض أو الدمام أو المدينة.
+- استخدام المحتوى العربي المعتمد كما هو من الخطة 38.
+- تحديث فقرة الـ H1 ومقدمة الـ CTA بما يتوافق مع مكة أو صفحة السعودية العامة.
 
 **🔄 برومبت بدء هذه المرحلة:**
 ```text
@@ -119,11 +123,14 @@ Read plans/43-content-rollout.md (Phase 3).
 Read services/hdd-data-recovery.html (as the base template).
 Read plans/38-ar-service-pages-content.md (for geographic content).
 
-Task: Create the 4 geographic service pages.
+Task: Complete the geographic service pages using the approved broad-targeting strategy.
 Rules:
-1. Duplicate the hdd template for each.
-2. Insert exact Arabic content from plan 38.
-3. Ensure City is updated in AreaServed Schema.
+1. Rebuild services/data-recovery-makkah.html from the hdd template using exact Makkah Arabic content from plan 38.
+2. Use Makkah as the canonical URL slug, and include Mecca in the English title/metadata only.
+3. Rebuild services/data-recovery-saudi-arabia.html from the hdd template using exact Saudi Arabia Arabic content from plan 38.
+4. Use the Saudi Arabia page to target Riyadh, Dammam, Madinah, and all listed cities.
+5. Do not create duplicate city pages for Riyadh, Madinah, or Dammam unless new city-specific content is produced later.
+6. Update AreaServed Schema for Makkah and Saudi Arabia.
 ```
 
 ---
@@ -136,11 +143,11 @@ Rules:
 | Exec | Review | Task |
 | :---: | :---: | :--- |
 | `[ ]` | `[ ]` | عمل Commit محلي للتغييرات قبل بدء المرحلة (git add & git commit). |
-| `[ ]` | `[ ]` | بناء `services/about-lab.html` باستخدام قالب Category C. |
-| `[ ]` | `[ ]` | بناء `services/privacy-policy.html` باستخدام قالب Category D. |
+| `[x]` | `[x]` | بناء `about-lab.html` باستخدام قالب Category C. |
+| `[x]` | `[x]` | بناء `privacy-policy.html` باستخدام قالب Category D. |
 
 **🚪 بوابات ما قبل التنفيذ (Pre-Implementation Gates):**
-- [ ] فهم الفروق بين قوالب Category A وقوالب C & D (بدون زر طوارئ، بدون FAQ في سياسة الخصوصية).
+- [x] فهم الفروق بين قوالب Category A وقوالب C & D (بدون زر طوارئ، بدون FAQ في سياسة الخصوصية).
 
 **Key Constraints:**
 - صفحة `about-lab` تركز على التقنية ولا تحتوي على لغة طوارئ.
@@ -155,6 +162,8 @@ Read plans/38-ar-service-pages-content.md.
 Task: Build About Lab and Privacy Policy pages.
 Rules:
 1. Use the specific template constraints designed for these in plan 42 (no FAQ for privacy, no emergency CTA).
+2. Build about-lab.html at the project root.
+3. Build privacy-policy.html at the project root.
 ```
 
 ---
@@ -167,13 +176,15 @@ Rules:
 | Exec | Review | Task |
 | :---: | :---: | :--- |
 | `[ ]` | `[ ]` | عمل Commit محلي للتغييرات قبل بدء المرحلة (git add & git commit). |
-| `[ ]` | `[ ]` | إضافة روابط الصفحات الـ 14 إلى قسم الخدمات في `index.html`. |
-| `[ ]` | `[ ]` | إضافة روابط (عن المعمل، سياسة الخصوصية) في قائمة الفوتر (`index.html`). |
-| `[ ]` | `[ ]` | تحديث ملف `sitemap.xml` بجميع الـ URLs الجديدة. |
-| `[ ]` | `[ ]` | إزالة `robots: noindex` من الصفحات إن وجد. |
+| `[x]` | `[x]` | إضافة روابط الصفحات الـ 14 إلى قسم الخدمات في `index.html`. |
+| `[x]` | `[x]` | إضافة روابط (عن المعمل، سياسة الخصوصية) في قائمة الفوتر (`index.html`). |
+| `[x]` | `[x]` | تحديث ملف `sitemap.xml` بجميع الـ URLs الجديدة. |
+| `[x]` | `[x]` | إزالة `robots: noindex` من الصفحات إن وجد. |
+| `[x]` | `[x]` | Verify LocalBusiness Schema is present on all 10 service pages (in addition to Service + FAQPage + BreadcrumbList). Add it where missing. |
+| `[x]` | `[x]` | Add an HTML comment placeholder for hreflang tags on every page header: `<!-- hreflang tags will be added in Plan 44 -->`. Do NOT add real hreflang yet. |
 
 **🚪 بوابات ما قبل التنفيذ (Pre-Implementation Gates):**
-- [ ] جميع الصفحات الـ 14 تم إنشاؤها بنجاح وبدون أخطاء.
+- [x] جميع الصفحات الـ 14 تم إنشاؤها بنجاح وبدون أخطاء.
 
 **Key Constraints:**
 - التأكد من أن الروابط تعمل بشكل صحيح (لا توجد 404).
@@ -188,6 +199,9 @@ Rules:
 1. Link the new services in the Services section of index.html.
 2. Update the footer links to include the Privacy Policy and About Lab.
 3. Add all 14 pages to sitemap.xml with proper priority.
+4. Verify LocalBusiness Schema exists on all 10 service pages alongside Service, FAQPage, and BreadcrumbList.
+5. Add only this hreflang placeholder comment to every page header: <!-- hreflang tags will be added in Plan 44 -->.
+6. Do not add real hreflang tags in Plan 43.
 ```
 
 ---
@@ -202,3 +216,13 @@ Rules:
 | 4 | الصفحات الخاصة | 🟢 Gemini Flash | 30 min |
 | 5 | الربط وتحديث Sitemap | 🟠 Gemini Pro | 20 min |
 | **Total** | | | **~2.5 hours** |
+
+---
+
+## 🔜 Out of Scope (Deferred to Plan 44)
+
+- English content from Plan 40
+- `/en/` directory structure
+- Bidirectional hreflang tags
+- English sitemap entries
+- Bilingual testing

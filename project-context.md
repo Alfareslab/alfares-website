@@ -1,7 +1,7 @@
 # 🧠 Project Context — Al-Fares Lab Website
 > **Last Updated:** 2026-05-03
-> **Current Version:** v1.1.0 (in progress)
-> **Status:** 🟡 Active development (Plan 43 — Phase 3 next)
+> **Current Version:** v1.2.0
+> **Status:** ✅ Plan 44 Phase 5 complete — Bilingual site live
 
 ---
 
@@ -41,11 +41,12 @@ Al-Fares Lab website (`alfareslab.com`) is a static bilingual (AR + EN) single-p
 
 | Plan | Title | Status | Phase |
 |------|-------|--------|-------|
-| **37** | Service Pages Expansion | 🟡 Active | Phase 7 next |
+| **37** | Service Pages Expansion | ✅ Complete | All phases done |
 | **38** | Content Production Prompts | ✅ Complete | 14/14 Arabic pages done |
 | **40** | English Service Pages Content | ✅ Complete | 14/14 English pages done |
 | **41** | Service Page Rebuild (Pilot) | ✅ Complete | Pilot page done |
-| **43** | Content Rollout for Service Pages | 🟡 Active | Phase 3 next |
+| **43** | Content Rollout for Service Pages | ✅ Complete | 5/5 phases done |
+| **44** | English Site Rollout (Bilingual) | ✅ Complete | 5/5 phases done |
 
 ### Plan 43 Progress (Content Rollout)
 
@@ -53,9 +54,9 @@ Al-Fares Lab website (`alfareslab.com`) is a static bilingual (AR + EN) single-p
 |-------|-------------|--------|
 | 1 | Build Basic Storage Pages (SSD, Flash/SD, Mac) | ✅ Complete |
 | 2 | Build Advanced Pages (RAID, DVR, Ransomware) | ✅ Complete |
-| 3 | Build Geographic Pages | ⬜ Not started |
-| 4 | Build Special Pages (About Lab, Privacy) | ⬜ Not started |
-| 5 | Internal Linking & Sitemap | ⬜ Not started |
+| 3 | Build Geographic Pages | ✅ Complete |
+| 4 | Build Special Pages (About Lab, Privacy) | ✅ Complete |
+| 5 | Internal Linking & Sitemap | ✅ Complete |
 
 ### Plan 37 Progress
 
@@ -77,6 +78,42 @@ Al-Fares Lab website (`alfareslab.com`) is a static bilingual (AR + EN) single-p
 | 1 | CSS Enhancement | ✅ Complete |
 | 2 | HTML Content Rebuild | ✅ Complete |
 | 3 | QA & Polish | ✅ Complete |
+
+### Plan 43 Phase 3 Decision
+
+Phase 3 geographic rollout was completed with the approved broad-targeting strategy:
+
+| Page | Strategy | Status |
+|------|----------|--------|
+| `services/data-recovery-makkah.html` | Dedicated Makkah page with `Makkah / Mecca` English-title targeting | ✅ Rebuilt |
+| `services/data-recovery-saudi-arabia.html` | Broad Saudi Arabia page targeting Riyadh, Dammam, Madinah, and all listed cities | ✅ Rebuilt |
+
+Dedicated duplicate pages for Riyadh, Madinah, and Dammam were intentionally not created because the approved content source provides one national Saudi Arabia article covering these cities together.
+
+### Plan 43 Phase 4 Decision
+
+Phase 4 special-page rollout was completed at the root paths approved by the decisions report:
+
+| Page | Strategy | Status |
+|------|----------|--------|
+| `about-lab.html` | Category C overview page focused on lab technology and tools | ✅ Rebuilt |
+| `privacy-policy.html` | Category D calm policy page using WebPage schema and no FAQ | ✅ Rebuilt |
+
+Plan 43 remains Arabic-only; English content, `/en/` structure, and real hreflang tags are deferred to Plan 44.
+
+### Plan 43 Phase 5 Decision
+
+Phase 5 internal linking and sitemap rollout was completed for the approved Arabic Plan 43 scope:
+
+| Deliverable | Path | Status |
+|-------------|------|--------|
+| 14 approved page links in homepage services section | `index.html` | ✅ Added |
+| About Lab and Privacy Policy footer links | `index.html` | ✅ Verified |
+| Arabic Plan 43 URLs in sitemap | `sitemap.xml` | ✅ Updated |
+| LocalBusiness schema across 10 service pages | `services/*.html` | ✅ Verified |
+| Plan 44 hreflang placeholder comments | page headers | ✅ Added |
+
+No real hreflang tags, `/en/` URLs, or English rollout pages were added in Plan 43.
 
 ### Content Production Status (Phase 1-2)
 
