@@ -13,7 +13,7 @@
 | Domain | `alfareslab.com` |
 | Type | Static bilingual website (HTML/CSS/JS) |
 | Hosting | Cloudflare Pages |
-| Current Version | v1.2.2 |
+| Current Version | v1.2.4 |
 
 ---
 

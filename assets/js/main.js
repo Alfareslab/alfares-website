@@ -314,7 +314,7 @@ function setupEventListeners() {
     langToggle.addEventListener('click', toggleLanguage);
   }
 
-  initializeServiceDropdown();
+  // initializeServiceDropdown(); // disabled — nav no longer uses dropdown
   
   // Mobile menu toggle
   const menuToggle = document.getElementById('menu-toggle');

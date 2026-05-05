@@ -112,14 +112,15 @@
   padding: 0.5rem 1.25rem;
   font-size: 0.9rem;
   white-space: nowrap;
-  background-color: #25D366 !important;
-  border-color: #25D366 !important;
+  background-color: #128C7E !important;
+  border-color: #128C7E !important;
+  border-radius: 50px;
   color: #fff !important;
 }
 
 .nav-cta:hover {
-  background-color: #1da851 !important;
-  border-color: #1da851 !important;
+  background-color: #0e6b5e !important;
+  border-color: #0e6b5e !important;
   color: #fff !important;
 }
 
@@ -351,6 +352,13 @@ html[dir="rtl"] .service-details li::before {
 
 html[dir="rtl"] .service-details li:hover {
   transform: translateX(-5px);
+}
+
+.service-details li a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -773,11 +781,7 @@ html[dir="ltr"] .dropdown-menu {
   left: 0;
 }
 
-.nav-dropdown:hover .dropdown-menu,
-.nav-dropdown:focus-within .dropdown-menu {
-  display: block;
-  animation: fadeIn 0.2s ease-in-out;
-}
+/* dropdown disabled — nav.services links directly to #services section */
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-5px); }
@@ -818,10 +822,6 @@ html[dir="ltr"] .dropdown-menu a:hover {
     display: none;
   }
   
-  .nav-dropdown:hover .dropdown-menu,
-  .nav-dropdown:focus-within .dropdown-menu {
-    display: block;
-  }
 }
 
 

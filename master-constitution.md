@@ -15,7 +15,7 @@
 | **Hosting** | Cloudflare Pages |
 | **Type** | Static bilingual website (AR + EN) |
 | **Industry** | Data Recovery Services — Jeddah, Saudi Arabia |
-| **Version** | v1.2.2 |
+| **Version** | v1.2.4 |
 | **Sister Project** | Datacodex (`datacodexlab.com`) — cross-reference only, no dependency |
 
 ---
@@ -235,8 +235,8 @@ Every service page MUST contain:
 | **MINOR** (0.X.0) | New pages, new features, significant content additions |
 | **PATCH** (0.0.X) | Bug fixes, content tweaks, SEO adjustments |
 
-> Current version: **v1.2.2**
-> Next planned version: **v1.2.3** (Maintenance and UI Audit)
+> Current version: **v1.2.4**
+> Next planned version: **v1.2.4** (Maintenance and UI Audit)
 
 ---
 

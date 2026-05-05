@@ -156,7 +156,7 @@
 
 ---
 
-## [v1.2.2] — 2026-05-04 (Plan 47)
+## [v1.2.4] — 2026-05-04 (Plan 47)
 
 ### Summary
 - Comprehensive UI/UX redesign of Header and Footer.
@@ -167,4 +167,4 @@
 - Removed redundant "Service Directory" section from homepage (integrated into footer).
 - Fixed "Directions" button localization bug in Hero Slider.
 - Enforced `white-space: nowrap` on navigation links to prevent layout breaking.
-- Updated visible version to `v1.2.2` across all pages.
+- Updated visible version to `v1.2.4` across all pages.

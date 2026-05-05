@@ -336,7 +336,7 @@ html[dir="rtl"] .scroll-top {
 /* Accessibility - Skip to Content */
 .skip-to-content {
   position: absolute;
-  top: -40px;
+  top: -100px;
   left: 0;
   background-color: var(--color-primary);
   color: white;
