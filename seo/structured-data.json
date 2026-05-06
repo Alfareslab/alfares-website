@@ -19,8 +19,8 @@
         "postalCode": "23218",
         "addressCountry": "SA"
       },
-      "parentOrganization": {
-        "@id": "https://datacodexlab.com/#organization"
+      "employee": {
+        "@id": "https://datacodexlab.com/#ahmed-saleh"
       },
       "geo": {
         "@type": "GeoCoordinates",
@@ -58,10 +58,9 @@
         }
       ],
       "sameAs": [
-        "https://snapchat.com/add/alfaresrecovery",
-        "https://tiktok.com/@alfares.datarecovry",
-        "https://instagram.com/fares.datarecovery",
-        "https://facebook.com/615639735110001"
+        "https://www.tiktok.com/@datacodexlab",
+        "https://www.instagram.com/datacodexlab/",
+        "https://www.facebook.com/DataCodexLab"
       ],
       "contactPoint": [
         {
@@ -284,13 +283,7 @@
         ]
       }
     },
-    {
-      "@type": "Organization",
-      "@id": "https://datacodexlab.com/#organization",
-      "name": "Datacodex",
-      "url": "https://datacodexlab.com",
-      "sameAs": "https://datacodexlab.com"
-    },
+
     {
       "@type": "WebSite",
       "@id": "https://alfareslab.com/#website",

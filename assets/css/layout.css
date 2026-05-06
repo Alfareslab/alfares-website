@@ -735,6 +735,17 @@ html[dir="ltr"] .footer-links a:hover {
   box-shadow: var(--shadow-md);
 }
 
+.social-label {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-top: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.social-tiktok:hover { background-color: #010101; color: white; }
+.social-instagram:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
+.social-facebook:hover { background-color: #1877f2; color: white; }
+
 .footer-bottom {
   border-top: 1px solid var(--color-border);
   padding-top: var(--spacing-md);
