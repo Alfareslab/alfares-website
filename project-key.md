@@ -1,7 +1,7 @@
 # 📁 Project Key — Al-Fares Lab Website
-> **Version:** 1.2.2
-> **Last Updated:** 2026-05-04
-> **Total Files:** ~102 (excluding .git)
+> **Version:** 1.2.5
+> **Last Updated:** 2026-05-18
+> **Total Files:** ~106 (excluding .git)
 
 ---
 
@@ -13,7 +13,7 @@
 | Domain | `alfareslab.com` |
 | Type | Static bilingual website (HTML/CSS/JS) |
 | Hosting | Cloudflare Pages |
-| Current Version | v1.2.4 |
+| Current Version | v1.2.5 |
 
 ---
 
@@ -34,6 +34,7 @@ Alfareslab_2026/                          ← Project root
 ├── 🖼️ alfares_logo.png                   ← Site logo
 ├── 📱 manifest.json                      ← PWA manifest
 ├── 🤖 robots.txt                         ← Search engine crawl rules
+├── 🤖 llms.txt                           ← LLM crawler guidance
 ├── 🗺️ sitemap.xml                        ← XML sitemap for search engines
 ├── 🔒 _headers                           ← Cloudflare custom headers
 ├── 📄 .env.example                       ← Environment variables template
@@ -51,7 +52,7 @@ Alfareslab_2026/                          ← Project root
 │   │   ├── service-page.js               ← Service page content/meta language handling
 │   │   ├── hero-slider.js                ← Hero carousel initialization
 │   │   ├── reviews.js                    ← Google reviews integration
-│   │   └── tiktok.js                     ← TikTok embed handler
+│   │   └── tiktok.js                     ← ⚠️ DELETED 2026-05-06 (orphaned file)
 │   ├── 📂 images/
 │   │   └── 📂 hero-slider/              ← Hero carousel images (5 slides)
 │   └── 📂 vendor/
@@ -156,13 +157,15 @@ Alfareslab_2026/                          ← Project root
 
 | Plan | Status | Description |
 |------|--------|-------------|
-| Plan 37 | ✅ Complete | Service pages expansion |
-| Plan 38 | ✅ Complete | Content production prompts |
-| Plan 40 | ✅ Complete | English service pages content |
-| Plan 43 | ✅ Complete | Arabic content rollout complete |
-| Plan 44 | ✅ Complete | Bilingual site rollout (EN pages + hreflang + sitemap) |
-| Plan 46 | ✅ Complete | Bilingual Routing & Content Reconciliation |
-| Plan 47 | ✅ Complete | UI/UX Enhancements & Fat Footer Redesign |
+| Plan 37–46 | ✅ Complete | Service pages, content, bilingual rollout, routing |
+| Plan 47 | ✅ Complete | UI/UX Enhancements & Fat Footer Redesign (v1.2.4) |
+| Plan 48 | ✅ Complete | Internal Linking |
+| Plan 49 | ✅ Complete | Pre-Launch SEO Audit |
+| Plan 50 | ✅ Complete | Pre-Launch Critical Fixes |
+| Plan 51 | ✅ Complete | Pre-Launch Audit v2 — EN links + 404 hreflang |
+| Plan 52 | ✅ Complete | Schema.org Entity Fix — Person-Centered model |
+| Plan 53 | 🔴 Pending | Performance + Schema improvements (post-launch) |
+| Plan 54 | ✅ Complete | Canonical Mismatch Fix — Clean URL SEO fix |
 
 ---
 

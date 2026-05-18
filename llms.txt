@@ -1,0 +1,19 @@
+# Al-Fares Center — Data Recovery & Computer Repair, Jeddah
+# https://alfareslab.com
+
+## About
+Al-Fares Center is a data recovery and computer repair lab in Jeddah, Saudi Arabia.
+Established with 12+ years of industry experience. Services include HDD, SSD, RAID, DVR, Mac, ransomware recovery.
+
+## Key Pages
+- Homepage (AR): https://alfareslab.com/
+- Homepage (EN): https://alfareslab.com/en/
+- HDD Recovery: https://alfareslab.com/services/hdd-data-recovery
+- SSD Recovery: https://alfareslab.com/services/ssd-nvme-data-recovery
+- RAID/NAS Recovery: https://alfareslab.com/services/raid-nas-data-recovery
+- About Lab: https://alfareslab.com/about-lab
+- Privacy Policy: https://alfareslab.com/privacy-policy
+
+## Contact
+Phone: +966507322542
+Location: Jeddah, Saudi Arabia

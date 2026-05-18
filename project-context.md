@@ -1,7 +1,7 @@
 # 🧠 Project Context — Al-Fares Lab Website
-> **Last Updated:** 2026-05-04
-> **Current Version:** v1.2.2
-> **Status:** ✅ Plan 47 complete — UI/UX redesign & Fat Footer implementation
+> **Last Updated:** 2026-05-18
+> **Current Version:** v1.2.5
+> **Status:** 🚀 LIVE — Indexing request submitted to Google Search Console
 
 ---
 
@@ -18,37 +18,55 @@ Al-Fares Lab website (`alfareslab.com`) is a static bilingual (AR + EN) single-p
 | Dark/Light theme toggle | ✅ Working |
 | Hero slider (Swiper.js) | ✅ Working |
 | Google Reviews integration | ✅ Working |
-| Schema.org markup (ComputerStore, FAQPage) | ✅ Working |
+| Schema.org markup (ComputerStore, FAQPage, LocalBusiness) | ✅ Clean — Plan 52 |
 | Cloudflare hosting + SSL | ✅ Active |
-| Google Search Console | ✅ Verified |
+| Google Search Console | ✅ Verified + Indexing requested |
 | Google Analytics 4 | ✅ Tracking |
-| Sitemap + robots.txt | ✅ Submitted |
+| Sitemap + robots.txt | ✅ Submitted — 30 URLs |
 | Custom 404 page | ✅ Working |
-| Indexing health (Plan 40 fixes) | ✅ Fixed |
+| Social media footer (TikTok, Instagram, Facebook) | ✅ Updated — all 30 pages |
+| EN footer + CTA links | ✅ Fixed — Plan 51 |
 | UI/UX Redesign (Plan 47) | ✅ Complete |
+| Rich Results Test | ✅ 3 valid elements (FAQ, LocalBusiness, Organization) |
 
 ### Known Issues ⚠️
 
 | Issue | Severity | Plan |
 |-------|----------|------|
-| Hardcoded `AggregateRating` in Schema | ✅ Resolved | Plan 37, Phase 5 |
-| `parentOrganization` uses inline object instead of `@id` ref | ✅ Resolved | Plan 37, Phase 5 |
-| hreflang tags with `?lang=` param | ✅ Not present / clean | Plan 37, Phase 5 |
-| Single-page site — no dedicated service pages | ✅ Resolved | Plan 37, Phase 4 |
+| Hardcoded `AggregateRating` in Schema | ✅ Resolved | Plan 37 Phase 5 |
+| hreflang tags with `?lang=` param | ✅ Not present | Plan 37 Phase 5 |
+| Single-page site — no dedicated service pages | ✅ Resolved | Plan 37 Phase 4 |
+| `parentOrganization` → datacodexlab (wrong ownership) | ✅ Resolved | Plan 52 |
+| `department` block linking datacodexlab inside Al-Fares | ✅ Resolved | Plan 52 |
+| BreadcrumbList on homepage starting with datacodexlab | ✅ Resolved | Plan 52 |
+| EN footer nav links going to AR pages (14 links) | ✅ Resolved | Plan 51 |
+| EN CTA links going to AR pages (3 links) | ✅ Resolved | Plan 51 |
+| 404.html hreflang pointing to non-existent en/404.html | ✅ Resolved | Plan 51 |
+| LCP = 52.6s on mobile (Hero Slider images) | 🔴 Pending | Plan 53 |
+| Performance Score 65/100 mobile | 🟡 Pending | Plan 53 |
+| Service pages Schema missing image/priceRange/address | 🟡 Pending | Plan 53 |
 
 ---
 
 ## Active Plans
 
-| Plan | Title | Status | Phase |
-|------|-------|--------|-------|
-| **37** | Service Pages Expansion | ✅ Complete | All phases done |
-| **38** | Content Production Prompts | ✅ Complete | 14/14 Arabic pages done |
-| **40** | English Service Pages Content | ✅ Complete | 14/14 English pages done |
-| **41** | Service Page Rebuild (Pilot) | ✅ Complete | Pilot page done |
-| **43** | Content Rollout for Service Pages | ✅ Complete | 5/5 phases done |
-| **44** | English Site Rollout (Bilingual) | ✅ Complete | 5/5 phases done |
-| **46** | Bilingual Routing & Content Reconciliation | ✅ Complete | 5/5 phases done |
+| Plan | Title | Status |
+|------|-------|--------|
+| **37** | Service Pages Expansion | ✅ Complete |
+| **38** | Content Production Prompts | ✅ Complete |
+| **40** | English Service Pages Content | ✅ Complete |
+| **41** | Service Page Rebuild (Pilot) | ✅ Complete |
+| **43** | Content Rollout for Service Pages | ✅ Complete |
+| **44** | English Site Rollout (Bilingual) | ✅ Complete |
+| **46** | Bilingual Routing & Content Reconciliation | ✅ Complete |
+| **47** | UI/UX Enhancements & Fat Footer | ✅ Complete |
+| **48** | Internal Linking | ✅ Complete |
+| **49** | Pre-Launch SEO Audit | ✅ Complete |
+| **50** | Pre-Launch Fixes (v1.2.4) | ✅ Complete |
+| **51** | Pre-Launch Audit v2 | ✅ Complete |
+| **52** | Schema.org Entity Fix (Person-Centered) | ✅ Complete |
+| **53** | Performance & Schema Improvements | 🔴 Pending — post-launch |
+| **54** | Canonical Mismatch Fix — Clean URL alignment for 28 pages + sitemap (2026-05-18) | ✅ Complete |
 
 ### Plan 46 Progress (Bilingual Routing & Reconciliation)
 
@@ -206,7 +224,14 @@ No real hreflang tags, `/en/` URLs, or English rollout pages were added in Plan 
 | 2026-04-29 | Plan 37 created — service pages expansion |
 | 2026-05-01 | Plan 37 rewritten (6 → 14 pages), keyword research completed |
 | 2026-05-01 | **Project separated from Datacodex** into `Alfareslab_2026` |
-| 2026-05-04 | Plan 46 completed — Bilingual routing and content reconciled |
+| 2026-05-04 | Plan 46 complete — bilingual routing reconciled |
+| 2026-05-05 | Plan 47 complete — UI/UX + Fat Footer redesign (v1.2.4) |
+| 2026-05-05 | Plan 50 complete — pre-launch critical fixes |
+| 2026-05-06 | Plan 51 complete — pre-launch audit v2 (EN links, 404 hreflang) |
+| 2026-05-06 | Plan 52 complete — Schema.org entity fix (Person-Centered) |
+| 2026-05-06 | Social media footer updated across all 30 pages (TikTok, Instagram, Facebook SVG) |
+| 2026-05-06 | **Site launched** — Cloudflare Pages deployment confirmed |
+| 2026-05-06 | Indexing request submitted to GSC — 3 pages + sitemap |
 
 ---
 
@@ -217,7 +242,7 @@ No real hreflang tags, `/en/` URLs, or English rollout pages were added in Plan 
 - **Language switching** — handled by JS reading from `lang/*.json` files
 - **Service page template** — uses `<base href="../">` so nested service pages can reuse root assets and translation files without changing `assets/js/main.js`
 - **Service pages** — use `assets/js/service-page.js` to toggle bilingual page content and page-level meta titles/descriptions
-- **Schema cleanup** — hardcoded `AggregateRating` removed; Datacodex is linked through `https://datacodexlab.com/#organization`
+- **Schema entity model** — Al-Fares is a standalone `LocalBusiness`; linked to Ahmed (Person) via `employee: {"@id": "https://datacodexlab.com/#ahmed-saleh"}`; no `parentOrganization`, no `department`, no `sameAs` between the two sites
 - **Cross-linking** — Al-Fares pages link to confirmed Datacodex URLs; reverse Datacodex CTA targets are documented because the Datacodex source is outside this workspace
 - **Theme switching** — CSS variables toggled by JS (dark/light)
 - **Deployment** — push to repo triggers Cloudflare Pages auto-deploy

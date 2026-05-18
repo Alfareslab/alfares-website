@@ -5,6 +5,18 @@
 
 ---
 
+## v1.2.5 — 2026-05-18
+
+### Fixed
+- Canonical mismatch: updated og:url, twitter:url, canonical, hreflang in all 28 HTML pages from .html to clean URLs (Plan 54)
+- sitemap.xml: updated all 28 <loc> and 84 <xhtml:link> entries to clean URLs, updated all 30 <lastmod> to 2026-05-18
+- Schema JSON-LD: updated all "url", "@id", "item" fields in all 28 service/trust pages and index.html/en/index.html to clean URLs
+
+### Added
+- llms.txt: added LLM crawler guidance file to project root
+
+---
+
 ## [v1.0.2] — 2026-04 (Inherited)
 
 > This version was inherited from the Datacodex project when the Al-Fares website was separated into its own independent project on 2026-05-01.
@@ -156,7 +168,7 @@
 
 ---
 
-## [v1.2.4] — 2026-05-04 (Plan 47)
+## [v1.2.4] — 2026-05-06 (Plans 48–52 + Launch)
 
 ### Summary
 - Comprehensive UI/UX redesign of Header and Footer.
@@ -168,3 +180,32 @@
 - Fixed "Directions" button localization bug in Hero Slider.
 - Enforced `white-space: nowrap` on navigation links to prevent layout breaking.
 - Updated visible version to `v1.2.4` across all pages.
+
+### 2026-05-06 — Plan 51: Pre-Launch Audit v2 Fixes
+- Fixed 14 EN footer nav links pointing to AR pages (missing `en/` prefix).
+- Fixed 3 EN homepage CTA links pointing to AR service pages.
+- Fixed `404.html` hreflang pointing to non-existent `en/404.html` — removed EN hreflang line.
+- Updated `sitemap.xml` lastmod dates to `2026-05-06` for all 30 URLs.
+- Deleted `assets/js/tiktok.js` (orphaned file, not referenced by any page).
+
+### 2026-05-06 — Social Media Footer Update (all 30 pages)
+- Removed Snapchat link from all pages.
+- Replaced emoji/text social links with inline SVG icons (TikTok, Instagram, Facebook).
+- Updated social URLs to: `@datacodexlab` (TikTok), `datacodexlab/` (Instagram), `DataCodexLab` (Facebook).
+- Added `.social-tiktok`, `.social-instagram`, `.social-facebook` hover styles to `layout.css`.
+- Updated `sameAs` in Schema.org on `index.html`, `en/index.html`, and `seo/structured-data.json`.
+
+### 2026-05-06 — Plan 52: Schema.org Entity Fix (Person-Centered)
+- Removed `parentOrganization` → datacodexlab from `index.html`, `en/index.html`, `seo/structured-data.json`.
+- Removed `department` block (ProfessionalService + Organization for datacodexlab) from `index.html` and `en/index.html`.
+- Removed `BreadcrumbList` from homepage `index.html` and `en/index.html` (homepage has no breadcrumb trail).
+- Removed orphaned datacodexlab `Organization` node from all `@graph` blocks.
+- Added `"employee": {"@id": "https://datacodexlab.com/#ahmed-saleh"}` to `LocalBusiness` — correct Person-centered linking.
+- Entity model: Al-Fares (LocalBusiness) ← employee → Ahmed (Person, defined on datacodexlab.com).
+
+### 2026-05-06 — Launch + Indexing
+- Site confirmed live on Cloudflare Pages.
+- Google Rich Results Test: 3 valid elements on homepage (FAQ, LocalBusiness, Organization).
+- PageSpeed Insights Mobile: 65/100 — LCP issue flagged (Plan 53).
+- Sitemap confirmed submitted in GSC (30 URLs, last read 2026-05-05).
+- Indexing request submitted for: `alfareslab.com/`, `alfareslab.com/en/`, `alfareslab.com/services/hdd-data-recovery.html`.
