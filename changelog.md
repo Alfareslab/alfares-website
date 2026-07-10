@@ -5,15 +5,61 @@
 
 ---
 
-## v1.2.5 — 2026-05-18
+## Unreleased — 2026-07-09 (Indexing Follow-up + Footer Bug Discovery)
+
+### Investigated (no code changes)
+- Reviewed live GSC "Page Indexing" report: 26/50 known URLs indexed; of 24 non-indexed, 20 are benign (legacy `.html`/www redirects, `?lang=` canonical duplicates, malformed external-origin 404s) and only 4 real pages remain unindexed.
+- Confirmed `en/services/dvr-nvr-data-recovery` (top Plan 55 P0 item) has been indexed since 2026-06-22 — the main Plan 55 concern is resolved.
+- Root-caused the 5 malformed 404 URLs seen in GSC to a smart/curly-quote corruption (`”` `“` instead of `"`) in 43 HTML attributes inside `en/index.html`'s footer (lines ~916-983). Verified via full-repo grep (101 files) that this is confined to `en/index.html` only. This breaks real footer links, `footer-section`/`footer-grid` CSS classes, and `data-i18n` keys for English site visitors — not just a GSC/SEO artifact.
+- Full findings written to `docs/indexing/06-audit-2026-07-09-coverage-followup.md`.
+
+### Actioned
+- Submitted manual GSC indexing requests for: `services/dvr-nvr-data-recovery`, `en/services/data-recovery-saudi-arabia`, `en/services/ssd-nvme-data-recovery`, `en/services/flash-sd-data-recovery`.
+
+### Documented (2026-07-10)
+- Added `master-constitution.md` § 5.6 "Proven-Baseline Rule" — governs how future indexing work is scoped now that 26/30 core pages are confirmed indexed (no blanket cleanups; comparative diagnosis only; smallest targeted fix).
+- Added `master-constitution.md` §§ 5.7 (Audit Verification Rule), 5.8 (Manual Indexing Preference), 7.1 (No Smart/Curly Quotes in Source Code), and a Datacodex-inheritance caution under § 8 — all derived from the master playbook below.
+- Compiled `docs/indexing/00-seo-indexing-master-playbook.md` — full indexing/SEO history of the project from Plan 37 (2026-05-01) to today, every fix attempt with outcome (worked/failed/superseded), the Plan 54 root-cause deep dive, and a standalone reusable playbook for future projects.
+
+### Fixed (2026-07-10, Plan 57)
+- `en/index.html`: replaced 174 smart/curly quote characters (`”` `“`) across 43 lines in the footer (lines 916-983) with straight ASCII quotes. This was silently breaking footer `<a href>` links (users got 404s instead of the target page), `footer-section`/`footer-grid` CSS class matching, and `data-i18n` translation-key lookups for English-site visitors — and was also the root cause of the malformed-quote 404 URLs seen in Google Search Console since at least 2026-05-17. Verified via grep (0 smart quotes remain) and via a browser-agent visual check on a local server: all 15 footer links resolve correctly, dark/light mode and EN↔AR toggle both work cleanly on the footer, no console errors. **Not yet deployed** — pending `git commit` + push.
+
+---
+
+## v1.2.5 — 2026-05-18 (Plan 54 — Canonical Mismatch Fix)
+
+### Root Cause
+Cloudflare Pages "Pretty URLs" strips .html and 308-redirects to clean URL automatically.
+All 28 non-homepage pages had canonical/hreflang/sitemap pointing to .html URLs → Google refused to index (canonical points to a redirecting URL).
+Discovered via 9-phase GSC audit triggered by GSC email (2026-05-11) reporting 33 non-indexed pages.
+Audit report: `docs/Google_indexing/03-alfareslab.com SEO Indexing Audit_2026-5-17`
 
 ### Fixed
-- Canonical mismatch: updated og:url, twitter:url, canonical, hreflang in all 28 HTML pages from .html to clean URLs (Plan 54)
-- sitemap.xml: updated all 28 <loc> and 84 <xhtml:link> entries to clean URLs, updated all 30 <lastmod> to 2026-05-18
-- Schema JSON-LD: updated all "url", "@id", "item" fields in all 28 service/trust pages and index.html/en/index.html to clean URLs
+- `canonical` in all 28 HTML pages: removed .html extension
+- `hreflang` (ar/en/x-default) in all 28 pages: removed .html extension
+- `og:url` in all 28 pages: removed .html extension
+- `twitter:url` in all 28 pages: removed .html extension (was missed in previous plans)
+- Schema JSON-LD `"url"` fields in all 30 pages (28 service/trust + index.html + en/index.html): removed .html
+- Schema JSON-LD `"@id"` fields in all 28 service/trust pages: removed .html
+- Schema JSON-LD `"item"` (BreadcrumbList) in all 28 pages: removed .html
+- sitemap.xml: 28 `<loc>` entries → clean URLs, 84 `<xhtml:link>` → clean URLs
+- sitemap.xml: all 30 `<lastmod>` updated to 2026-05-18
+- sitemap.xml: removed accidental BOM character from file header
 
 ### Added
-- llms.txt: added LLM crawler guidance file to project root
+- `llms.txt`: LLM crawler guidance file at project root
+
+### Verified (post-deploy)
+- curl: .html → 308 redirect → clean URL confirmed ✅
+- curl: canonical tag on live site = clean URL ✅
+- GSC URL Inspection "Test Live URL": page fetchable + indexable ✅
+- Rich Results Test: 4 valid Schema elements (BreadcrumbList, FAQ, LocalBusiness, Organization) ✅
+- hreflang checker: homepage ar/en/x-default all clean URLs ✅
+- sitemap.xml resubmitted to GSC ✅
+- Indexing requested for: hdd-data-recovery, about-lab, privacy-policy ✅
+
+### Commit
+e815543 — pushed to branch main → Cloudflare Pages auto-deployed
 
 ---
 

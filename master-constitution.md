@@ -180,6 +180,29 @@ Every service page MUST include:
 | Submission | Submit to Google Search Console after changes |
 | IndexNow | Ping Cloudflare/Bing IndexNow on deploy if available |
 
+### 5.6 Proven-Baseline Rule (Indexing Stability)
+
+> Established 2026-07-09, after live GSC data confirmed 26 of 30 core pages indexed.
+
+| Principle | Rule |
+|-----------|------|
+| Proven infrastructure | Once a majority of pages are confirmed indexed by Google, the shared infrastructure behind them (`sitemap.xml`, canonical tags, `robots.txt`, hreflang, Cloudflare redirects) is proven to work. Do not modify it without concrete evidence of a problem. |
+| No blanket cleanup | Indexing problems are solved by fixing the specific unindexed/broken pages, never by a sitewide "clean everything" pass — that risks breaking pages Google has already accepted. |
+| Comparative diagnosis first | Before touching any unindexed page, compare it against an already-indexed sibling page (same language, same page type) across: title/description uniqueness, canonical target, hreflang count, content length, and internal link count. Only act on a difference actually found. |
+| Targeted fix only | If a fix is needed, scope it to the specific page(s) or the specific proven bug — never as a side effect of a broader pass. This is the SEO-specific expression of the Fix Rules golden rule: "أصغر تغيير يحل المشكلة، لا أكثر" ([[03-fix-rules]]). |
+
+### 5.7 Audit Verification Rule
+
+> Established 2026-07-10, after two separate pre-launch audits (Plan 49, Plan 51) both checked canonical/hreflang by comparing HTML to `sitemap.xml` and passed — while both sources shared the same undetected `.html`-vs-clean-URL mismatch that blocked indexing for 15+ days until Plan 54.
+
+Any audit of canonical, hreflang, or sitemap correctness MUST verify against the live server's actual HTTP behavior (e.g. `curl -I` on both the raw and clean forms of a URL, or GSC's "Test Live URL") — not only by comparing one project file to another. File-to-file comparison can pass even when both files encode the same wrong assumption about what the host actually serves.
+
+### 5.8 Manual Indexing Preference
+
+> Established 2026-07-10, based on Plan 55's data: manually-requested pages reached 100% indexing (3/3) vs. 56% (14/25) for sitemap-only discovery over the same 33+ day period.
+
+For any page where indexing matters on a deadline (new priority service page, a page fixed after being unindexed, etc.), submit a manual "Request Indexing" via Google Search Console URL Inspection rather than relying on sitemap resubmission alone. Sitemap-only discovery remains correct as the baseline mechanism, but manual requests should be the default for priority pages, not a last resort.
+
 ---
 
 ## 6. Service Page Template Requirements
@@ -212,6 +235,12 @@ Every service page MUST contain:
 | HTML IDs | kebab-case | `#hdd-recovery-section` |
 | Translation keys | dot.notation.camelCase | `services.hdd.title` |
 
+### 7.1 No Smart/Curly Quotes in Source Code
+
+> Established 2026-07-10, after smart quotes (`”` `“`, Unicode U+201D/U+201C) inside `en/index.html`'s footer HTML attributes silently broke 43 attributes — browsers don't recognize them as quote delimiters, so `href`, `class`, and `data-i18n` values were parsed as literal garbage, breaking real links, CSS classing, and translation keys. The bug went undiagnosed for over two months (first seen as "cosmetic" in Plan 51, investigated-but-missed in Plan 54).
+
+Every HTML/CSS/JS file MUST use straight ASCII quotes (`"` / `'`) only — never typographic/smart quotes — for any attribute value, string literal, or code syntax. Smart quotes are only acceptable inside translation *content* text in `lang/ar.json` / `lang/en.json` where they render as visible punctuation, never in markup or code structure. If pasting content from a word processor or chat tool, check for and strip smart quotes before committing.
+
 ---
 
 ## 8. Relationship with Datacodex
@@ -224,6 +253,7 @@ Every service page MUST contain:
 | **Shared assets** | NONE — each project has its own assets |
 | **Shared hosting** | Same Cloudflare account, different Pages projects |
 | **Shared analytics** | Separate GA4 + GSC properties |
+| **Inherited strategy docs** | Any SEO/technical strategy document inherited from Datacodex MUST be re-validated against alfareslab.com's own host and stack before being followed — `docs/SEO_Indexing_and_Publishing_Strategy.md` recommended keeping `.html` in URLs, which was correct for Datacodex's Astro build but proved to be the exact opposite of the correct fix for alfareslab.com's Cloudflare Pages static hosting (see Plan 54). |
 
 ---
 

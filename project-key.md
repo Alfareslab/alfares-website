@@ -1,6 +1,6 @@
 # 📁 Project Key — Al-Fares Lab Website
 > **Version:** 1.2.5
-> **Last Updated:** 2026-05-18
+> **Last Updated:** 2026-07-09
 > **Total Files:** ~106 (excluding .git)
 
 ---
@@ -115,16 +115,33 @@ Alfareslab_2026/                          ← Project root
 │   ├── TROUBLESHOOTING_v1.0.md           ← Known issues and fixes
 │   ├── UPDATE_PROTOCOL_v1.0.md           ← Update procedures
 │   ├── datacodex-cross-link-map.md       ← Plan 37 confirmed cross-link map + reverse CTA targets
-│   └── بحث كلمات مفتاحية...md            ← Keyword research (SEO)
+│   ├── بحث كلمات مفتاحية...md            ← Keyword research (SEO)
+│   └── 📂 Google_indexing/
+│   │   └── 03-alfareslab.com SEO Indexing Audit_2026-5-17  ← 9-phase GSC indexing audit — root cause: canonical mismatch (.html vs clean URL)
+│   └── 📂 indexing/                          ← Plan 55 audit output (2026-06-20)
+│       ├── 00-seo-indexing-master-playbook.md ← Full indexing/SEO history + reusable playbook (2026-07-10)
+│       ├── 01-gsc-coverage-2026-06-20.md     ← GSC Coverage Report — 28 pages, Group A/B split
+│       ├── 02-gsc-performance-2026-06-20.md  ← GSC Performance Report — clicks/impressions/CTR/position
+│       ├── 03-gsc-url-inspection-2026-06-20.md ← URL Inspection — A vs B comparison
+│       ├── 04-external-seo-analysis.md       ← External SEO report analysis — 32 findings, cross-referenced
+│       ├── 05-gap-analysis-2026-06-20.md     ← Final synthesis + Plan 56 inputs (prioritized)
+│       ├── 06-audit-2026-07-09-coverage-followup.md ← Follow-up: 2026-07-09 CSV drilldown vs Plan 55 baseline
+│       └── alfares_seo_ux_report_By z ai_2026-06-20.pdf ← Third-party neutral SEO audit (source for Phase 4)
+│   └── 📂 Google_indexing/ (additional 2026-07-09 files)
+│       ├── 04-status_2026-07-09.md           ← Full live GSC "Page Indexing" report (pasted 2026-07-09) — source for the footer quote-bug discovery
+│       └── alfareslab.com-Coverage-Drilldown-2026-07-09/ ← Raw GSC CSV export (single-issue: Crawled - not indexed)
 │
 ├── 📂 scripts/                           ← Helper scripts
 │   └── serve-local.bat                   ← Batch script to run local server
 │
 ├── 📂 plans/                             ← Execution plans
-│   ├── 37-alfares-service-pages.md       ← Active: Service pages expansion
+│   ├── 37-alfares-service-pages.md       ← Complete: Service pages expansion
 │   ├── 38-ar-service-pages-content.md    ← Arabic content for 14 service pages
 │   ├── 39-en-service-pages-prompts.md    ← English localization prompts
-│   └── 40-en-service-pages-content.md    ← English content for 14 service pages
+│   ├── 40-en-service-pages-content.md    ← English content for 14 service pages
+│   ├── 54-fix-2026-05-18-canonical-clean-url.md ← Complete: Canonical mismatch fix
+│   ├── 55-audit-2026-06-20-indexing-status.md   ← Complete: Indexing audit — 5 phases
+│   └── 57-fix-2026-07-09-en-footer-smart-quotes.md ← Complete: footer smart-quote corruption fixed 2026-07-10, pending deploy
 │
 ├── 📂 reviews/                           ← Review decisions
 │   └── 01-review-alfares-service-pages-strategy.md ← Service pages strategy
@@ -166,6 +183,9 @@ Alfareslab_2026/                          ← Project root
 | Plan 52 | ✅ Complete | Schema.org Entity Fix — Person-Centered model |
 | Plan 53 | 🔴 Pending | Performance + Schema improvements (post-launch) |
 | Plan 54 | ✅ Complete | Canonical Mismatch Fix — Clean URL SEO fix |
+| Plan 55 | ✅ Complete | Indexing Status Audit — 5-phase GSC + external report analysis |
+| Plan 56 | 🔴 Pending | Indexing & SEO Fix Plan — built from Plan 55 (CTR, speed, schema depth, GBP) |
+| Plan 57 | ✅ Complete + verified 2026-07-10 | Fix — `en/index.html` footer smart-quote corruption — pending commit + deploy only |
 
 ---
 
