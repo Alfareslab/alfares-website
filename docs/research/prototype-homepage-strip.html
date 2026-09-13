@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بروتوتايب — شريط أحدث ما وثّقناه (الرئيسية)</title>
+<style>
+  :root {
+    --color-primary: #1e40af;
+    --color-bg: #ffffff;
+    --color-bg-secondary: #f3f4f6;
+    --color-bg-tertiary: #e5e7eb;
+    --color-text: #111827;
+    --color-text-secondary: #4b5563;
+    --color-text-muted: #6b7280;
+    --color-border: #d1d5db;
+    --radius-md: 0.5rem;
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    --spacing-2xl: 4rem;
+    --transition-fast: 150ms ease-in-out;
+    --font-family-ar: 'Segoe UI', Tahoma, Arial, 'Noto Sans Arabic', sans-serif;
+    --font-family-en: 'Segoe UI', Arial, sans-serif;
+  }
+  [data-theme="dark"] {
+    --color-primary: #3b82f6;
+    --color-bg: #111827;
+    --color-bg-secondary: #1f2937;
+    --color-bg-tertiary: #374151;
+    --color-text: #f9fafb;
+    --color-text-secondary: #d1d5db;
+    --color-text-muted: #9ca3af;
+    --color-border: #4b5563;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font-family-ar);
+    background: var(--color-bg);
+    color: var(--color-text);
+    padding-block-end: var(--spacing-2xl);
+  }
+  [dir="ltr"] body { font-family: var(--font-family-en); }
+
+  /* ===== Toolbar ===== */
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--spacing-xs) var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+  .toolbar__label { font-weight: 600; color: var(--color-text-secondary); }
+  .toolbar__actions { display: flex; gap: var(--spacing-xs); flex-wrap: wrap; }
+  .toolbar__btn {
+    background: var(--color-bg-tertiary);
+    border: 1px solid var(--color-border);
+    border-radius: 0.375rem;
+    padding: 0.35rem 0.75rem;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: var(--color-text);
+    transition: background var(--transition-fast);
+  }
+  .toolbar__btn:hover { background: var(--color-border); }
+
+  /* ===== Page shell ===== */
+  .page { max-width: 980px; margin-inline: auto; padding-inline: var(--spacing-md); }
+
+  .notice {
+    margin-block-start: var(--spacing-lg);
+    margin-block-end: var(--spacing-xl);
+    padding: var(--spacing-md);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-inline-start: 4px solid #b45309;
+    border-radius: var(--radius-md);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+  }
+  .notice strong { color: var(--color-text); }
+
+  .section-heading {
+    margin-block: var(--spacing-2xl) var(--spacing-sm);
+    padding-block-start: var(--spacing-lg);
+    border-block-start: 2px dashed var(--color-border);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+  .section-note {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-block-end: var(--spacing-md);
+  }
+
+  /* ===== Strip block (as it will sit in index.html) ===== */
+  .doc-strip {
+    margin-block: var(--spacing-lg);
+    padding: var(--spacing-lg);
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-md);
+  }
+  .doc-strip__header {
+    text-align: center;
+    margin-block-end: var(--spacing-md);
+  }
+  .doc-strip__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-block-end: 0.4rem;
+  }
+  .doc-strip__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+  .doc-strip__footer {
+    text-align: center;
+    margin-block-start: var(--spacing-md);
+  }
+  .doc-strip__source {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-block-end: var(--spacing-sm);
+  }
+  .doc-strip__cta-btn {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-lg);
+    background: var(--color-primary);
+    color: #ffffff;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background var(--transition-fast);
+  }
+  .doc-strip__cta-btn:hover { background: var(--color-text); }
+
+  /* ===== Card ===== */
+  .doc-card {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    border: 1px solid var(--color-border);
+    border-inline-start: 4px solid var(--color-primary);
+    background: var(--color-bg);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color var(--transition-fast), background var(--transition-fast);
+  }
+  .doc-card:hover {
+    border-color: var(--color-primary);
+    background: var(--color-bg-tertiary);
+  }
+
+  .doc-card__image-wrap {
+    flex: 0 0 34%;
+    position: relative;
+    overflow: hidden;
+    min-height: 140px;
+  }
+  .doc-card__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    transition: transform 170ms ease-in-out;
+  }
+  .doc-card:hover .doc-card__image { transform: scale(1.015); }
+
+  .doc-card__content {
+    flex: 1;
+    min-width: 0;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+  }
+  .doc-card__preamble {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  .doc-card__title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .doc-card__summary {
+    font-size: 0.97rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-block-start: 2px;
+  }
+  .doc-card__date {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    margin-block-start: 14px;
+  }
+  .doc-card__cta {
+    display: inline-block;
+    align-self: flex-start;
+    margin-block-start: 6px;
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color var(--transition-fast);
+  }
+  .doc-card:hover .doc-card__cta { color: var(--color-text); }
+
+  /* 700-999px (tablet): 2 columns, vertical card */
+  /* >=1000px (desktop): 3 columns, vertical card */
+  @media (min-width: 700px) {
+    .doc-card { flex-direction: column; }
+    .doc-card__image-wrap { flex: 0 0 auto; width: 100%; min-height: 150px; }
+  }
+  @media (min-width: 700px) and (max-width: 999px) {
+    .doc-strip__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1000px) {
+    .doc-strip__grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* mobile: media-row, not stack (380-699px handled by default row layout above) */
+  @media (max-width: 379px) {
+    .doc-card { flex-direction: column; }
+    .doc-card__image-wrap { flex: 0 0 auto; width: 100%; min-height: 160px; }
+    .doc-card__content { width: 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .doc-card, .doc-card__image, .doc-card__cta, .doc-strip__cta-btn, .toolbar__btn {
+      transition: none;
+    }
+    .doc-card:hover .doc-card__image { transform: none; }
+  }
+
+  /* ===== Empty-state illustration (for the demo ONLY — never shipped) ===== */
+  .empty-state-demo {
+    margin-block: var(--spacing-lg);
+    padding: var(--spacing-xl) var(--spacing-md);
+    text-align: center;
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+  .empty-state-demo strong { color: var(--color-text); display: block; margin-block-end: 0.4rem; font-size: 1.05rem; }
+</style>
+</head>
+<body>
+
+<div class="toolbar" role="toolbar" aria-label="أدوات المعاينة">
+  <span class="toolbar__label">بروتوتايب — شريط «أحدث ما وثّقناه»</span>
+  <div class="toolbar__actions">
+    <button class="toolbar__btn" id="btn-theme">تبديل فاتح / داكن</button>
+    <button class="toolbar__btn" id="btn-lang">تبديل عربي / إنجليزي</button>
+  </div>
+</div>
+
+<div class="page">
+
+  <div class="notice" id="notice-ar">
+    <strong>⚠️ معاينة بصرية فقط —</strong>
+    الفيد الحي اليوم يحمل مقالتين <code>type=post</code> ولا يحمل أي <code>case</code>،
+    فالشريط في الإنتاج سيُبنى فاضياً (أي لا يُطبع إطلاقاً) حتى تُنشر أول حالة نجاح.
+    الكروت أدناه تستخدم بيانات المقالتين الحقيقيتين من feed.json لغرض معاينة الشكل البصري فقط.
+  </div>
+
+  <div class="notice" id="notice-en" hidden>
+    <strong>⚠️ Visual preview only —</strong>
+    Today's live feed carries two <code>type=post</code> items and zero <code>case</code> items,
+    so the strip in production will be built empty (i.e. not printed at all) until the first case study is published.
+    The cards below reuse the two real post items from feed.json purely to preview the visual shape.
+  </div>
+
+  <!-- ===================== 1) ARABIC RTL — 3 cards ===================== -->
+  <h2 class="section-heading" id="h-ar3">1) عربي RTL — الشريط بثلاث كروت</h2>
+  <p class="section-note">لعدم توفر 3 حالات نجاح حقيقية اليوم، تكرر البطاقتان الحقيقيتان مع بطاقة ثالثة توضيحية إضافية لغرض معاينة شبكة 3 أعمدة فقط.</p>
+
+  <section class="doc-strip" dir="rtl">
+    <div class="doc-strip__header">
+      <h3 class="doc-strip__title">أحدث ما وثّقناه</h3>
+      <p class="section-note" style="margin:0;">من مدونتنا التقنية — داتا كودكس لاب</p>
+    </div>
+    <div class="doc-strip__grid">
+      <article class="doc-card">
+        <div class="doc-card__image-wrap">
+          <img class="doc-card__image" src="https://datacodexlab.com/_astro/klevv-neo-n400-ssd-recovery.B3OCTYRi_q35KR.webp" alt="استعادة بيانات أقراص KLEVV NEO N400 SSD" loading="lazy">
+        </div>
+        <div class="doc-card__content">
+          <span class="doc-card__preamble">من توثيق أعمالنا على Datacodex</span>
+          <h4 class="doc-card__title">استعادة بيانات أقراص KLEVV NEO N400 SSD: بروتوكول حل Firmware Panic لمتحكم SM2258XT</h4>
+          <p class="doc-card__summary">استعادة بيانات هارد KLEVV NEO N400 معطل | إصلاح SM2258XT</p>
+          <time class="doc-card__date" datetime="2026-08-30">30 أغسطس 2026</time>
+          <a href="https://datacodexlab.com/posts/klevv-neo-n400-ssd-recovery/" class="doc-card__cta">اطّلع على التوثيق الكامل على Datacodex</a>
+        </div>
+      </article>
+
+      <article class="doc-card">
+        <div class="doc-card__image-wrap">
+          <img class="doc-card__image" src="https://datacodexlab.com/_astro/klevv-neo-n400-ssd-recovery.B3OCTYRi_q35KR.webp" alt="استعادة بيانات أقراص KLEVV NEO N400 SSD" loading="lazy">
+        </div>
+        <div class="doc-card__content">
+          <span class="doc-card__preamble">من توثيق أعمالنا على Datacodex</span>
+          <h4 class="doc-card__title">استعادة بيانات أقراص KLEVV NEO N400 SSD: بروتوكول حل Firmware Panic لمتحكم SM2258XT</h4>
+          <p class="doc-card__summary">استعادة بيانات هارد KLEVV NEO N400 معطل | إصلاح SM2258XT</p>
+          <time class="doc-card__date" datetime="2026-08-30">30 أغسطس 2026</time>
+          <a href="https://datacodexlab.com/posts/klevv-neo-n400-ssd-recovery/" class="doc-card__cta">اطّلع على التوثيق الكامل على Datacodex</a>
+        </div>
+      </article>
+
+      <article class="doc-card">
+        <div class="doc-card__image-wrap">
+          <img class="doc-card__image" src="https://datacodexlab.com/_astro/klevv-neo-n400-ssd-recovery.B3OCTYRi_q35KR.webp" alt="استعادة بيانات أقراص KLEVV NEO N400 SSD" loading="lazy">
+        </div>
+        <div class="doc-card__content">
+          <span class="doc-card__preamble">من توثيق أعمالنا على Datacodex</span>
+          <h4 class="doc-card__title">استعادة بيانات أقراص KLEVV NEO N400 SSD: بروتوكول حل Firmware Panic لمتحكم SM2258XT</h4>
+          <p class="doc-card__summary">استعادة بيانات هارد KLEVV NEO N400 معطل | إصلاح SM2258XT</p>
+          <time class="doc-card__date" datetime="2026-08-30">30 أغسطس 2026</time>
+          <a href="https://datacodexlab.com/posts/klevv-neo-n400-ssd-recovery/" class="doc-card__cta">اطّلع على التوثيق الكامل على Datacodex</a>
+        </div>
+      </article>
+    </div>
+    <div class="doc-strip__footer">
+      <a href="https://datacodexlab.com/posts/" class="doc-strip__cta-btn">استكشف سجل التوثيق الكامل على Datacodex</a>
+    </div>
+  </section>
+
+  <!-- ===================== 2) ENGLISH LTR — 3 cards ===================== -->
+  <h2 class="section-heading" id="h-en3">2) English LTR — same strip</h2>
+  <p class="section-note">Same limitation as above: the real feed has one case-worthy item, duplicated here purely to preview the 3-column grid.</p>
+
+  <section class="doc-strip" dir="ltr">
+    <div class="doc-strip__header">
+      <h3 class="doc-strip__title">Our latest documented work</h3>
+      <p class="section-note" style="margin:0;">From our technical blog — Datacodex Lab</p>
+    </div>
+    <div class="doc-strip__grid">
+      <article class="doc-card">
+        <div class="doc-card__image-wrap">
+          <img class="doc-card__image" src="https://datacodexlab.com/_astro/klevv-neo-n400-ssd-recovery.B3OCTYRi_q35KR.webp" alt="KLEVV NEO N400 SSD Data Recovery" loading="lazy">
+        </div>
+        <div class="doc-card__content">
+          <span class="doc-card__preamble">From our documented work on Datacodex</span>
+          <h4 class="doc-card__title">KLEVV NEO N400 SSD Data Recovery: Resolving SM2258XT Firmware Panic Protocols</h4>
+          <p class="doc-card__summary">KLEVV NEO N400 SSD Data Recovery | SM2258XT Firmware Fix</p>
+          <time class="doc-card__date" datetime="2026-08-30">August 30, 2026</time>
+          <a href="https://datacodexlab.com/en/posts/en-klevv-neo-n400-ssd-recovery/" class="doc-card__cta">View the full documentation on Datacodex</a>
+        </div>
+      </article>
+
+      <article class="doc-card">
+        <div class="doc-card__image-wrap">
+          <img class="doc-card__image" src="https://datacodexlab.com/_astro/klevv-neo-n400-ssd-recovery.B3OCTYRi_q35KR.webp" alt="KLEVV NEO N400 SSD Data Recovery" loading="lazy">
+        </div>
+        <div class="doc-card__content">
+          <span class="doc-card__preamble">From our documented work on Datacodex</span>
+          <h4 class="doc-card__title">KLEVV NEO N400 SSD Data Recovery: Resolving SM2258XT Firmware Panic Protocols</h4>
+          <p class="doc-card__summary">KLEVV NEO N400 SSD Data Recovery | SM2258XT Firmware Fix</p>
+          <time class="doc-card__date" datetime="2026-08-30">August 30, 2026</time>
+          <a href="https://datacodexlab.com/en/posts/en-klevv-neo-n400-ssd-recovery/" class="doc-card__cta">View the full documentation on Datacodex</a>
+        </div>
+      </article>
+
+      <article class="doc-card">
+        <div class="doc-card__image-wrap">
+          <img class="doc-card__image" src="https://datacodexlab.com/_astro/klevv-neo-n400-ssd-recovery.B3OCTYRi_q35KR.webp" alt="KLEVV NEO N400 SSD Data Recovery" loading="lazy">
+        </div>
+        <div class="doc-card__content">
+          <span class="doc-card__preamble">From our documented work on Datacodex</span>
+          <h4 class="doc-card__title">KLEVV NEO N400 SSD Data Recovery: Resolving SM2258XT Firmware Panic Protocols</h4>
+          <p class="doc-card__summary">KLEVV NEO N400 SSD Data Recovery | SM2258XT Firmware Fix</p>
+          <time class="doc-card__date" datetime="2026-08-30">August 30, 2026</time>
+          <a href="https://datacodexlab.com/en/posts/en-klevv-neo-n400-ssd-recovery/" class="doc-card__cta">View the full documentation on Datacodex</a>
+        </div>
+      </article>
+    </div>
+    <div class="doc-strip__footer">
+      <a href="https://datacodexlab.com/en/posts/" class="doc-strip__cta-btn">Explore the full documentation log on Datacodex</a>
+    </div>
+  </section>
+
+  <!-- ===================== 3) EMPTY STATE ===================== -->
+  <h2 class="section-heading">3) الحالة الفاضية — قرار المطور: لا يُطبع أي HTML</h2>
+  <p class="section-note">لو مفيش أي عنصر type=case في الفيد وقت البناء، المنطقة دي بالكامل (العنوان + الشريط + السطر التحتاني + الزر) تختفي من الـHTML النهائي — لا وجود لها إطلاقاً، وليس فقط إخفاء بصري (display:none). المستطيل المتقطع هنا للتوضيح فقط، وليس جزءاً من التصميم الفعلي.</p>
+  <div class="empty-state-demo">
+    <strong>هنا لا يُطبع أي HTML إطلاقاً</strong>
+    لا &lt;section class="doc-strip"&gt; ولا عنوان "أحدث ما وثّقناه" ولا سطر "من مدونتنا التقنية" ولا زر — المكان فاضي تماماً في كود الصفحة، كأن هذا القسم غير موجود من الأساس.
+  </div>
+
+  <!-- ===================== 4) ONE / TWO ITEMS ===================== -->
+  <h2 class="section-heading">4) حالة عنصر واحد وحالة عنصرين</h2>
+  <p class="section-note">الشبكة مصممة لـ3 أعمدة بعرض متساوٍ. مع عدد أقل، الأعمدة الموجودة تتوسع لتملأ نفس المساحة وتبقى بنفس التنسيق — بدون كروت وهمية أو فراغات فارغة (placeholders).</p>
+
+  <p class="section-note" style="margin-block-start: var(--spacing-lg); font-weight:600; color: var(--color-text-secondary);">مثال: عنصر واحد فقط</p>
+  <section class="doc-strip" dir="rtl">
+    <div class="doc-strip__header">
+      <h3 class="doc-strip__title">أحدث ما وثّقناه</h3>
+      <p class="section-note" style="margin:0;">من مدونتنا التقنية — داتا كودكس لاب</p>
+    </div>
+    <div class="doc-strip__grid" style="grid-template-columns: 1fr;">
+      <article class="doc-card">
+        <div class="doc-card__image-wrap">
+          <img class="doc-card__image" src="https://datacodexlab.com/_astro/klevv-neo-n400-ssd-recovery.B3OCTYRi_q35KR.webp" alt="استعادة بيانات أقراص KLEVV NEO N400 SSD" loading="lazy">
+        </div>
+        <div class="doc-card__content">
+          <span class="doc-card__preamble">من توثيق أعمالنا على Datacodex</span>
+          <h4 class="doc-card__title">استعادة بيانات أقراص KLEVV NEO N400 SSD: بروتوكول حل Firmware Panic لمتحكم SM2258XT</h4>
+          <p class="doc-card__summary">استعادة بيانات هارد KLEVV NEO N400 معطل | إصلاح SM2258XT</p>
+          <time class="doc-card__date" datetime="2026-08-30">30 أغسطس 2026</time>
+          <a href="https://datacodexlab.com/posts/klevv-neo-n400-ssd-recovery/" class="doc-card__cta">اطّلع على التوثيق الكامل على Datacodex</a>
+        </div>
+      </article>
+    </div>
+    <div class="doc-strip__footer">
+      <a href="https://datacodexlab.com/posts/" class="doc-strip__cta-btn">استكشف سجل التوثيق الكامل على Datacodex</a>
+    </div>
+  </section>
+
+  <p class="section-note" style="margin-block-start: var(--spacing-lg); font-weight:600; color: var(--color-text-secondary);">مثال: عنصران</p>
+  <section class="doc-strip" dir="rtl">
+    <div class="doc-strip__header">
+      <h3 class="doc-strip__title">أحدث ما وثّقناه</h3>
+      <p class="section-note" style="margin:0;">من مدونتنا التقنية — داتا كودكس لاب</p>
+    </div>
+    <div class="doc-strip__grid" style="grid-template-columns: repeat(2, 1fr);">
+      <article class="doc-card">
+        <div class="doc-card__image-wrap">
+          <img class="doc-card__image" src="https://datacodexlab.com/_astro/klevv-neo-n400-ssd-recovery.B3OCTYRi_q35KR.webp" alt="استعادة بيانات أقراص KLEVV NEO N400 SSD" loading="lazy">
+        </div>
+        <div class="doc-card__content">
+          <span class="doc-card__preamble">من توثيق أعمالنا على Datacodex</span>
+          <h4 class="doc-card__title">استعادة بيانات أقراص KLEVV NEO N400 SSD: بروتوكول حل Firmware Panic لمتحكم SM2258XT</h4>
+          <p class="doc-card__summary">استعادة بيانات هارد KLEVV NEO N400 معطل | إصلاح SM2258XT</p>
+          <time class="doc-card__date" datetime="2026-08-30">30 أغسطس 2026</time>
+          <a href="https://datacodexlab.com/posts/klevv-neo-n400-ssd-recovery/" class="doc-card__cta">اطّلع على التوثيق الكامل على Datacodex</a>
+        </div>
+      </article>
+      <article class="doc-card">
+        <div class="doc-card__image-wrap">
+          <img class="doc-card__image" src="https://datacodexlab.com/_astro/klevv-neo-n400-ssd-recovery.B3OCTYRi_q35KR.webp" alt="استعادة بيانات أقراص KLEVV NEO N400 SSD" loading="lazy">
+        </div>
+        <div class="doc-card__content">
+          <span class="doc-card__preamble">من توثيق أعمالنا على Datacodex</span>
+          <h4 class="doc-card__title">استعادة بيانات أقراص KLEVV NEO N400 SSD: بروتوكول حل Firmware Panic لمتحكم SM2258XT</h4>
+          <p class="doc-card__summary">استعادة بيانات هارد KLEVV NEO N400 معطل | إصلاح SM2258XT</p>
+          <time class="doc-card__date" datetime="2026-08-30">30 أغسطس 2026</time>
+          <a href="https://datacodexlab.com/posts/klevv-neo-n400-ssd-recovery/" class="doc-card__cta">اطّلع على التوثيق الكامل على Datacodex</a>
+        </div>
+      </article>
+    </div>
+    <div class="doc-strip__footer">
+      <a href="https://datacodexlab.com/posts/" class="doc-strip__cta-btn">استكشف سجل التوثيق الكامل على Datacodex</a>
+    </div>
+  </section>
+
+  <!-- ===================== 5) REAL VIEWPORT FRAMES — mobile / tablet ===================== -->
+  <h2 class="section-heading">5) معاينة داخل إطار عرض حقيقي — موبايل وتابلت</h2>
+  <p class="section-note">
+    الإطاران تحتهما iframe مستقل بعرض ثابت فعلي (390px و768px) — مش تصغير بصري ولا div بعرض ثابت،
+    عشان الـmedia queries تشتغل وتقيس عرض النافذة الحقيقي بالظبط زي ما هيحصل على جهاز فعلي.
+  </p>
+  <div style="display:flex; gap: var(--spacing-lg); flex-wrap: wrap; align-items: flex-start; justify-content: center; margin-block-end: var(--spacing-lg);">
+    <div>
+      <p class="section-note" style="text-align:center; font-weight:600; color: var(--color-text-secondary);">موبايل — 390px</p>
+      <iframe id="frame-mobile" title="معاينة موبايل 390px" style="width:390px; max-width:100%; height:640px; border:2px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-bg);"></iframe>
+    </div>
+    <div>
+      <p class="section-note" style="text-align:center; font-weight:600; color: var(--color-text-secondary);">تابلت رأسي — 768px</p>
+      <iframe id="frame-tablet" title="معاينة تابلت 768px" style="width:768px; max-width:100%; height:520px; border:2px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-bg);"></iframe>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.getElementById('btn-theme').addEventListener('click', function () {
+    var html = document.documentElement;
+    html.setAttribute('data-theme', html.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+  });
+
+  document.getElementById('btn-lang').addEventListener('click', function () {
+    var html = document.documentElement;
+    var isAr = html.getAttribute('lang') === 'ar';
+    html.setAttribute('lang', isAr ? 'en' : 'ar');
+    html.setAttribute('dir', isAr ? 'ltr' : 'rtl');
+    document.getElementById('notice-ar').hidden = !isAr;
+    document.getElementById('notice-en').hidden = isAr;
+  });
+
+  /* ===== Real-viewport frame preview (mobile / tablet) =====
+     Uses iframe + srcdoc (not a fixed-width div) so the media queries below
+     measure the iframe's own real width, exactly like a real device. */
+  var frameCard = function () {
+    return (
+      '<article class="doc-card">' +
+      '<div class="doc-card__image-wrap"><img class="doc-card__image" src="https://datacodexlab.com/_astro/klevv-neo-n400-ssd-recovery.B3OCTYRi_q35KR.webp" alt="استعادة بيانات أقراص KLEVV NEO N400 SSD" loading="lazy"></div>' +
+      '<div class="doc-card__content">' +
+      '<span class="doc-card__preamble">من توثيق أعمالنا على Datacodex</span>' +
+      '<h4 class="doc-card__title">استعادة بيانات أقراص KLEVV NEO N400 SSD: بروتوكول حل Firmware Panic لمتحكم SM2258XT</h4>' +
+      '<p class="doc-card__summary">استعادة بيانات هارد KLEVV NEO N400 معطل | إصلاح SM2258XT</p>' +
+      '<time class="doc-card__date" datetime="2026-08-30">30 أغسطس 2026</time>' +
+      '<a href="https://datacodexlab.com/posts/klevv-neo-n400-ssd-recovery/" class="doc-card__cta">اطّلع على التوثيق الكامل على Datacodex</a>' +
+      '</div></article>'
+    );
+  };
+
+  var frameDoc = function () {
+    return (
+      '<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8">' +
+      '<style>' +
+      ':root{--color-primary:#1e40af;--color-bg:#ffffff;--color-bg-secondary:#f3f4f6;--color-bg-tertiary:#e5e7eb;' +
+      '--color-text:#111827;--color-text-secondary:#4b5563;--color-text-muted:#6b7280;--color-border:#d1d5db;' +
+      '--radius-md:0.5rem;--spacing-xs:0.5rem;--spacing-sm:1rem;--spacing-md:1.5rem;--spacing-lg:2rem;--transition-fast:150ms ease-in-out;}' +
+      '*{margin:0;padding:0;box-sizing:border-box;}' +
+      'body{font-family:"Segoe UI",Tahoma,Arial,"Noto Sans Arabic",sans-serif;background:var(--color-bg);color:var(--color-text);padding:12px;}' +
+      '.doc-strip{padding:var(--spacing-lg);background:var(--color-bg-secondary);border-radius:var(--radius-md);}' +
+      '.doc-strip__header{text-align:center;margin-block-end:var(--spacing-md);}' +
+      '.doc-strip__title{font-size:1.3rem;font-weight:700;color:var(--color-text);margin-block-end:0.4rem;}' +
+      '.doc-strip__grid{display:grid;grid-template-columns:1fr;gap:var(--spacing-sm);}' +
+      '.doc-strip__footer{text-align:center;margin-block-start:var(--spacing-md);}' +
+      '.doc-strip__cta-btn{display:inline-block;padding:var(--spacing-xs) var(--spacing-lg);background:var(--color-primary);color:#fff;border-radius:var(--radius-md);text-decoration:none;font-weight:600;font-size:0.9rem;}' +
+      '.doc-card{display:flex;flex-direction:row;align-items:stretch;border:1px solid var(--color-border);border-inline-start:4px solid var(--color-primary);background:var(--color-bg);border-radius:var(--radius-md);overflow:hidden;}' +
+      '.doc-card__image-wrap{flex:0 0 34%;position:relative;overflow:hidden;min-height:120px;}' +
+      '.doc-card__image{display:block;width:100%;height:100%;aspect-ratio:16/9;object-fit:cover;}' +
+      '.doc-card__content{flex:1;min-width:0;padding:16px 18px;display:flex;flex-direction:column;justify-content:center;gap:7px;}' +
+      '.doc-card__preamble{font-size:0.75rem;color:var(--color-text-muted);font-weight:500;text-transform:uppercase;letter-spacing:0.02em;}' +
+      '.doc-card__title{font-size:1.05rem;font-weight:700;color:var(--color-primary);line-height:1.4;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}' +
+      '.doc-card__summary{font-size:0.9rem;color:var(--color-text-secondary);line-height:1.6;}' +
+      '.doc-card__date{font-size:0.78rem;color:var(--color-text-muted);margin-block-start:10px;}' +
+      '.doc-card__cta{display:inline-block;align-self:flex-start;margin-block-start:4px;color:var(--color-primary);text-decoration:underline;text-underline-offset:2px;font-size:0.85rem;font-weight:600;}' +
+      '@media (min-width:700px){.doc-card{flex-direction:column;}.doc-card__image-wrap{flex:0 0 auto;width:100%;min-height:130px;}}' +
+      '@media (min-width:700px) and (max-width:999px){.doc-strip__grid{grid-template-columns:repeat(2,1fr);}}' +
+      '@media (min-width:1000px){.doc-strip__grid{grid-template-columns:repeat(3,1fr);}}' +
+      '@media (max-width:379px){.doc-card{flex-direction:column;}.doc-card__image-wrap{flex:0 0 auto;width:100%;min-height:140px;}.doc-card__content{width:100%;}}' +
+      '</style></head><body>' +
+      '<section class="doc-strip">' +
+      '<div class="doc-strip__header"><h3 class="doc-strip__title">أحدث ما وثّقناه</h3></div>' +
+      '<div class="doc-strip__grid">' + frameCard() + frameCard() + frameCard() + '</div>' +
+      '<div class="doc-strip__footer"><a href="https://datacodexlab.com/posts/" class="doc-strip__cta-btn">استكشف سجل التوثيق الكامل على Datacodex</a></div>' +
+      '</section></body></html>'
+    );
+  };
+
+  document.getElementById('frame-mobile').srcdoc = frameDoc();
+  document.getElementById('frame-tablet').srcdoc = frameDoc();
+</script>
+
+</body>
+</html>
