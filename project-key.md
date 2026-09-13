@@ -38,8 +38,14 @@ Alfareslab_2026/                          ← Project root
 ├── 🗺️ sitemap.xml                        ← XML sitemap for search engines
 ├── 🔒 _headers                           ← Cloudflare custom headers
 ├── 📄 .env.example                       ← Environment variables template
+├── 📄 .gitignore                         ← Added 2026-07-23 (Plan 58) — excludes /secrets/
 ├── 📄 README.md                          ← Project overview
 ├── 📄 DEPLOYMENT.md                      ← Deployment guide
+│
+├── 🔒 secrets/                           ← Git-ignored, never pushed — local-only (Plan 58)
+│   └── reviews-sync/                     ← OAuth client_secret.json, refresh_token.txt,
+│                                            get_refresh_token.py, test_reviews_access.py,
+│                                            check_google_approval.bat
 │
 ├── 📂 assets/
 │   ├── 📂 css/
@@ -141,7 +147,8 @@ Alfareslab_2026/                          ← Project root
 │   ├── 40-en-service-pages-content.md    ← English content for 14 service pages
 │   ├── 54-fix-2026-05-18-canonical-clean-url.md ← Complete: Canonical mismatch fix
 │   ├── 55-audit-2026-06-20-indexing-status.md   ← Complete: Indexing audit — 5 phases
-│   └── 57-fix-2026-07-09-en-footer-smart-quotes.md ← Complete: footer smart-quote corruption fixed 2026-07-10, pending deploy
+│   ├── 57-fix-2026-07-09-en-footer-smart-quotes.md ← Complete: footer smart-quote corruption fixed and deployed 2026-07-10
+│   └── 58-live-google-reviews-sync.md         ← Drafted: scheduled GitHub Action to replace stale hardcoded reviews with live Google Places data
 │
 ├── 📂 reviews/                           ← Review decisions
 │   └── 01-review-alfares-service-pages-strategy.md ← Service pages strategy
@@ -185,7 +192,8 @@ Alfareslab_2026/                          ← Project root
 | Plan 54 | ✅ Complete | Canonical Mismatch Fix — Clean URL SEO fix |
 | Plan 55 | ✅ Complete | Indexing Status Audit — 5-phase GSC + external report analysis |
 | Plan 56 | 🔴 Pending | Indexing & SEO Fix Plan — built from Plan 55 (CTR, speed, schema depth, GBP) |
-| Plan 57 | ✅ Complete + verified 2026-07-10 | Fix — `en/index.html` footer smart-quote corruption — pending commit + deploy only |
+| Plan 57 | ✅ Complete + deployed 2026-07-10 | Fix — `en/index.html` footer smart-quote corruption — live in Production (`a3dbf00`) |
+| Plan 58 | 🟡 Drafted | Live Google Reviews Sync — scheduled GitHub Action replacing 21 stale hardcoded reviews with real Google Places data (5 reviews + live aggregate rating) |
 
 ---
 

@@ -244,14 +244,14 @@ Location: Jeddah, Saudi Arabia
 
 | Done | Task |
 | :---: | :--- |
-| `[ ]` | **9.1** git commit + push → Cloudflare يعمل deploy تلقائي |
-| `[ ]` | **9.2** `curl -I https://alfareslab.com/services/hdd-data-recovery.html` → يجب: 308 redirect → clean URL |
-| `[ ]` | **9.3** `curl -s https://alfareslab.com/services/hdd-data-recovery \| grep canonical` → يجب: clean URL بدون .html |
-| `[ ]` | **9.4** `curl -I https://alfareslab.com/sitemap.xml` → يجب: 200 OK |
-| `[ ]` | **9.5** GSC → URL Inspection → "Test Live URL" على: `services/hdd-data-recovery`، `about-lab`، `privacy-policy` |
-| `[ ]` | **9.6** Rich Results Test على صفحة خدمة واحدة — تأكد Schema JSON-LD تُقرأ صح |
-| `[ ]` | **9.7** لو كل التحققات تمام → GSC → Sitemaps → أعد تقديم `sitemap.xml` |
-| `[ ]` | **9.8** GSC → URL Inspection → طلب فهرسة يدوية لـ: `services/hdd-data-recovery`، `about-lab`، `privacy-policy` |
+| `[x]` | **9.1** git commit + push → Cloudflare يعمل deploy تلقائي |
+| `[x]` | **9.2** `curl -I https://alfareslab.com/services/hdd-data-recovery.html` → 308 redirect → clean URL ✅ |
+| `[x]` | **9.3** `curl -s https://alfareslab.com/services/hdd-data-recovery \| grep canonical` → clean URL بدون .html ✅ |
+| `[x]` | **9.4** `curl -I https://alfareslab.com/sitemap.xml` → 200 OK ✅ |
+| `[x]` | **9.5** GSC → URL Inspection → "Test Live URL" → متاح للفهرسة + Schema صح ✅ |
+| `[x]` | **9.6** Rich Results Test على صفحة خدمة واحدة — تأكد Schema JSON-LD تُقرأ صح — 4 عناصر صحيحة (BreadcrumbList, FAQ, LocalBusiness, Organization) ✅ |
+| `[x]` | **9.7** GSC → Sitemaps → حذف وإعادة تقديم `sitemap.xml` → 30 صفحة ✅ |
+| `[x]` | **9.8** GSC → URL Inspection → طلب فهرسة يدوية لـ 3 صفحات ✅ |
 
 **ملاحظة:** لا تُنفّذ 9.7 و9.8 إلا بعد نجاح 9.2–9.6 جميعها.
 

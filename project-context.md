@@ -13,7 +13,7 @@ Al-Fares Lab website (`alfareslab.com`) is a static bilingual (AR + EN) single-p
 >
 > **Current status:** Plan 57 code fix applied AND visually verified 2026-07-10 (browser-agent check on local server: all 15 footer links, dark/light mode, EN↔AR toggle, console, and DOM all clean). Awaiting only `git commit` + deploy. No other code work is planned until either (a) that deploy completes, or (b) the 4 pending pages are still unindexed after the manual GSC requests have had time to process, which would justify the comparative audit described in the rule above.
 >
-> **Next in queue after Plan 57 fully closes:** return to discuss and formalize Plan 53 (Hero image WebP conversion + `fetchpriority` + render-blocking CSS review + missing LocalBusiness Schema fields on service pages) — currently a draft with no execution steps taken, queued for discussion once Plan 57 is verified and deployed.
+> **Plan 57 is now fully closed** (committed `a3dbf00`, deployed to Production on `main`, confirmed live via direct HTTP check). Two items are now queued for discussion, in no fixed order: Plan 53 (Hero image WebP conversion + performance) and Plan 58 (Live Google Reviews Sync via scheduled GitHub Action — drafted 2026-07-10, kept as its own plan rather than merged into 53, per the Proven-Baseline "one concern per plan" principle). Plan 58 has one open decision the developer must confirm before work starts: Google Places API only returns 5 individual reviews per request, so the current 21-review showcase would shrink to 5 real ones (the aggregate rating/count would still be 100% accurate and live).
 >
 > **Full indexing/SEO history:** `docs/indexing/00-seo-indexing-master-playbook.md` (compiled 2026-07-10) — every indexing plan and audit from Plan 37 (2026-05-01) onward, what worked, what failed and why, the Plan 54 root-cause deep dive, and a reusable playbook for future projects. Read this before starting any new SEO/indexing work on this project.
 
@@ -95,7 +95,8 @@ Al-Fares Lab website (`alfareslab.com`) is a static bilingual (AR + EN) single-p
 | **54** | Canonical Mismatch Fix — Clean URL alignment for 28 pages + sitemap (2026-05-18) | ✅ Complete |
 | **55** | Indexing Status Audit — Post Plan 54 (2026-06-20) | ✅ Complete — 5 phases, output in `docs/indexing/` |
 | **56** | Indexing & SEO Fix Plan — built from Plan 55 audit (CTR, page speed, schema depth, GBP, colloquial keywords) | 🔴 Pending |
-| **57** | Fix — `en/index.html` footer smart-quote corruption (2026-07-09) | ✅ Code applied 2026-07-10 — pending browser verification + deploy |
+| **57** | Fix — `en/index.html` footer smart-quote corruption (2026-07-09) | ✅ Complete — verified, committed (`a3dbf00`), deployed to Production, confirmed live |
+| **58** | Live Google Reviews Sync — replace 21 stale hardcoded reviews (last dated 2025-01-15) + static "4.8" rating with a weekly GitHub Action. **Pivoted 2026-07-15 (v3.0.0) from Places API to Business Profile API** — developer wants zero Google Cloud billing/card linkage, so the plan now uses free OAuth 2.0 (Refresh Token) instead of a Places API key, gaining access to all ~100 real reviews (paginated) instead of just 5 | 🟡 Group 1 (OAuth setup) in progress — blocked on Google's GBP API Access Request approval (Case ID 2-9252000041078, submitted 2026-07-23, 7-10 business days) |
 
 ### Plan 46 Progress (Bilingual Routing & Reconciliation)
 
@@ -288,7 +289,29 @@ No real hreflang tags, `/en/` URLs, or English rollout pages were added in Plan 
 | 2026-07-10 | Added `master-constitution.md` § 5.6 "Proven-Baseline Rule" to govern future indexing work now that the majority of core pages are confirmed indexed |
 | 2026-07-10 | Added `master-constitution.md` §§ 5.7-5.8, 7.1, and a Datacodex-inheritance note under §8 — audit-verification rule, manual-indexing preference, no-smart-quotes rule, and inherited-strategy-doc caution, all derived from the master playbook |
 | 2026-07-10 | **Plan 57 executed** — replaced 174 smart/curly quote characters (43 lines) with straight ASCII quotes in `en/index.html`'s footer (lines 916-983) via a scoped find-and-replace; verified 0 remaining in the file |
-| 2026-07-10 | **Plan 57 visually verified** — browser agent tested the fix on a local server: all 15 footer links resolve correctly, dark/light mode transitions cleanly, EN↔AR toggle translates all footer text with no leftover wrong-language text, no console errors, and DOM inspection confirmed zero remaining curly quotes. Plan 57 is now fully closed — only `git commit` + deploy remain |
+| 2026-07-10 | **Plan 57 visually verified** — browser agent tested the fix on a local server: all 15 footer links resolve correctly, dark/light mode transitions cleanly, EN↔AR toggle translates all footer text with no leftover wrong-language text, no console errors, and DOM inspection confirmed zero remaining curly quotes |
+| 2026-07-10 | **Plan 57 committed and deployed** — commit `a3dbf00` pushed to `origin/master` and `origin/main` (Cloudflare Pages production branch); confirmed live via direct HTTP check on `alfareslab.com/en/` (0 curly quotes, footer links return 200) |
+| 2026-07-10 | Identified that the homepage reviews section (`assets/js/reviews.js`) shows 21 hardcoded reviews dated no later than 2025-01-15, plus a static "4.8" aggregate rating text not wired to the unused `calculateAggregateRating()` function — a credibility problem since the content looks abandoned for 1.5+ years |
+| 2026-07-10 | Drafted **Plan 58** (Live Google Reviews Sync) — developer chose the scheduled-automation approach (GitHub Action pulling Google Places API data periodically) over live client-side API calls, a paid third-party widget, or manual periodic updates. Kept as a separate plan from Plan 53 rather than merging/renumbering, per the "one concern per plan" principle |
+| 2026-07-23 | **Plan 58 Group 1 started** — Google Cloud project `368153067603` set up: enabled My Business Account Management API + My Business Business Information API, configured OAuth consent screen (Branding/Audience/Data Access with `business.manage` scope, Testing mode, test user `a7medsaleh99@gmail.com`), created Desktop OAuth Client ("Reviews Sync Script") |
+| 2026-07-23 | Downloaded `client_secret_*.json` initially landed inside the repo at `docs/Google_indexing/` (untracked, no `.gitignore` existed) — moved out of the repo entirely (to a local-only folder) as an immediate precaution to prevent the OAuth Client Secret ever entering git history |
+| 2026-07-23 | At developer's request, added root `.gitignore` (`/secrets/`) and moved the OAuth secrets + helper scripts back inside the repo to `secrets/reviews-sync/` — recoverable as part of the project instead of living only outside it, while still fully excluded from git. Added `check_google_approval.bat` so the developer can re-run the access test independently at any time without needing the assistant | |
+| 2026-07-23 | Ran a one-time local OAuth flow (`get_refresh_token.py`) — obtained and stored (outside repo) a Refresh Token authorized by `a7medsaleh99@gmail.com` for scope `business.manage` |
+| 2026-07-23 | Ran diagnostic script `test_reviews_access.py` (Review Gate 1 check) — `accounts.list` returned `429 RESOURCE_EXHAUSTED`, quota limit value `0`. This is the expected/documented risk in Plan 58 (note #2): Business Profile API access requires a separate Google approval beyond just enabling the API |
+| 2026-07-23 | Submitted Google's GBP API Access Request Form for project `368153067603` — **Case ID 2-9252000041078**, expected review time 7-10 business days. Plan 58 Group 1 is now blocked waiting on this approval before Review Gate 1 can be confirmed and Group 2 (sync script) can start |
+
+---
+
+## Account Ownership (Important — Plan 58 and beyond)
+
+> ⚠️ **Two separate Google accounts are involved in Plan 58 — do not confuse them:**
+
+| Account | Role |
+|---------|------|
+| `datacodexlab@gmail.com` | Owns the **Google Cloud project** (`368153067603`) used for the OAuth Client / APIs (My Business Account Management, My Business Business Information). This is the developer's own dev/agency account — used purely as the technical vehicle for the API integration. |
+| `a7medsaleh99@gmail.com` | Has actual **ownership/management access to the Al-Fares Lab Google Business Profile** listing itself (the real business data — reviews, location info). This is the account that must sign in during the OAuth consent flow, was added as the Testing test user, and submitted the GBP API Access Request (Case ID 2-9252000041078). |
+
+**Why this matters:** the Cloud project and the OAuth Client belong to one account, but the actual business data being accessed belongs to a different account. Any future work on Plan 58 (or re-authorization if the refresh token expires) must use `a7medsaleh99@gmail.com` to sign in — not `datacodexlab@gmail.com` — even though the Google Cloud Console itself is managed under `datacodexlab@gmail.com`.
 
 ---
 
@@ -313,3 +336,5 @@ No real hreflang tags, `/en/` URLs, or English rollout pages were added in Plan 
 - **Next action (developer)** — visually verify `en/index.html` footer in a browser (links, CSS layout, AR/EN toggle text) after the Plan 57 code fix, then commit and deploy
 - **Next action (monitor)** — check GSC in a few days to confirm the 4 manually-requested pages (dvr-nvr AR, en/saudi-arabia, en/ssd-nvme, en/flash-sd) move to indexed
 - **Bug isolation note** — the smart-quote bug was confined to `en/index.html`; verified via full-repo grep (101 files checked) that no other page carried the same corruption; fixed 2026-07-10
+- **Next action (Plan 58, blocked)** — waiting on Google's GBP API Access Request approval (Case ID 2-9252000041078, submitted 2026-07-23, ~7-10 business days). Once approved, re-run `test_reviews_access.py` (see below) to confirm quota opened and reviews return, closing Review Gate 1
+- **Plan 58 local secrets (git-ignored, not committed)** — OAuth `client_secret.json`, `refresh_token.txt`, the one-time helper scripts `get_refresh_token.py` / `test_reviews_access.py`, and `check_google_approval.bat` (double-click to re-test API access) live at `secrets/reviews-sync/` inside this repo, kept out of git by the new root `.gitignore` (`/secrets/`) added 2026-07-23. Moved back inside the project (from an earlier external-only location) so a deleted local folder can't lose the credentials with no project-tied copy

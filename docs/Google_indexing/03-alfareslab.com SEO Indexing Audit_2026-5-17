@@ -1,0 +1,984 @@
+# 🔍 خطة فحص فهرسة alfareslab.com — وكيل المتصفح
+> **الإصدار:** 1.0.0
+> **التاريخ:** 2026-05-17
+> **الحالة:** جاهزة للتنفيذ
+> **الوكيل المنفذ:** Gemini Flash (Browser Agent)
+> **ملف التقرير:** `docs/Google_indexing/03-alfareslab.com SEO Indexing Audit_2026-5-17`
+
+---
+
+## السياق
+
+وصل إشعار من Google Search Console بتاريخ 2026-05-11 بأن 33 صفحة من alfareslab.com غير مفهرسة بسبب 4 أسباب، جديدها "(404) لم يتم العثور عليها".
+الموقع أُطلق 2026-05-06 على Cloudflare Pages — موقع HTML/CSS/JS ساكن ثنائي اللغة (عربي/إنجليزي).
+عدد الصفحات الكلي: 30 صفحة. المفهرسة حالياً: 5 صفحات فقط.
+
+## الهدف
+
+تشخيص دقيق لأسباب عدم الفهرسة وتصنيفها:
+- **ينتظر** — طبيعي بعد الإطلاق الجديد
+- **مشكلة حقيقية** — تحتاج إصلاح في الكود
+
+## طريقة التنفيذ
+
+```
+1. المستخدم ينسخ "برومت المرحلة 1" ويرسله لـ Gemini Flash
+2. Gemini Flash ينفذ المهام ويكتب النتائج في قسم النتائج أسفل الملف
+3. في نهاية كل مرحلة، Gemini Flash يطبع نص "برومت المرحلة التالية"
+4. المستخدم ينسخه ويرسله من جديد
+5. التكرار حتى المرحلة 8
+⚠️ المرحلة 6 تتطلب Login — الوكيل يوقف ويطلب من المستخدم تسجيل الدخول
+```
+
+## الصفحات المستهدفة للفحص
+
+| الصفحة | URL |
+|--------|-----|
+| Homepage AR | `https://alfareslab.com/` |
+| Homepage EN | `https://alfareslab.com/en/` |
+| Service AR | `https://alfareslab.com/services/hdd-data-recovery.html` |
+| Service EN | `https://alfareslab.com/en/services/hdd-data-recovery.html` |
+| About Lab AR | `https://alfareslab.com/about-lab.html` |
+| About Lab EN | `https://alfareslab.com/en/about-lab.html` |
+| Privacy AR | `https://alfareslab.com/privacy-policy.html` |
+
+---
+
+## ⬇️ ابدأ من هنا — برومت المرحلة 1 (انسخ الكل وأرسله لـ Gemini Flash)
+
+```
+أنت وكيل متصفح مخصص لفحص مشاكل فهرسة موقع alfareslab.com.
+ستنفذ هذه المهمة على 7 مراحل. هذه هي المرحلة 1.
+
+**السياق:**
+موقع alfareslab.com أُطلق 2026-05-06 وتلقى إشعاراً من Google بأن 33 صفحة غير مفهرسة.
+الموقع على Cloudflare Pages — HTML ساكن — 30 صفحة — الـ sitemap يحتوي URLs بامتداد .html
+
+**مهام المرحلة 1:**
+
+المهمة أ: زر https://alfareslab.com/robots.txt
+- انسخ المحتوى الكامل
+- هل يوجد أي Disallow: على /services/ أو /en/ أو أي مسار؟
+- ما هو رابط الـ Sitemap المذكور؟
+
+المهمة ب: زر https://alfareslab.com/sitemap.xml
+- عدّ إجمالي الـ <loc> tags
+- هل الـ URLs تنتهي بـ .html أم بـ / أم مختلطة؟
+- هل يوجد xhtml:link hreflang داخل الـ sitemap؟
+- انسخ أول 3 URLs كمثال
+
+**صيغة كتابة النتائج:**
+اكتب النتائج في قسم "نتائج المرحلة 1" بالتنسيق التالي بالضبط:
+
+---
+**robots.txt — المحتوى:**
+[انسخ المحتوى هنا]
+
+**robots.txt — التحليل:**
+- Disallow على أي مسار: [نعم/لا — وضّح]
+- رابط الـ Sitemap: [الرابط]
+
+**sitemap.xml — الإحصائيات:**
+- إجمالي الـ URLs: [العدد]
+- نمط الامتداد: [.html / trailing slash / مختلط]
+- hreflang في الـ sitemap: [نعم/لا]
+
+**sitemap.xml — أول 3 URLs كمثال:**
+1. [url]
+2. [url]
+3. [url]
+
+**ملاحظات إضافية:**
+[أي شيء لاحظته]
+---
+
+**عندما تنتهي:**
+1. اكتب النتائج بالتنسيق أعلاه
+2. اكتب "✅ تم تنفيذ المرحلة 1 — ابعت لي المرحلة 2"
+3. اطبع النص التالي بالكامل كما هو حتى يرسله المستخدم في الرسالة القادمة:
+
+═══════════ برومت المرحلة 2 ═══════════
+أنت وكيل متصفح مخصص لفحص مشاكل فهرسة موقع alfareslab.com. هذه هي المرحلة 2.
+
+السياق: اكتشفنا أن الـ sitemap يحتوي URLs بامتداد .html. نريد الآن معرفة كيف يتعامل Cloudflare معها — هل يخدمها كـ 200 أم يعيد التوجيه؟
+
+مهمة المرحلة 2: افتح الموقع https://httpstatus.io وافحص الـ URLs التالية واحدة واحدة:
+
+مجموعة أ — بامتداد .html:
+1. https://alfareslab.com/services/hdd-data-recovery.html
+2. https://alfareslab.com/about-lab.html
+3. https://alfareslab.com/privacy-policy.html
+4. https://alfareslab.com/en/services/hdd-data-recovery.html
+5. https://alfareslab.com/en/about-lab.html
+
+مجموعة ب — بدون .html (Clean URLs):
+6. https://alfareslab.com/services/hdd-data-recovery
+7. https://alfareslab.com/about-lab
+8. https://alfareslab.com/privacy-policy
+9. https://alfareslab.com/en/services/hdd-data-recovery
+10. https://alfareslab.com/en/about-lab
+
+مجموعة ج — بـ trailing slash:
+11. https://alfareslab.com/services/hdd-data-recovery/
+12. https://alfareslab.com/about-lab/
+
+لكل URL سجّل: HTTP Status الأول، Redirect إلى (إن وُجد)، HTTP Status النهائي.
+
+صيغة النتائج — اكتبها في قسم "نتائج المرحلة 2":
+
+| URL | Status أول | Redirect إلى | Status نهائي |
+|-----|-----------|-------------|-------------|
+| /services/hdd-data-recovery.html | | | |
+| /about-lab.html | | | |
+| /privacy-policy.html | | | |
+| /en/services/hdd-data-recovery.html | | | |
+| /en/about-lab.html | | | |
+| /services/hdd-data-recovery (بدون html) | | | |
+| /about-lab (بدون html) | | | |
+| /privacy-policy (بدون html) | | | |
+| /en/services/hdd-data-recovery | | | |
+| /en/about-lab | | | |
+| /services/hdd-data-recovery/ (trailing slash) | | | |
+| /about-lab/ (trailing slash) | | | |
+
+الخلاصة:
+- هل Cloudflare يعمل redirect من .html لـ clean URL؟ [نعم/لا]
+- هل الـ clean URLs تُرجع 200 OK؟ [نعم/لا]
+- هل فيه أي 404 مباشر؟ [نعم — حدد/لا]
+- الـ URL المفضل لدى Cloudflare: [.html / clean URL / غير واضح]
+
+عندما تنتهي: اكتب النتائج واكتب "✅ تم المرحلة 2 — ابعت لي المرحلة 3" ثم اطبع نص المرحلة 3 التالي:
+
+═══════════ برومت المرحلة 3 ═══════════
+أنت وكيل متصفح. هذه مرحلة 3 — فحص Canonical وhreflang.
+
+السياق: اكتشفنا سلوك Cloudflare مع الـ .html URLs. الآن نفحص ما تقوله الصفحات داخلياً.
+
+المهام:
+لكل صفحة من الصفحات التالية، افتحها ثم افتح مصدر الصفحة (CTRL+U أو View Source):
+1. الـ URL الفعلي الذي وصلت إليه لـ hdd-data-recovery (حسب ما اكتشفناه في المرحلة 2)
+2. https://alfareslab.com/about-lab.html (أو الـ URL الفعلي)
+3. https://alfareslab.com/en/services/hdd-data-recovery.html (أو الـ URL الفعلي)
+4. https://alfareslab.com/ (الصفحة الرئيسية)
+
+لكل صفحة استخرج:
+- الـ URL في شريط المتصفح بعد التحميل
+- <link rel="canonical" href="...">
+- <link rel="alternate" hreflang="ar" href="...">
+- <link rel="alternate" hreflang="en" href="...">
+- <link rel="alternate" hreflang="x-default" href="...">
+- <meta name="robots" content="...">
+- <base href="..."> إن وُجد
+
+صيغة النتائج — اكتبها في قسم "نتائج المرحلة 3":
+
+صفحة 1 — HDD Recovery AR:
+- URL في المتصفح:
+- canonical:
+- hreflang ar:
+- hreflang en:
+- hreflang x-default:
+- meta robots:
+- base href:
+
+[كرر لكل صفحة]
+
+الخلاصة:
+- هل canonical URL يطابق URL المتصفح الفعلي؟ [نعم/لا — وضّح]
+- هل hreflang pairs متناسقة بين AR وEN؟ [نعم/لا]
+- هل فيه canonical يشير لـ .html بينما المتصفح على clean URL؟ [نعم/لا]
+
+عندما تنتهي: اكتب "✅ تم المرحلة 3" واطبع نص المرحلة 4:
+
+═══════════ برومت المرحلة 4 ═══════════
+أنت وكيل متصفح. هذه المرحلة 4 — فحص حجم الفهرسة الفعلي على Google.
+
+المهام:
+1. افتح https://www.google.com وابحث عن: site:alfareslab.com
+   - سجّل عدد النتائج
+   - سجّل أول 10 صفحات تظهر (العناوين والروابط)
+
+2. ابحث عن: site:alfareslab.com/services/
+   - سجّل عدد النتائج والصفحات
+
+3. ابحث عن: site:alfareslab.com/en/
+   - سجّل عدد النتائج والصفحات
+
+4. ابحث عن: alfareslab.com (بحث عادي بدون site:)
+   - هل يظهر الموقع؟ ما هو Title وDescription الظاهرين في النتيجة؟
+   - هل يظهر sitelinks تحت النتيجة الرئيسية؟
+
+صيغة النتائج — اكتبها في قسم "نتائج المرحلة 4":
+
+site:alfareslab.com:
+- عدد النتائج:
+- أول 10 صفحات ظاهرة:
+  1.
+  2.
+  [...]
+
+site:alfareslab.com/services/:
+- عدد النتائج:
+- الصفحات:
+
+site:alfareslab.com/en/:
+- عدد النتائج:
+- الصفحات:
+
+بحث alfareslab.com العادي:
+- يظهر؟:
+- Title:
+- Description:
+- Sitelinks:
+
+الخلاصة:
+- إجمالي مفهرس فعلياً على Google:
+- هل EN pages مفهرسة؟
+- هل صفحات الخدمة مفهرسة؟
+
+عندما تنتهي: اكتب "✅ تم المرحلة 4" واطبع نص المرحلة 5:
+
+═══════════ برومت المرحلة 5 ═══════════
+أنت وكيل متصفح. هذه المرحلة 5 — أدوات SEO خارجية.
+
+المهمة أ: Google Rich Results Test
+1. افتح https://search.google.com/test/rich-results
+2. أدخل https://alfareslab.com/ واضغط اختبار
+3. انتظر النتيجة وسجّل: النتيجة (ناجح/تحذيرات/أخطاء)، أنواع Schema المكتشفة، التفاصيل
+
+المهمة ب: Google PageSpeed Insights
+1. افتح https://pagespeed.web.dev/
+2. أدخل https://alfareslab.com/ واضغط تحليل
+3. انتظر نتائج Mobile (ليس Desktop)
+4. سجّل: Performance Score, LCP, CLS, INP/FID
+
+المهمة ج: Rich Results لصفحة خدمة
+1. اختبر في Rich Results Test: https://alfareslab.com/services/hdd-data-recovery.html
+2. سجّل النتيجة والـ Schema المكتشفة
+
+صيغة النتائج — اكتبها في قسم "نتائج المرحلة 5":
+
+Rich Results — Homepage:
+- النتيجة:
+- Schema مكتشفة: LocalBusiness[ ] FAQPage[ ] Organization[ ] BreadcrumbList[ ] أخرى:
+- تحذيرات:
+- أخطاء:
+
+PageSpeed — Mobile:
+- Performance Score: /100
+- LCP:
+- CLS:
+- INP:
+- ملاحظات:
+
+Rich Results — صفحة الخدمة:
+- النتيجة:
+- Schema مكتشفة:
+
+عندما تنتهي: اكتب "✅ تم المرحلة 5" واطبع نص المرحلة 6:
+
+═══════════ برومت المرحلة 6 ═══════════
+أنت وكيل متصفح. هذه المرحلة 6 — Google Search Console.
+⚠️ هذه المرحلة تتطلب تسجيل دخول Google.
+
+الخطوة الأولى: افتح https://search.google.com/search-console/
+- إذا لم تكن مسجلاً: اكتب "⛔ STOP: يرجى تسجيل الدخول بحساب Google ثم أعد إرسال هذا البرومت"
+- إذا كنت مسجلاً: تابع بعد التأكيد على وجود property alfareslab.com
+
+المهمة أ: تقرير الفهرسة الكامل
+1. انتقل إلى: الفهرسة → الصفحات
+2. سجّل: عدد المفهرسة، كل أسباب عدم الفهرسة + عدد الصفحات لكل سبب
+3. اضغط على كل سبب واحداً واحداً وسجّل قائمة الصفحات المتأثرة (خاصة 404 وredirect)
+
+المهمة ب: URL Inspection
+زر URL Inspection وافحص:
+1. https://alfareslab.com/services/hdd-data-recovery.html
+2. https://alfareslab.com/en/services/hdd-data-recovery.html
+3. https://alfareslab.com/about-lab.html
+لكل صفحة: هل في الفهرس؟ canonical مُعتمد من Google؟ آخر زحف؟ mobile friendly؟ أي أخطاء؟
+
+المهمة ج: Sitemaps
+انتقل إلى الفهرسة → Sitemaps وسجّل: حالة sitemap.xml، URLs مُرسلة، URLs مُكتشفة.
+
+صيغة النتائج — اكتبها في قسم "نتائج المرحلة 6":
+
+تقرير الفهرسة:
+- مفهرسة: / صفحة
+- غير مفهرسة: / صفحة
+
+| السبب | عدد | الصفحات |
+|-------|-----|---------|
+| لم يتم العثور عليها (404) | | |
+| صفحة مع إعادة توجيه | | |
+| [سبب 3] | | |
+| [سبب 4] | | |
+
+URL Inspection — hdd-data-recovery.html:
+- في الفهرس:
+- Canonical من Google:
+- آخر زحف:
+- Mobile friendly:
+- ملاحظات:
+
+URL Inspection — en/services/hdd-data-recovery.html:
+- [نفس الحقول]
+
+URL Inspection — about-lab.html:
+- [نفس الحقول]
+
+Sitemap:
+- حالة sitemap.xml:
+- URLs مُرسلة:
+- URLs مُكتشفة:
+
+عندما تنتهي: اكتب "✅ تم المرحلة 6" واطبع نص المرحلة 7:
+
+═══════════ برومت المرحلة 7 ═══════════
+أنت وكيل متصفح. هذه المرحلة 7 — AI Search Visibility.
+
+السياق: الموقع يستهدف عملاء محتملين يبحثون عبر أدوات الذكاء الاصطناعي (Perplexity, ChatGPT, Google AI Overviews). نريد معرفة هل alfareslab.com مرئي لهذه الأدوات وهل هناك عوائق تقنية تمنع AI crawlers من الزحف؟
+
+المهمة أ: فحص llms.txt
+زر: https://alfareslab.com/llms.txt
+- هل الملف موجود؟ (200 OK أم 404؟)
+- إذا موجود: انسخ محتواه كاملاً
+
+المهمة ب: تحليل AI Crawlers في robots.txt
+من نتائج المرحلة 1 (robots.txt)، حلّل وأجب على كل سطر:
+- هل مذكور GPTBot بالاسم؟ (مسموح / ممنوع / غير مذكور)
+- هل مذكور ClaudeBot؟
+- هل مذكور PerplexityBot؟
+- هل مذكور Google-Extended؟
+- هل مذكور Amazonbot؟
+- هل الـ User-agent: * يشمل كل الـ bots؟
+
+المهمة ج: اختبار الظهور على Perplexity
+1. افتح https://www.perplexity.ai/
+2. ابحث عن: مركز الفارس استعادة بيانات جدة
+   سجّل: هل يظهر alfareslab.com؟ هل يُقتبس منه نص؟
+3. ابحث عن: alfareslab data recovery jeddah
+   سجّل نفس النقاط
+
+المهمة د: اختبار Google AI Overviews
+1. افتح https://www.google.com
+2. ابحث عن: استعادة بيانات هارد ديسك جدة
+   سجّل: هل يظهر AI Overview؟ هل alfareslab مذكور فيه؟
+3. ابحث عن: data recovery jeddah
+   سجّل نفس النقاط
+
+المهمة هـ: اختبار قابلية المحتوى للـ AI
+افتح https://alfareslab.com/services/hdd-data-recovery.html ثم View Source (CTRL+U)
+- هل النص الرئيسي للصفحة ظاهر في الـ HTML مباشرةً؟
+- ابحث في المصدر عن أول 50 كلمة من محتوى الصفحة — هل موجودة؟
+
+صيغة النتائج — اكتبها في قسم "نتائج المرحلة 7: AI Search Visibility":
+
+llms.txt:
+- موجود: نعم/لا
+- المحتوى (إن وُجد):
+
+AI Crawlers في robots.txt:
+| الـ Bot | الشركة | الحالة |
+|--------|--------|--------|
+| GPTBot | OpenAI (ChatGPT) | |
+| ClaudeBot | Anthropic | |
+| PerplexityBot | Perplexity | |
+| Google-Extended | Google AI | |
+| Amazonbot | Amazon | |
+| User-agent: * | يشمل الكل | |
+
+Perplexity — بحث عربي:
+- الاستعلام: مركز الفارس استعادة بيانات جدة
+- alfareslab يظهر: نعم/لا
+- السياق والنص المقتبس:
+
+Perplexity — بحث إنجليزي:
+- الاستعلام: alfareslab data recovery jeddah
+- alfareslab يظهر: نعم/لا
+- السياق والنص المقتبس:
+
+Google AI Overviews — عربي:
+- الاستعلام: استعادة بيانات هارد ديسك جدة
+- AI Overview ظاهر: نعم/لا
+- alfareslab مذكور: نعم/لا
+
+Google AI Overviews — إنجليزي:
+- الاستعلام: data recovery jeddah
+- AI Overview ظاهر: نعم/لا
+- alfareslab مذكور: نعم/لا
+
+قابلية المحتوى للـ AI:
+- النص ظاهر في HTML مباشرةً: نعم/لا
+- يحتاج JavaScript لعرض المحتوى: نعم/لا
+
+الخلاصة:
+- الموقع مرئي على AI Search: نعم/جزئي/لا
+- عوائق في AI crawler access: نعم/لا
+- llms.txt موجود: نعم/لا
+- المحتوى AI-readable: نعم/لا
+
+عندما تنتهي: اكتب "✅ تم المرحلة 7" واطبع نص المرحلة 8:
+
+═══════════ برومت المرحلة 8 ═══════════
+أنت وكيل متصفح. هذه المرحلة 8 الأخيرة — التقرير النهائي الشامل.
+
+بناءً على كل نتائج المراحل 1-7 (Google SEO + AI Search)، اكتب التقرير النهائي في قسم "التقرير النهائي" بالتنسيق التالي:
+
+ملخص تنفيذي: [4-6 سطور تصف المشاكل الرئيسية — Google Indexing و AI Search معاً]
+
+جدول مشاكل Google Indexing:
+| # | المشكلة | الخطورة | يحتاج انتظار؟ | الملف/المسار |
+|---|---------|---------|-------------|------------|
+| 1 | | 🔴/🟡/🟢 | نعم/لا | |
+
+جدول مشاكل AI Search:
+| # | المشكلة | الخطورة | الإجراء المطلوب |
+|---|---------|---------|--------------|
+| 1 | | 🔴/🟡/🟢 | |
+
+ما يحتاج انتظار فقط (لا إصلاح مطلوب):
+- [قائمة]
+
+ما يحتاج إصلاح — مرتب بالأولوية:
+1. 🔴 [المشكلة] — [الملف/الإجراء] — [الإصلاح المقترح]
+2. 🟡 [المشكلة] — [الملف] — [الإصلاح]
+3. 🟢 [المشكلة] — [الملف] — [الإصلاح]
+
+ملاحظة للـ Code Agent:
+[معلومات تقنية مهمة لتنفيذ الإصلاحات — أي ملفات تحتاج تعديل، ما هو التعديل بالتحديد، أي ملفات جديدة تحتاج إنشاء]
+
+اكتب في النهاية: "✅ اكتمل الفحص الكامل — التقرير جاهز"
+═══════════════════════════════════════
+```
+
+---
+
+---
+
+## 📝 النتائج (Gemini Flash يكتب هنا)
+
+### نتائج المرحلة 1: robots.txt و sitemap.xml
+
+---
+**robots.txt — المحتوى:**
+```txt
+# As a condition of accessing this website, you agree to abide by the following
+# content signals:
+
+# (a)  If a Content-Signal = yes, you may collect content for the corresponding
+#      use.
+# (b)  If a Content-Signal = no, you may not collect content for the
+#      corresponding use.
+# (c)  If the website operator does not include a Content-Signal for a
+#      corresponding use, the website operator neither grants nor restricts
+#      permission via Content-Signal with respect to the corresponding use.
+
+# The content signals and their meanings are:
+
+# search:   building a search index and providing search results (e.g., returning
+#           hyperlinks and short excerpts from your website's contents). Search does not
+#           include providing AI-generated search summaries.
+# ai-input: inputting content into one or more AI models (e.g., retrieval
+#           augmented generation, grounding, or other real-time taking of content for
+#           generative AI search answers).
+# ai-train: training or fine-tuning AI models.
+
+# ANY RESTRICTIONS EXPRESSED VIA CONTENT SIGNALS ARE EXPRESS RESERVATIONS OF
+# RIGHTS UNDER ARTICLE 4 OF THE EUROPEAN UNION DIRECTIVE 2019/790 ON COPYRIGHT
+# AND RELATED RIGHTS IN THE DIGITAL SINGLE MARKET.
+
+# BEGIN Cloudflare Managed content
+
+User-agent: *
+Content-Signal: search=yes,ai-train=no
+Allow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: CloudflareBrowserRenderingCrawler
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+# END Cloudflare Managed Content
+
+# robots.txt for Al-Fares Center Website
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://alfareslab.com/sitemap.xml
+
+# Disallow admin or private areas (if any in future)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Crawl-delay (optional, helps with server load)
+Crawl-delay: 1
+```
+
+**robots.txt — التحليل:**
+- Disallow على أي مسار: لا يوجد `Disallow` فعّال على `/services/` أو `/en/`. يوجد `Disallow: /` فقط لبعض bots المحددة مثل `Amazonbot` و`ClaudeBot` و`GPTBot` و`Google-Extended` و`CCBot` وغيرها. بالنسبة إلى `User-agent: *` يوجد `Allow: /`.
+- رابط الـ Sitemap: `https://alfareslab.com/sitemap.xml`
+
+**sitemap.xml — الإحصائيات:**
+- إجمالي الـ URLs: 30
+- نمط الامتداد: مختلط؛ 28 URL تنتهي بـ `.html` و2 URLs تنتهي بـ `/`
+- hreflang في الـ sitemap: نعم، يوجد `xhtml:link` مع `hreflang` داخل الـ sitemap
+
+**sitemap.xml — أول 3 URLs كمثال:**
+1. `https://alfareslab.com/`
+2. `https://alfareslab.com/en/`
+3. `https://alfareslab.com/services/hdd-data-recovery.html`
+
+**ملاحظات إضافية:**
+- لا يوجد منع عام للفهرسة في `robots.txt`.
+- الـ sitemap يحتوي 30 صفحة، ويستخدم `hreflang` لربط النسخ العربية والإنجليزية.
+- نمط الروابط مختلط: الصفحتان الرئيسيتان تستخدمان trailing slash، وباقي الصفحات تستخدم امتداد `.html`.
+---
+
+✅ تم تنفيذ المرحلة 1 — ابعت لي المرحلة 2
+
+---
+
+### نتائج المرحلة 2: HTTP Status و Redirect Chains
+
+| URL | Status أول | Redirect إلى | Status نهائي |
+|-----|-----------|-------------|-------------|
+| /services/hdd-data-recovery.html | 308 | `https://alfareslab.com/services/hdd-data-recovery` | 200 |
+| /about-lab.html | 308 | `https://alfareslab.com/about-lab` | 200 |
+| /privacy-policy.html | 308 | `https://alfareslab.com/privacy-policy` | 200 |
+| /en/services/hdd-data-recovery.html | 308 | `https://alfareslab.com/en/services/hdd-data-recovery` | 200 |
+| /en/about-lab.html | 308 | `https://alfareslab.com/en/about-lab` | 200 |
+| /services/hdd-data-recovery (بدون html) | 200 | لا يوجد | 200 |
+| /about-lab (بدون html) | 200 | لا يوجد | 200 |
+| /privacy-policy (بدون html) | 200 | لا يوجد | 200 |
+| /en/services/hdd-data-recovery | 200 | لا يوجد | 200 |
+| /en/about-lab | 200 | لا يوجد | 200 |
+| /services/hdd-data-recovery/ (trailing slash) | 308 | `https://alfareslab.com/services/hdd-data-recovery` | 200 |
+| /about-lab/ (trailing slash) | 308 | `https://alfareslab.com/about-lab` | 200 |
+
+الخلاصة:
+- هل Cloudflare يعمل redirect من .html لـ clean URL؟ نعم، كل روابط `.html` المختبرة ترجع `308` إلى clean URL بدون `.html`.
+- هل الـ clean URLs تُرجع 200 OK؟ نعم، كل clean URLs المختبرة ترجع `200`.
+- هل فيه أي 404 مباشر؟ لا.
+- الـ URL المفضل لدى Cloudflare: clean URL.
+
+✅ تم المرحلة 2 — ابعت لي المرحلة 3
+
+---
+
+### نتائج المرحلة 3: Canonical وhreflang
+
+---
+صفحة 1 — HDD Recovery AR:
+- URL في المتصفح: `https://alfareslab.com/services/hdd-data-recovery`
+- canonical: `<link rel="canonical" href="https://alfareslab.com/services/hdd-data-recovery.html">`
+- hreflang ar: `<link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/hdd-data-recovery.html" />`
+- hreflang en: `<link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/hdd-data-recovery.html" />`
+- hreflang x-default: `<link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/hdd-data-recovery.html" />`
+- meta robots: `<meta name="robots" content="index, follow">`
+- base href: `<base href="../">`
+
+صفحة 2 — About Lab:
+- URL في المتصفح: `https://alfareslab.com/about-lab`
+- canonical: `<link rel="canonical" href="https://alfareslab.com/about-lab.html">`
+- hreflang ar: `<link rel="alternate" hreflang="ar" href="https://alfareslab.com/about-lab.html">`
+- hreflang en: `<link rel="alternate" hreflang="en" href="https://alfareslab.com/en/about-lab.html">`
+- hreflang x-default: `<link rel="alternate" hreflang="x-default" href="https://alfareslab.com/about-lab.html">`
+- meta robots: `<meta name="robots" content="index, follow">`
+- base href: `<base href="./">`
+
+صفحة 3 — HDD Recovery EN:
+- URL في المتصفح: `https://alfareslab.com/en/services/hdd-data-recovery`
+- canonical: `<link rel="canonical" href="https://alfareslab.com/en/services/hdd-data-recovery.html">`
+- hreflang ar: `<link rel="alternate" hreflang="ar" href="https://alfareslab.com/services/hdd-data-recovery.html" />`
+- hreflang en: `<link rel="alternate" hreflang="en" href="https://alfareslab.com/en/services/hdd-data-recovery.html" />`
+- hreflang x-default: `<link rel="alternate" hreflang="x-default" href="https://alfareslab.com/services/hdd-data-recovery.html" />`
+- meta robots: `<meta name="robots" content="index, follow">`
+- base href: `<base href="../../">`
+
+صفحة 4 — Homepage:
+- URL في المتصفح: `https://alfareslab.com/`
+- canonical: `<link rel="canonical" href="https://alfareslab.com/">`
+- hreflang ar: `<link rel="alternate" hreflang="ar" href="https://alfareslab.com/" />`
+- hreflang en: `<link rel="alternate" hreflang="en" href="https://alfareslab.com/en/" />`
+- hreflang x-default: `<link rel="alternate" hreflang="x-default" href="https://alfareslab.com/" />`
+- meta robots: غير موجود في الصفحة الرئيسية
+- base href: غير موجود في الصفحة الرئيسية
+
+الخلاصة:
+- canonical يشير لـ .html بينما المتصفح على clean URL: نعم، في صفحات HDD Recovery AR وAbout Lab وHDD Recovery EN.
+- hreflang pairs متناسقة بين AR وEN: نعم من حيث الربط بين النسخ العربية والإنجليزية، لكنها تشير إلى URLs بامتداد `.html` التي يتم تحويلها 308 إلى clean URLs.
+- base href موجود في صفحات الخدمة: نعم؛ في صفحة الخدمة العربية قيمته `<base href="../">` وفي صفحة الخدمة الإنجليزية قيمته `<base href="../../">`.
+---
+
+✅ تم المرحلة 3
+
+---
+
+### نتائج المرحلة 4: Google site: Query
+
+site:alfareslab.com:
+- عدد النتائج: Google لم يعرض رقمًا تقريبيًا بصيغة "About X results". عدد النتائج العضوية الظاهرة فعليًا: 5 نتائج عند إظهار النتائج المشابهة المحذوفة (`filter=0`).
+- أول 10 صفحات:
+  1. مركز الفارس لصيانة الكمبيوتر واستعادة البيانات - جدة — `https://alfareslab.com/`
+  2. Al-Fares Center for Computer Repair and Data Recovery — `https://alfareslab.com/en/`
+  3. جدة - مركز الفارس لصيانة الكمبيوتر واستعادة البيانات — `https://alfareslab.com/en/services/external-hdd-data-recovery`
+  4. استعادة بيانات هارد خارجي في جدة (External HDD) — `https://alfareslab.com/services/external-hdd-data-recovery.html`
+  5. External Hard Drive Data Recovery in Jeddah — `https://alfareslab.com/en/services/external-hdd-data-recovery.html`
+
+site:alfareslab.com/services/:
+- عدد النتائج: 1 نتيجة ظاهرة.
+- الصفحات:
+  1. استعادة بيانات هارد خارجي في جدة (External HDD) — `https://alfareslab.com/services/external-hdd-data-recovery.html`
+
+site:alfareslab.com/en/:
+- عدد النتائج: 3 نتائج ظاهرة عند إظهار النتائج المشابهة المحذوفة (`filter=0`).
+- الصفحات:
+  1. Al-Fares Center for Computer Repair and Data Recovery — `https://alfareslab.com/en/`
+  2. جدة - مركز الفارس لصيانة الكمبيوتر واستعادة البيانات — `https://alfareslab.com/en/services/external-hdd-data-recovery`
+  3. External Hard Drive Data Recovery in Jeddah — `https://alfareslab.com/en/services/external-hdd-data-recovery.html`
+
+بحث alfareslab.com العادي:
+- يظهر: نعم، يظهر الموقع ضمن أول النتائج.
+- Title: `Al-Fares Center for Computer Repair and Data Recovery`
+- Description: `Your dedicated specialist for computer repair and data recovery in Jeddah. We provide professional services backed by over 12 years of industry experience.`
+- Sitelinks: لا تظهر sitelinks واضحة تحت النتيجة الرئيسية.
+
+الخلاصة:
+- إجمالي مفهرس فعلياً على Google: 5 صفحات ظاهرة تقريبًا من `alfareslab.com` في نتائج `site:` عند تضمين النتائج المشابهة.
+- هل EN pages مفهرسة؟ نعم جزئيًا؛ الصفحة الإنجليزية الرئيسية وصفحة خدمة الهارد الخارجي تظهران، مع ظهور نسختين لنفس خدمة الهارد الخارجي: clean URL و`.html`.
+- هل صفحات /services/ مفهرسة؟ نعم جزئيًا؛ صفحة عربية واحدة ظاهرة من `/services/` وهي `external-hdd-data-recovery.html`.
+
+ملاحظات إضافية:
+- Google يعرض أحيانًا رسالة أن بعض النتائج المشابهة تم حذفها، لذلك تم فحص النتائج أيضًا مع تضمين النتائج المشابهة.
+- توجد نتيجة منافسة/مشابهة في البحث العادي لدومين مختلف هو `alfareslabs.com`، وهذا ليس نفس الدومين المستهدف.
+
+✅ تم المرحلة 4
+
+---
+
+### نتائج المرحلة 5: أدوات SEO الخارجية
+
+Rich Results — Homepage:
+- النتيجة: ناجح.
+- Schema مكتشفة: LocalBusiness[x] FAQPage[x] Organization[x] BreadcrumbList[ ] أخرى: لا يوجد.
+- تحذيرات: لا توجد تحذيرات ظاهرة في ملخص الاختبار.
+- أخطاء: لا توجد. أداة Rich Results أظهرت: `3 valid items detected`.
+
+PageSpeed — Mobile:
+- Performance Score: 65/100
+- LCP: 52.6 s
+- CLS: 0.001
+- INP: غير متاح؛ PageSpeed أظهر `No Data` لتجربة المستخدم الحقيقية، وتقرير Lighthouse المعملي يعرض TBT بدل INP.
+- أبطأ عنصر (LCP element): على الأرجح صورة الهيرو الأولى `assets/images/hero-slider/store_front-min.png`، لأنها أول صورة hero بـ `loading="eager"` وتظهر كعنصر بصري رئيسي في أعلى الصفحة. واجهة PageSpeed المختصرة لم تعرض snippet مباشر للعنصر.
+
+Rich Results — صفحة الخدمة:
+- النتيجة: ناجح مع تحذيرات غير حرجة.
+- Schema مكتشفة: Breadcrumbs[x] FAQPage[x] LocalBusiness[x] Organization[x]
+- تحذيرات/أخطاء:
+  - أداة Rich Results أظهرت: `4 valid items detected`.
+  - Local businesses: `1 valid item detected` مع `Non-critical issues detected`.
+  - LocalBusiness warnings:
+    - `Missing field "priceRange" (optional)`
+    - `Missing field "image" (optional)`
+  - Organization warnings:
+    - `Missing field "postalCode" (optional)`
+    - `Missing field "streetAddress" (optional)`
+  - لا توجد أخطاء حرجة تمنع أهلية Rich Results.
+
+الخلاصة:
+- Schema صحيح وكامل؟ صحيح من ناحية الأهلية للـ Rich Results، لكنه ليس كاملًا؛ توجد حقول اختيارية ناقصة في صفحة الخدمة، كما أن بعض قيم `id` و`url` داخل structured data تشير إلى `.html` مثل `https://alfareslab.com/services/hdd-data-recovery.html#localbusiness` رغم أن Cloudflare يفضل clean URL.
+- Performance مشكلة حرجة؟ نعم، Mobile Performance = 65 وLCP = 52.6s، وهذا مؤشر أداء خطير يحتاج فحص صور الهيرو/السلايدر وتحسين تحميل الصور.
+- أي أخطاء تمنع الفهرسة؟ لا يوجد خطأ Rich Results يمنع الفهرسة، لكن PageSpeed/Lighthouse أظهر خطأ SEO: `robots.txt is not valid — 1 error found`. هذا يحتاج فحص منفصل، وغالبًا مرتبط بسطر غير قياسي مثل `Content-Signal` أو `Crawl-delay` وليس بمنع Googlebot مباشرة.
+
+✅ تم المرحلة 5
+
+---
+
+### نتائج المرحلة 6: Google Search Console
+
+*(ستُكتب بواسطة Gemini Flash — تتطلب Login)*
+
+---
+
+### نتائج المرحلة 7: AI Search Visibility
+
+llms.txt:
+- موجود: لا. الرابط `https://alfareslab.com/llms.txt` يرجع `404 Not Found`.
+
+Perplexity — عربي:
+- الاستعلام: مركز الفارس استعادة بيانات جدة
+- alfareslab يظهر: نعم.
+- السياق: Perplexity ذكر `مركز الفارس لصيانة الكمبيوتر واستعادة البيانات` كخدمة/مركز لاستعادة البيانات في جدة، وذكر العنوان ورقم التواصل، ووضع مصدرًا مباشرًا باسم `alfareslab` يشير إلى `https://alfareslab.com?ct-referrer=perplexity`.
+
+Perplexity — إنجليزي:
+- الاستعلام: alfareslab data recovery jeddah
+- alfareslab يظهر: نعم.
+- السياق: Perplexity وصف Al-Fares Center كمعمل استعادة بيانات وصيانة كمبيوتر في جدة، وذكر الموقع والعنوان ورقم التواصل، واستشهد بمصدر مباشر `alfareslab` عدة مرات، منها `https://alfareslab.com?ct-referrer=perplexity`.
+
+Google AI Overviews — عربي:
+- AI Overview ظاهر: نعم. ظهر تحت عنوان `نبذة باستخدام الذكاء الاصطناعي`.
+- alfareslab مذكور: نعم. Google AI Overview ذكر `مركز الفارس لصيانة الكمبيوتر واستعادة البيانات` كمثال مباشر ورابطه إلى `https://alfareslab.com/`.
+
+Google AI Overviews — إنجليزي:
+- AI Overview ظاهر: لا في اختبار `data recovery jeddah`.
+- alfareslab مذكور: لا داخل AI Overview لأن AI Overview لم يظهر، لكن الموقع ظهر في نتائج الأعمال المحلية كـ `مركز الفارس لصيانة الكمبيوتر` مع رابط Website إلى `https://alfareslab.com/`.
+
+قابلية المحتوى للـ AI:
+- النص في HTML مباشرةً: نعم. النصوص الأساسية مثل `استعادة بيانات هارد ديسك داخلي في جدة` و`استعادة بيانات` و`الهارد ديسك` و`جدة` موجودة مباشرة في HTML.
+- يحتاج JavaScript: لا لعرض النص الأساسي. الصفحة ساكنة ومحتواها الرئيسي قابل للقراءة من المصدر مباشرة.
+
+الخلاصة:
+- الموقع مرئي على AI Search: نعم جزئيًا. يظهر في Perplexity عربي/إنجليزي، ويظهر في Google AI Overview العربي، لكنه لم يظهر داخل AI Overview الإنجليزي لأن الاستعلام الإنجليزي لم يولد AI Overview في هذا الاختبار.
+- llms.txt موجود: لا.
+- المحتوى AI-readable: نعم.
+- ملاحظة مهمة: رغم أن `robots.txt` يحظر بعض AI crawlers مثل `GPTBot` و`ClaudeBot` و`Google-Extended`، الظهور العملي في Perplexity وGoogle AI Overview موجود حاليًا على الأقل جزئيًا، غالبًا عبر فهارس بحث/مصادر عامة مسموحة أو بيانات Google المحلية.
+
+✅ تم المرحلة 7
+
+---
+
+### التقرير النهائي (المرحلة 8)
+
+*(كُتب بواسطة Claude Code — 2026-05-18، بناءً على نتائج المراحل 1-7)*
+
+---
+
+#### الملخص التنفيذي
+
+موقع `alfareslab.com` أُطلق على Cloudflare Pages بـ 30 صفحة HTML ساكنة. 5 صفحات فقط مفهرسة حتى الآن، و25 صفحة لم تُفهرس بعد. **السبب الجذري الأساسي:** Cloudflare يحوّل تلقائياً جميع روابط `.html` إلى Clean URLs بـ 308 Redirect (ميزة "Pretty URLs"). لكن ملفات HTML تحتوي canonical وhreflang وsitemap كلها تشير لـ `.html` — فيرى Google canonical يشير لـ URL يقوم بـ redirect، فيرفض اعتباره canonical ويحجب الفهرسة. الصفحة الرئيسية مفهرسة لأنها `/` بدون `.html` فلا مشكلة. الموقع مرئي جزئياً في AI Search (Perplexity + Google AI Overview العربي)، لكن AI crawlers محجوبون في robots.txt من Cloudflare.
+
+---
+
+#### جدول مشاكل Google Indexing
+
+| # | المشكلة | الخطورة | يحتاج انتظار؟ | الملف/المسار |
+|---|---------|---------|-------------|------------|
+| 1 | Canonical يشير لـ `.html` بينما Cloudflare يخدم Clean URL — 28 صفحة | 🔴 | لا — إصلاح عاجل | جميع `services/*.html` + `about-lab.html` + `privacy-policy.html` + `en/...` |
+| 2 | sitemap.xml يحتوي 28 URL بصيغة `.html` — يتعارض مع Clean URLs | 🔴 | لا — إصلاح عاجل | `sitemap.xml` |
+| 3 | hreflang يشير لـ `.html` في جميع الصفحات — Google يرى alternate URLs محوَّلة | 🔴 | لا — إصلاح عاجل | جميع ملفات HTML (30 ملف) |
+| 4 | 26 صفحة في حالة "discovered not crawled" في GSC | 🟡 | نعم — طبيعي بعد الإطلاق | الموقع جديد — Google لم يزحف بعد |
+| 5 | صفحة 404 حقيقية: `https://alfareslab.com/"` (URL بعلامة اقتباس) | 🟡 | لا — يجب تحديد مصدرها | مصدر الرابط غير محدد — يحتاج grep |
+| 6 | robots.txt يحتوي `Content-Signal` غير قياسي (Cloudflare Managed) — PageSpeed يبلغ عنه كـ error | 🟢 | نعم — لا تأثير على Googlebot | `robots.txt` (Cloudflare-managed) |
+| 7 | LCP = 52.6s على الموبايل (صورة Hero الأولى) | 🟡 | لا — مشكلة أداء تضر بالترتيب | `assets/images/hero-slider/` |
+| 8 | Schema URL fields (id, url) تشير لـ `.html` في structured data | 🟢 | لا — بعد إصلاح canonical | `services/*.html` — JSON-LD |
+
+---
+
+#### جدول مشاكل AI Search
+
+| # | المشكلة | الخطورة | الإجراء المطلوب |
+|---|---------|---------|--------------|
+| 1 | GPTBot, ClaudeBot, Google-Extended, PerplexityBot محجوبون في robots.txt | 🟡 | Cloudflare يضيف هذا تلقائياً — مناقشة المطور: هل يريد السماح بـ AI crawlers؟ |
+| 2 | llms.txt غير موجود — لا توجيه لـ LLM crawlers | 🟢 | إنشاء `llms.txt` للتحكم في ما يُقدَّم لنماذج AI |
+| 3 | Google AI Overview الإنجليزي لم يُدرج الموقع | 🟢 | يحتاج فهرسة أكثر للصفحات الإنجليزية أولاً |
+
+---
+
+#### ما يحتاج انتظار فقط (لا إصلاح مطلوب)
+
+- **26 صفحة "discovered not crawled"** — طبيعي جداً لموقع عمره أسبوعان. Google سيزحف عليها تدريجياً بعد إصلاح canonical
+- **5 صفحات مفهرسة حالياً** — هذا متوقع في الأسابيع الأولى، لا دليل على حظر
+- **"pages with redirect" في GSC** — HTTP→HTTPS redirects طبيعية ومنتظرة
+- **"alternate with proper canonical"** في GSC — الصفحات البديلة التي Googlebot اختار canonical آخر لها، ستُحل بعد الإصلاح
+
+---
+
+#### ما يحتاج إصلاح — مرتب بالأولوية
+
+1. 🔴 **Canonical Mismatch** — إزالة `.html` من جميع `<link rel="canonical">` في 28 ملف HTML + صفحتي Homepage العربية والإنجليزية (30 ملف إجمالاً)
+   - مثال التعديل: `href="https://alfareslab.com/services/hdd-data-recovery.html"` → `href="https://alfareslab.com/services/hdd-data-recovery"`
+
+2. 🔴 **Hreflang Mismatch** — إزالة `.html` من جميع `<link rel="alternate" hreflang="...">` في 30 ملف
+   - نفس المنطق — الـ AR وEN وx-default كلها تحتاج تحديث
+
+3. 🔴 **Sitemap URLs** — تحديث `sitemap.xml` لإزالة `.html` من الـ 28 URL + جميع `xhtml:link` annotations (حوالي 56 سطر)
+
+4. 🟡 **Schema URL fields** — تحديث `@id` وurl في JSON-LD داخل ملفات الخدمة لتستخدم Clean URLs (بعد الانتهاء من الـ canonical أولاً)
+
+5. 🟡 **URL بعلامة الاقتباس `"`** — تحديد مصدر الرابط `https://alfareslab.com/"` وإصلاحه (grep في جميع HTML)
+
+6. 🟡 **LCP = 52.6s** — ضغط صورة Hero وإضافة `preload` لأول صورة في السلايدر (Plan 53 المؤجل)
+
+7. 🟢 **AI Crawlers policy** — مناقشة مع المطور: هل يرفع الحجب عن GPTBot/ClaudeBot/Google-Extended في `robots.txt` المحلي؟ (Cloudflare يتجاوزه — يحتاج إعداد Cloudflare Dashboard)
+
+8. 🟢 **llms.txt** — إنشاء ملف `llms.txt` بسيط لتوجيه LLM crawlers
+
+---
+
+#### ملاحظة للـ Code Agent
+
+**الملفات التي تحتاج تعديل (الأولوية الأولى):**
+- `services/*.html` — 12 ملف: تحديث canonical + hreflang في `<head>` (إزالة `.html`)
+- `en/services/*.html` — 12 ملف: نفس التعديل
+- `about-lab.html` + `privacy-policy.html` + `en/about-lab.html` + `en/privacy-policy.html` — 4 ملفات
+- `sitemap.xml` — تحديث شامل
+
+**النمط الثابت للتعديل في كل ملف:**
+```
+قبل:  href="https://alfareslab.com/services/hdd-data-recovery.html"
+بعد:  href="https://alfareslab.com/services/hdd-data-recovery"
+
+قبل:  href="https://alfareslab.com/en/services/hdd-data-recovery.html"
+بعد:  href="https://alfareslab.com/en/services/hdd-data-recovery"
+```
+
+**الصفحتان الرئيسيتان (`index.html` و`en/index.html`):** لا تحتاجان تعديل canonical — قيمتهما `/` و`/en/` صحيحتان بالفعل. لكن تحتاجان تعديل hreflang إذا أشارا لصفحات أخرى بـ `.html`.
+
+**أسلوب التنفيذ المقترح:** سكربت PowerShell يُطبق الاستبدال على جميع ملفات HTML دفعةً واحدة، مع فحص يدوي بعدها للتأكد. هذا أسرع وأأمن من تعديل 28 ملف يدوياً.
+
+✅ اكتمل الفحص الكامل — التقرير جاهز
+
+---
+
+### نتائج المرحلة 9: مراجعة الخطط السابقة — إصلاحات URLs
+
+*(كُتبت بواسطة Claude Code — وكيل الملفات — 2026-05-18)*
+
+---
+
+#### ملخص تنفيذي
+
+**النتيجة الجوهرية:** مشكلة الـ Canonical Mismatch الحالية (.html vs Clean URL) **لم تُعالج قط** في أي خطة سابقة. كل الإصلاحات السابقة كانت تفترض أن `.html` هو الـ URL الصحيح، ولم يكتشف أحد أن Cloudflare يحوّل `.html` → Clean URL بـ 308.
+
+---
+
+#### الخطط التي فحصت أو عدّلت URLs / Canonical / Hreflang
+
+---
+
+**📋 Plan 44 — English Content Rollout (2026-05-03)**
+- **ما فعله:** أنشأ جميع صفحات `/en/` وفعّل hreflang ثنائي الاتجاه على جميع الصفحات
+- **شكل الـ Canonical الذي ضُبط:**
+  ```
+  https://alfareslab.com/services/hdd-data-recovery.html  ← عربي
+  https://alfareslab.com/en/services/hdd-data-recovery.html  ← إنجليزي
+  ```
+- **الـ Hreflang الذي ضُبط:** نفس الصيغة — `.html` في كل مكان
+- **الـ Sitemap:** تحديث بـ xhtml:link annotations — جميعها بصيغة `.html`
+- **هل اكتُشفت مشكلة Cloudflare؟** ❌ لا — لأن Cloudflare لم يكن "Pretty URLs" في البال
+
+---
+
+**📋 Plan 46 — Bilingual Routing & Content Reconciliation (2026-05-03/04)**
+- **ما فعله:** إصلاح جوهري في منطق مبدّل اللغة (JS) — من `localStorage` إلى URL path-based
+- **المشكلة التي حُلّت:** `/en/en/` nested paths، وأن AR تفتح EN والعكس صحيح
+- **هل لمس Canonical/Hreflang URLs؟** ❌ لا — فقط إصلاح JavaScript للتنقل
+- **الروابط الداخلية في الـ JS:** `main.js` يبني URLs بصيغة `.html` (مثل `/en/services/hdd-data-recovery.html`)
+
+---
+
+**📋 Plan 48 — Internal Linking (2026-05-04)**
+- **ما فعله:** حذف dropdown الناف، تحويل 5 نقاط في كارد البيانات لروابط `<a>`
+- **شكل الروابط الداخلية المضافة:**
+  ```html
+  <a href="services/hdd-data-recovery.html">...</a>
+  <a href="services/flash-sd-data-recovery.html">...</a>
+  ```
+- **هل لمس Canonical/Hreflang؟** ❌ لا
+- **ملاحظة:** جميع الروابط الداخلية المضافة تستخدم `.html` — هذه الروابط نفسها ستتبع 308 redirect عند النقر
+
+---
+
+**📋 Plan 49 — Pre-Launch SEO Audit (2026-05-04)**
+- **الفحص 1.1:** "scan for `<link rel="canonical">` — يجب أن يكون URL بدون `?lang=`"
+  - ✅ نجح — لأن الشرط كان غياب `?lang=` فقط، وليس غياب `.html`
+  - **الثغرة:** لم يُفحص التوافق مع URL الفعلي الذي يخدمه Cloudflare
+- **الفحص 3.6:** "URLs في الـ sitemap تطابق canonical URLs في HTML — يجب أن يتطابقا بالضبط"
+  - ✅ نجح — لأن كليهما يستخدمان `.html` فتطابقا
+  - **الثغرة:** لم يُقارن بالـ URL الفعلي الذي يصله Google من Cloudflare
+- **الخلاصة:** التدقيق لم يختبر الفرق بين canonical في الملف والـ URL الذي يصله Googlebot
+
+---
+
+**📋 Plan 50 — Pre-Launch Fixes (2026-05-05)**
+- **الإصلاحات المنفذة:** noindex على 404.html، إزالة hreflang مكرر في mac-data-recovery، ضبط meta description lengths
+- **هل لمس Canonical/Sitemap URLs؟** ❌ لا — التقرير من Plan 49 لم يُشر لأي مشكلة فيهما
+- **إصلاح [C-1] — 404.html canonical:** ضُبط على `https://alfareslab.com/404.html` بصيغة `.html`
+
+---
+
+**📋 Plan 51 — Pre-Launch Audit v2 (2026-05-05)**
+- **Phase 1 findings (canonical/hreflang):** كشف مشاكل في أطوال العناوين والأوصاف ومشكلة `404.html hreflang`
+- **لم يكتشف:** أن `.html` في canonical يتعارض مع Cloudflare Clean URLs
+- **Phase 3 (sitemap vs canonical):** نجح الفحص — لأن الـ sitemap والـ canonical كلاهما `.html`
+- **الإصلاح الوحيد المتعلق بالروابط:** إصلاح 14 رابط في footer الـ EN pages كانت تشير لـ AR pages (ناقص `en/` prefix)
+- **هذا الإصلاح:** غيّر روابط من `services/hdd...html` → `en/services/hdd...html` — لكنها لا تزال `.html`
+
+---
+
+**📋 Plan 52 — Schema.org Entity Fix (2026-05-06)**
+- موضوع مختلف تماماً — إصلاح Schema JSON-LD فقط، لا صلة بـ URLs
+
+---
+
+**📋 الوثيقة: 42-trailing-slash-permanent-fix_Datacodex.md**
+- ⚠️ هذه الوثيقة **خاصة بمشروع Datacodex** وليس Alfareslab
+- تتناول إصلاح trailing slash في Astro framework (build step)
+- Alfareslab هو موقع HTML/CSS/JS ساكن بلا build step
+- **لا علاقة لها بمشاكل alfareslab.com الحالية**
+
+---
+
+#### جدول ملخص: هل تم إصلاح مشكلة الـ Canonical مسبقاً؟
+
+| الخطة | ما لمسته | هل اكتشفت مشكلة .html vs Clean URL؟ | هل أصلحتها؟ |
+|--------|---------|--------------------------------------|-------------|
+| Plan 44 | أنشأ canonical/hreflang بـ .html | ❌ | ❌ |
+| Plan 46 | إصلاح JS فقط | ❌ | ❌ |
+| Plan 48 | روابط داخلية بـ .html | ❌ | ❌ |
+| Plan 49 | فحص canonical (معيار خاطئ) | ❌ | ❌ |
+| Plan 50 | إصلاحات أخرى | ❌ | ❌ |
+| Plan 51 | فحص canonical (نفس المعيار) | ❌ | ❌ |
+| Plan 52 | Schema فقط | ❌ | ❌ |
+
+---
+
+#### ما الذي تم فعلاً مرتين (كما ذكر المطور)؟
+
+استناداً للخطط:
+1. **المرة الأولى:** Plan 44 — إضافة hreflang و canonical على جميع الصفحات (بصيغة .html)
+2. **المرة الثانية:** Plan 51 — إصلاح روابط EN footer (إضافة `en/` prefix) + تصحيح 404.html
+
+**كلتا المرتين** كانت تتعامل مع `.html` كصيغة صحيحة، لأن مشكلة Cloudflare لم تكن معروفة.
+
+---
+
+#### النتيجة لخطة الإصلاح القادمة
+
+🔴 **إصلاح جديد تام مطلوب — لم يُنفَّذ قط:**
+1. تحديث جميع `<link rel="canonical">` في 30 ملف HTML: إزالة `.html` من نهاية URL
+2. تحديث جميع `<link rel="alternate" hreflang="...">` في 30 ملف HTML: نفس الإزالة
+3. تحديث `sitemap.xml`: تحديث الـ 30 URL الرئيسية وجميع `xhtml:link` annotations
+4. اختياري: تحديث الروابط الداخلية في HTML لتشير لـ Clean URLs (أولوية أقل)
+
+✅ **لا حاجة لإصلاح:**
+- بنية الملفات — Cloudflare يخدمها صحيح
+- `robots.txt` — سليم
+- Schema JSON-LD — محدّث (Plan 52)
+- منطق مبدّل اللغة — يعمل (Plan 46)
+
+✅ تم المرحلة 9
