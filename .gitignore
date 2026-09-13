@@ -1,0 +1,15 @@
+# Local secrets - never commit (Plan 58 OAuth credentials, refresh tokens)
+/secrets/
+
+# Syncthing conflict copies - never commit, never track
+*.sync-conflict-*
+
+# Local agent/tool settings
+.claude/
+
+# Temporary work folders (archived externally, not part of the site)
+scratch/
+temp_archive/
+
+# Credential files - defensive, must never enter git
+**/cloudflare_Token.md
