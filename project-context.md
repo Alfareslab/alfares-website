@@ -15,6 +15,8 @@ Al-Fares Lab website (`alfareslab.com`) is a static bilingual (AR + EN) single-p
 >
 > **Plan 57 is now fully closed** (committed `a3dbf00`, deployed to Production on `main`, confirmed live via direct HTTP check). Two items are now queued for discussion, in no fixed order: Plan 53 (Hero image WebP conversion + performance) and Plan 58 (Live Google Reviews Sync via scheduled GitHub Action — drafted 2026-07-10, kept as its own plan rather than merged into 53, per the Proven-Baseline "one concern per plan" principle). Plan 58 has one open decision the developer must confirm before work starts: Google Places API only returns 5 individual reviews per request, so the current 21-review showcase would shrink to 5 real ones (the aggregate rating/count would still be 100% accurate and live).
 >
+> **Repository state (2026-09-13, Plan 60):** the working tree is clean for the first time in months — 68 Syncthing `sync-conflict` copies and the stale `scratch/`/`temp_archive/` folders are gone, `.gitignore` now blocks them from returning, and all plans and SEO documents are tracked. The local branch was renamed `master` → `main` and now tracks `origin/main`, the Cloudflare Pages production branch; it previously tracked the obsolete `origin/prelaunch-2026-05-06`. No live site file changed. External backup of everything removed: `F:/Myprojects/Alfareslab_backup_2026-09-13/`. This was the prerequisite for Plan 59.
+>
 > **Full indexing/SEO history:** `docs/indexing/00-seo-indexing-master-playbook.md` (compiled 2026-07-10) — every indexing plan and audit from Plan 37 (2026-05-01) onward, what worked, what failed and why, the Plan 54 root-cause deep dive, and a reusable playbook for future projects. Read this before starting any new SEO/indexing work on this project.
 
 ### What Works ✅
@@ -97,6 +99,8 @@ Al-Fares Lab website (`alfareslab.com`) is a static bilingual (AR + EN) single-p
 | **56** | Indexing & SEO Fix Plan — built from Plan 55 audit (CTR, page speed, schema depth, GBP, colloquial keywords) | 🔴 Pending |
 | **57** | Fix — `en/index.html` footer smart-quote corruption (2026-07-09) | ✅ Complete — verified, committed (`a3dbf00`), deployed to Production, confirmed live |
 | **58** | Live Google Reviews Sync — replace 21 stale hardcoded reviews (last dated 2025-01-15) + static "4.8" rating with a weekly GitHub Action. **Pivoted 2026-07-15 (v3.0.0) from Places API to Business Profile API** — developer wants zero Google Cloud billing/card linkage, so the plan now uses free OAuth 2.0 (Refresh Token) instead of a Places API key, gaining access to all ~100 real reviews (paginated) instead of just 5 | 🟡 Group 1 (OAuth setup) in progress — blocked on Google's GBP API Access Request approval (Case ID 2-9252000041078, submitted 2026-07-23, 7-10 business days) |
+| **59** | Datacodex Cards Bridge — build-time injection of content cards from `datacodexlab.com/feed.json` into service pages (spec handed over 2026-09-13, v3.0.0) | 🟡 Draft — awaiting developer approval; blocked on Cloudflare settings snapshot |
+| **60** | Repository Cleanup — remove Syncthing sync-conflict copies, resolve deployment branch (2026-09-13) | ✅ Complete |
 
 ### Plan 46 Progress (Bilingual Routing & Reconciliation)
 

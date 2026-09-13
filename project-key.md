@@ -137,6 +137,9 @@ Alfareslab_2026/                          ← Project root
 │       ├── 04-status_2026-07-09.md           ← Full live GSC "Page Indexing" report (pasted 2026-07-09) — source for the footer quote-bug discovery
 │       └── alfareslab.com-Coverage-Drilldown-2026-07-09/ ← Raw GSC CSV export (single-issue: Crawled - not indexed)
 │
+├── 📂 docs/audits/                       ← Audit findings
+│   └── 51-pre-launch-audit-v2-findings.md ← Plan 51 pre-launch audit v2
+│
 ├── 📂 scripts/                           ← Helper scripts
 │   └── serve-local.bat                   ← Batch script to run local server
 │
@@ -148,10 +151,15 @@ Alfareslab_2026/                          ← Project root
 │   ├── 54-fix-2026-05-18-canonical-clean-url.md ← Complete: Canonical mismatch fix
 │   ├── 55-audit-2026-06-20-indexing-status.md   ← Complete: Indexing audit — 5 phases
 │   ├── 57-fix-2026-07-09-en-footer-smart-quotes.md ← Complete: footer smart-quote corruption fixed and deployed 2026-07-10
-│   └── 58-live-google-reviews-sync.md         ← Drafted: scheduled GitHub Action to replace stale hardcoded reviews with live Google Places data
+│   ├── 58-live-google-reviews-sync.md         ← Drafted: scheduled GitHub Action to replace stale hardcoded reviews with live Google Places data
+│   ├── 59-datacodex-cards-bridge.md           ← Draft: build-time content cards from datacodexlab.com/feed.json into service pages (spec v3.0.0, 2026-09-13)
+│   └── 60-fix-2026-09-13-repo-cleanup-sync-conflicts.md ← Complete: sync-conflict cleanup + branch resolution (prerequisite for Plan 59)
 │
-├── 📂 reviews/                           ← Review decisions
-│   └── 01-review-alfares-service-pages-strategy.md ← Service pages strategy
+├── 📂 docs/reviews/                      ← Review decisions
+│   ├── 01-review-alfares-service-pages-strategy.md ← Service pages strategy
+│   ├── 02-review-repo-cleanup-decisions.md ← Plan 60 decisions (9 items, answered 2026-09-13)
+│   ├── 58-01-google-reviews-research-perplexity.md ← Plan 58 research
+│   └── 58-02-google-reviews-research-gemini.md     ← Plan 58 research
 │
 └── 📂 Legacy docs (root level)
     ├── BUGFIX_v1.0.1.md                  ← v1.0.1 bugfix log
@@ -206,3 +214,12 @@ Alfareslab_2026/                          ← Project root
 | Google Analytics 4 | Traffic analytics | GA4 tag in index.html |
 | Google Business Profile | Local SEO + Reviews | Linked via Schema |
 | Datacodex (sister site) | Cross-linking articles | URL-based links only |
+
+
+---
+
+## Repository hygiene (Plan 60, 2026-09-13)
+
+- `.gitignore` blocks Syncthing `*.sync-conflict-*` copies, `.claude/`, `scratch/`, `temp_archive/` and credential files.
+- `scratch/` and `temp_archive/` were removed from tracking; their contents remain recoverable from commit `a3dbf00` and from the external backup at `F:/Myprojects/Alfareslab_backup_2026-09-13/`.
+- Deployment branch is `main` (Cloudflare Pages production). The local branch tracks `origin/main`.

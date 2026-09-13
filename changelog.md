@@ -5,6 +5,24 @@
 
 ---
 
+## Unreleased — 2026-09-13 (Plan 60 — Repository Cleanup)
+
+### Removed
+- Deleted 68 untracked Syncthing `*.sync-conflict-*` copies (34 unique contents duplicated twice, all dated 2026-05-06 and superseded by `HEAD`). Verified before deletion: 64 of their base files were byte-identical to the published commit `a3dbf00`, and the remaining 4 (`project-context.md`, `project-key.md`) had newer local edits committed in this same cleanup.
+- Removed 16 tracked files under `scratch/` and `temp_archive/` — pre-launch tooling and page templates superseded since `b162eea`. Nothing in the live site referenced them and they were absent from `sitemap.xml`, so 8 crawlable orphan HTML templates disappear from the site as a side effect.
+- Deleted `docs/cloudflare_Token.md` (never entered git history — verified with `git log --all`; no leak occurred).
+- All removals archived outside the repository at `F:/Myprojects/Alfareslab_backup_2026-09-13/` before deletion; tracked ones also remain recoverable from `a3dbf00`.
+
+### Added
+- `.gitignore`: exclude `*.sync-conflict-*`, `.claude/`, `scratch/`, `temp_archive/` and credential files, so Syncthing conflict copies never reappear in `git status`.
+- Tracked plans 48, 49, 52, 53, 55, 58, 59 (Datacodex cards bridge) and 60, plus `docs/indexing/`, `docs/audits/`, `docs/Google_indexing/`, `docs/reviews/`, `docs/Chats/`.
+
+### Changed
+- Local branch renamed `master` → `main` and its upstream corrected from `origin/prelaunch-2026-05-06` to `origin/main` (the Cloudflare Pages production branch). No merge was needed: the local tree already matched `origin/main` at `a3dbf00`.
+- No change to any live site file — all changes are documentation and repository hygiene.
+
+---
+
 ## Unreleased — 2026-07-09 (Indexing Follow-up + Footer Bug Discovery)
 
 ### Investigated (no code changes)
