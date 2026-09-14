@@ -482,6 +482,91 @@ Committed as `8adbebb` on `preview/dist-output` (stacked on `0a74e28`) and pushe
 
 **Drift status:** None.
 
+## Ahmed Approval Entry — Review Gate 3b closed, Groups 5-6 opened
+
+Ahmed approved the Section 7.4 result and closed Review Gate 3b: the `dist/` output-folder architecture is confirmed on Preview across deployments `581e3c3e` and `1014ac93` — clean URLs serve from `dist/` exactly as they did from the root, the `.html` → clean-URL redirect is a correct 308, canonical tags are unchanged, every project document is 404, `x-robots-tag: noindex` is confirmed live, the card is present in page source with a local (non-hotlinked) image, and the empty-slot behavior now matches Section 5.1 literally after fix `8adbebb`.
+
+Ahmed opened Groups 5 and 6 (card visual design + binding copy rules) merged, for Sonnet, with these standing constraints: fully local execution; pushes allowed only to `preview/dist-output`; `main` untouched; no Production; no Group 7 or later; no Cloudflare/`_headers`/`_redirects` access — including for reviewing this round's result and closing Gate 4.
+
+## Sonnet Execution Entry 11 — Groups 5-6: Card Design, Binding Copy Rules, Explore Slot
+
+**Scope:** implemented Group 5 (final card visual design) and Group 6 (binding copy/link rules, including the JSON-LD schema), fully local, committed and pushed to `preview/dist-output` only. No `main`, no Cloudflare, no `_headers`/`_redirects`, no Group 7 (homepage/region pages).
+
+### Clarifications obtained before implementation
+
+Two points in the plan text were ambiguous enough to block a design decision affecting all 20 pages, so they were put to the developer before any code was written:
+
+1. **Placement of the "explore the full documentation log" button (Group 6):** approved as **once per page, before the final CTA** — not once per card group.
+2. **JSON-LD (`ItemList → ListItem → CreativeWork`):** approved to be **implemented in this same round**, alongside the card design, rather than deferred.
+
+A third point surfaced during implementation: the explore button needs an anchor in the tracked HTML that the current two-marker system (`intro`/`footer`) does not provide, and `slot="footer"` is bound to the "zero items = zero HTML" rule (Section 5.1) — so a literal reading would make the button disappear together with the footer cards, which is wrong for a page-wide link. Touching the 20 tracked source pages a second time (beyond the marker/link additions already approved) crosses the ">5 files" stop-and-ask threshold in the general rules, so this was also put to the developer before editing. Ahmed's response, folded into the constraints below:
+
+1. **A third marker, `slot="explore"`, is approved** — added once to the 20 tracked pages, immediately before the final CTA.
+2. **🔴 Binding rule not covered by the original question:** the explore link (and its JSON-LD) prints **only when the page has at least one card in any slot**; a zero-card page gets zero HTML in `slot="explore"` too — not even a comment — exactly like Section 5.1. Rationale given: today's live feed leaves 10 of 12 service pages with zero matching cards, and a link leading off-site with no supporting context above it would contradict the approved design and be commercially harmful.
+3. **A new, isolated stylesheet is required** (`assets/css/datacodex-cards.css`) rather than appending to `service-pages.css`, for rollback isolation — a broken card style must be reversible by removing one `<link>` line, not by manually untangling changes from a shared, already-stable file. The plan's Group 3 section explicitly allows this exception, and since the 20 pages were already being touched for the marker, the added `<link>` line cost nothing extra.
+4. **Scope limit on the 20 tracked pages:** only the `slot="explore"` marker pair and one new `<link>` line, nothing else; any deletion or per-file inconsistency is a stop-and-report condition.
+
+### One-time tracked-source edit (20 pages)
+
+Added, once, to each of the 20 topic-matched service pages (`services/` + `en/services/`):
+- `<link rel="stylesheet" href="assets/css/datacodex-cards.css">`, immediately after the existing `service-pages.css` link.
+- `<!-- datacodex-cards:begin topic="<id>" slot="explore" -->` / `...:end...` immediately after the existing footer marker pair, before `<div class="service-cta">`.
+
+`git diff --stat services/ en/services/` after the edit: **exactly 20 files, each `+3/-0`, `60 insertions(+)` total, zero deletions, zero variance** — verified before writing any script/CSS code.
+
+### Card design (Group 5) — `assets/css/datacodex-cards.css`
+
+New, isolated stylesheet (not merged into `service-pages.css`, per Ahmed's explicit decision above). Implements the approved "inline reference" design: desktop image 34% / content 66%, no heavy shadow or colored background, `border: 1px` plus a 3-4px `border-inline-start` accent, preamble → title → summary → date → CTA order, the approved sizes/padding/gaps, mobile media-row layout (image beside text down to ~700px, stacked only under 380px), no lift on hover (only `border`/`background` change, underline on the CTA, and a `scale(1.015)` on the image inside `overflow: hidden`), `prefers-reduced-motion: reduce` respected, and **logical properties only** — no `[dir="ltr"]`/`[dir="rtl"]` selector overriding a logical property (the exact bug the plan calls out as fixed in the prototype). All colors/spacing reuse `base.css` tokens directly (identical variable names to the approved prototype), so light/dark both work with zero new tokens.
+
+`renderCard()` (`scripts/build-cards.mjs`) emits the real markup — `.datacodex-card` / `__media` / `__content` / `__preamble` / `__title` / `__summary` / `__date` / `__cta` — replacing the old `PLACEHOLDER pending Group 5/6` div. The video badge (`▶ فيديو على Datacodex` / `▶ Video on Datacodex`) renders only when `item.hasVideo === true`; no circular play button was added anywhere. Every field remains sanitized through `escapeHtml`/`escapeAttr`.
+
+### Binding copy rules (Group 6)
+
+- Approved bilingual copy for the preamble, CTA ("اطّلع على التوثيق الكامل على Datacodex" / "View the full documentation on Datacodex"), video badge, group note ("من مدونتنا التقنية — داتا كودكس لاب" / "From our technical blog — Datacodex Lab"), and explore-button text, all in a `CARD_COPY` table keyed by `lang`.
+- Dates render locale-formatted via `Intl.DateTimeFormat` (`ar-SA-u-nu-latn` for Arabic — Western digits, matching the rest of the site's body copy — and `en-US` for English), not a raw ISO slice.
+- **No `rel="nofollow"`, no `target="_blank"`** on any card CTA or the explore link — verified by a permanent test scanning every rendered `<a>` tag of both kinds.
+- **JSON-LD** (`ItemList → ListItem → CreativeWork`) is emitted inside the `explore` slot's HTML — one script per page, covering exactly the cards actually rendered on that page (intro + footer, in that order; any item dropped by the 1-intro/2-footer cap is excluded, so JSON-LD never promises content the page doesn't show). `publisher` is `{"@type":"Organization","name":"Datacodex"}` on every `CreativeWork`; **no `author` field and no `mainEntityOfPage`** are ever emitted, verified by a permanent test asserting their absence and asserting `alfareslab.com` never appears inside the JSON-LD block (Alfares cites, it does not claim ownership).
+- The accessible name (`aria-label`) on each `<article class="datacodex-card">` states the Datacodex destination and, when applicable, that a video is involved (Group 6's screen-reader requirement).
+
+### Tests
+
+`node --test scripts/build-cards.test.mjs`: **101/101 passed across 11 suites.** New/updated coverage:
+- Marker cardinality updated from 2 to 3 slots (`intro`, `footer`, `explore`) per tracked page — the existing per-topic-per-lang tests now assert all three.
+- A page with zero matching cards on every slot has zero trace of any of the three marker pairs, zero `datacodex-explore`, and zero card JSON-LD (`"CreativeWork"` absent) — extending Section 5.1 explicitly to the `explore` slot per Ahmed's rule above.
+- A page with at least one card: the explore link renders once, sits before the final CTA in document order, and carries neither `rel="nofollow"` nor `target="_blank"`.
+- JSON-LD shape/publisher/no-author/no-mainEntityOfPage/no-Alfares-domain assertions (distinguishing this block from the page's own pre-existing, unrelated `BreadcrumbList` JSON-LD, which also uses `itemListElement` — the new tests key off the `"CreativeWork"` type specifically).
+- Video badge renders only for `hasVideo: true` items; confirmed absent for a `hasVideo: false` fixture item on a different page.
+- Card CTA links carry neither `rel="nofollow"` nor `target="_blank"`.
+- The pre-existing HTML-escaping regression test was narrowed to the card region specifically (rather than the whole page), because the JSON-LD block legitimately carries the *raw*, non-HTML-escaped title as a JSON string value — correct and safe, since `safeJsonLdStringify` neutralizes only the `</script` breakout sequence, not HTML entities, and `<script>` content is not HTML-parsed.
+
+### Real-feed local verification
+
+Built with the live two-item feed (`node scripts/build-cards.mjs`): topics with a match (`hdd-internal`, `ssd-nvme`) render the card + group note + explore link + JSON-LD, all before the CTA, with exactly one blank line preserved where markers were removed elsewhere. The seven topics with zero live matches today (`mac`, `laptop-pc`, `flash-sd`, `raid-nas`, `dvr-nvr`, `ransomware`, `database-erp`, `hdd-external`) show **zero marker trace and zero double-blank-line artifacts** — spot-checked directly in the built files.
+
+### Byte-for-byte re-verification (Guarantee 3)
+
+Re-ran the fixed-fixture methodology (now with one `hasVideo: true` item to also exercise the video badge branch), built twice, snapshotted each run, and compared:
+
+```
+diff -r dist-run-1 dist-run-2
+```
+
+Result: no differences — Guarantee 3 holds after the full Group 5-6 implementation.
+
+### Source integrity and commit
+
+`git status --porcelain` before committing showed exactly: the 20 service pages, `scripts/build-cards.mjs`, `scripts/build-cards.test.mjs`, and two untracked new files (`assets/css/datacodex-cards.css`, `_redirects`). Staged explicitly by path (no `git add -A`/`.`) — `_redirects` was confirmed still `??` after staging. `git diff --stat services/ en/services/` on the staged set: 20 files, `+3/-0` each, `60 insertions(+)` total, matching the pre-implementation check exactly.
+
+Committed as `c486831` on `preview/dist-output` (stacked on `9f843db`) and pushed with `git push origin preview/dist-output`. `origin/main` was confirmed unchanged before and after the push (`19a0b32920d080be0b88f3f9997d50c7888ad260` both times) — no push, merge, or fast-forward to `main` occurred. `dist/` was deleted after every local verification pass.
+
+### ⚠️ Explicit blocker before any merge to main
+
+**No Cloudflare Preview verification of this round's visual/copy changes has happened yet.** This round was fully local — CSS rendering, JSON-LD correctness in a real crawler/rich-results context, and the explore-link gating have only been checked against the built HTML files and the permanent test suite, not against a live deployment. Gate 4 (per Ahmed's own framing) requires reviewing this round's result before any merge decision, and Cloudflare/`_headers`/`_redirects` access remains off-limits until then.
+
+**Progress:** Groups 5-6 implemented, tested (101/101), and pushed to `preview/dist-output` only. `main` remains untouched. Group 7 and later remain not started.
+
+**Drift status:** None.
+
 ## Requirements for the Proposed v3.3 Documentation Revision
 
 1. Inventory the full repository root and classify each entry as public, excluded, or requiring Ahmed's decision.
