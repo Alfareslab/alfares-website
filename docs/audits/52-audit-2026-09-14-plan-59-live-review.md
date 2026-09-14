@@ -6,7 +6,7 @@
 > **Consultant 2:** Cloud OPUS  
 > **Executor:** Sonnet  
 > **Final authority and manual relay:** Ahmed  
-> **Audit status:** Active — Plan 59 v3.3.1 approved finally by Ahmed; Group 2 authorized
+> **Audit status:** Active — Review Gate 2 closed by Ahmed; Groups 3-4 open until Review Gate 3
 
 ## Current Handoff
 
@@ -18,7 +18,11 @@
 - **Manager review:** passed. Gate order, exact `dist/` contract, exclusions, deterministic comparison, and the full SEO matrix now satisfy the requested corrections.
 - **Operational recommendation:** retain `Build watch paths = *`; the failure behavior is already intentional and no new material evidence justifies reopening that decision.
 - **Final approval:** Ahmed approved Plan 59 v3.3.1 in writing on 2026-09-14.
-- **Next owner:** Sonnet records the approved status, creates the authorized local documentation checkpoint, performs Group 2 inventory/design only, and stops at Gate 2.
+- **Group 2 result:** Sonnet recorded a complete classification of 40 existing root entries plus the planned `dist/` entry, with no unresolved classification.
+- **Checkpoint:** local commit `f7537c117c72e7abc7511cb5bd7952994317fb36` contains exactly the six authorized documentation files; `_redirects` remains untracked and outside the commit.
+- **Runtime proposal:** accept `NODE_VERSION=24.20.0`. Node 24 is a mature LTS line first released in May 2025; 24.20.0 is an LTS maintenance release inside that line, and Cloudflare supports explicit Node selection through `NODE_VERSION`.
+- **Gate 2 approval:** Ahmed accepted the Group 2 result and closed Review Gate 2 in writing on 2026-09-14.
+- **Next owner:** Sonnet executes the segment from Group 3 through Group 4 and stops at Review Gate 3. Group 4 is included because the Gate 3 acceptance output requires the tracked source markers defined there.
 - **Prohibited now:** implementation code, HTML/CSS/JS changes, Cloudflare changes, `_redirects` changes or inclusion, push, or deployment.
 - **Drift status:** None.
 
@@ -36,6 +40,8 @@
 | D08 | Manager recommendation | Keep `seo/structured-data.json` and `service-page-premium-compare.html` public and unchanged during Plan 59 to avoid unrelated live-URL removal; audit them separately only with indexing evidence |
 | D09 | Passed | Plan 59 v3.3.1 satisfies the targeted correction pass and is recommended for Ahmed's final approval |
 | D10 | Finally approved | Ahmed approved Plan 59 v3.3.1 in writing on 2026-09-14; Sonnet may proceed with Group 2 design/inventory only |
+| D11 | Passed | Group 2 inventory, `dist/` contract, exclusions, and `NODE_VERSION=24.20.0` passed Codex review; recommend Ahmed close Gate 2 |
+| D12 | Approved | Ahmed closed Review Gate 2 and authorized the next implementation segment under Plan 59 v3.3.1 |
 
 ## Evidence Register
 
@@ -101,6 +107,30 @@ No second Cloud OPUS review is required because v3.3.1 introduces no new archite
 - **Recorded:** 2026-09-14
 - **Immediate scope opened:** Group 2 design and repository-root inventory only.
 - **Next mandatory stop:** Review Gate 2 before any build-script implementation.
+
+## Review Entry 05 — Codex Review of Group 2
+
+**Result: passed — recommend Ahmed close Review Gate 2.**
+
+- Verified commit `f7537c117c72e7abc7511cb5bd7952994317fb36`: exactly six authorized documentation files, no push, and `_redirects` excluded.
+- Verified the inventory against the working tree: 40 existing root entries plus the explicitly planned, currently absent `dist/` entry equals the recorded 41 classifications.
+- Every current root entry is classified. Required runtime content remains public; repository metadata, credentials, tools, plans, reviews, and internal documentation are excluded.
+- `seo/structured-data.json` and `service-page-premium-compare.html` remain public and unchanged under D08.
+- Accepted `NODE_VERSION=24.20.0`: the Node 24 production line is LTS and mature; the selected version is an official LTS maintenance release. Cloudflare documents explicit Node version selection through `NODE_VERSION`.
+- Markdown hard-break trailing spaces in the audit metadata are intentional formatting and non-blocking.
+- No Cloud OPUS consultation is required: Group 2 introduces no new architectural decision or evidence contradicting the consultant's approved direction.
+
+**Authorization state at review completion:** Group 3 was closed pending Ahmed's decision; the approval entry below supersedes that hold.
+
+## Gate 2 Approval Entry — Ahmed
+
+> Ahmed approved the Group 2 result, closed Review Gate 2, and authorized opening Group 3 under Plan 59 v3.3.1.
+
+- **Recorded:** 2026-09-14
+- **Executable segment:** Group 3 script and Group 4 source markers, ending at Review Gate 3.
+- **Still closed:** Groups 5-8, Cloudflare output-directory changes, Production, deploy hook, push, and deployment.
+- **Reason Group 4 is in this segment:** the approved Gate 3 is positioned after Group 4 and requires testing generated output against the one-time tracked markers.
+- **Drift status:** None.
 
 ## Requirements for the Proposed v3.3 Documentation Revision
 
