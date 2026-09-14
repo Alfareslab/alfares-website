@@ -1,7 +1,7 @@
 # 📁 Project Key — Al-Fares Lab Website
-> **Version:** 1.2.5
-> **Last Updated:** 2026-07-09
-> **Total Files:** ~106 (excluding .git)
+> **Version:** 1.3.0
+> **Last Updated:** 2026-09-14
+> **Total Files:** ~106 (excluding .git, excluding gitignored `dist/`)
 
 ---
 
@@ -38,7 +38,11 @@ Alfareslab_2026/                          ← Project root
 ├── 🗺️ sitemap.xml                        ← XML sitemap for search engines
 ├── 🔒 _headers                           ← Cloudflare custom headers
 ├── 📄 .env.example                       ← Environment variables template
-├── 📄 .gitignore                         ← Added 2026-07-23 (Plan 58) — excludes /secrets/
+├── 📄 .gitignore                         ← Added 2026-07-23 (Plan 58) — excludes /secrets/; Plan 59 added /dist/
+│
+├── 🚫 dist/                              ← Plan 59 build output — gitignored, never tracked, regenerated on every
+│                                            Cloudflare build by `scripts/build-cards.mjs`. This is what actually
+│                                            gets published, not the repo root
 ├── 📄 README.md                          ← Project overview
 ├── 📄 DEPLOYMENT.md                      ← Deployment guide
 │
@@ -141,8 +145,12 @@ Alfareslab_2026/                          ← Project root
 │   ├── 51-pre-launch-audit-v2-findings.md ← Plan 51 pre-launch audit v2
 │   └── 52-audit-2026-09-14-plan-59-live-review.md ← Living review, evidence, gate status, and handoffs for active Plan 59
 │
+├── 📂 assets/css/datacodex-cards.css     ← Plan 59 — Datacodex content-cards styling, loaded on every page
+│
 ├── 📂 scripts/                           ← Helper scripts
-│   └── serve-local.bat                   ← Batch script to run local server
+│   ├── serve-local.bat                   ← Batch script to run local server
+│   ├── build-cards.mjs                   ← Plan 59 — Cloudflare Pages build step (`node scripts/build-cards.mjs`). Copies the public site into gitignored `dist/`, fetches the Datacodex feed, injects cards into marked slots. Feed failure always fails the build (no empty-feed fallback, removed Group 8)
+│   └── build-cards.test.mjs              ← Plan 59 — 108/108 tests: feed contract, dedupe, slot injection, byte-for-byte determinism, marker cardinality, failure modes
 │
 ├── 📂 plans/                             ← Execution plans
 │   ├── 37-alfares-service-pages.md       ← Complete: Service pages expansion
@@ -203,6 +211,8 @@ Alfareslab_2026/                          ← Project root
 | Plan 56 | 🔴 Pending | Indexing & SEO Fix Plan — built from Plan 55 (CTR, speed, schema depth, GBP) |
 | Plan 57 | ✅ Complete + deployed 2026-07-10 | Fix — `en/index.html` footer smart-quote corruption — live in Production (`a3dbf00`) |
 | Plan 58 | 🟡 Drafted | Live Google Reviews Sync — scheduled GitHub Action replacing 21 stale hardcoded reviews with real Google Places data (5 reviews + live aggregate rating) |
+| Plan 59 | ✅ Complete + deployed 2026-09-14 | Datacodex content-cards bridge — build-time card injection (`scripts/build-cards.mjs`) on topic-matched service pages, region pages, homepage strip; live in Production (`49d8f45` → `12d41cc`) |
+| Plan 60 | ✅ Complete 2026-09-13 | Repository cleanup — removed sync-conflict copies + stale scratch folders, `.gitignore` added, `master` branch renamed to `main` and retargeted to `origin/main`. Prerequisite for Plan 59 |
 
 ---
 

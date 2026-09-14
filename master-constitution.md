@@ -1,5 +1,5 @@
 # 📜 Master Constitution — Al-Fares Lab Website
-> **Version:** 1.3.1
+> **Version:** 1.3.2
 > **Created:** 2026-05-01
 > **Domain:** alfareslab.com
 > **Project:** Alfareslab_2026
@@ -48,8 +48,26 @@
 | Google Search Console | Search monitoring |
 | Google Analytics 4 | Traffic analytics |
 
-> ⚠️ **No build step required.** This is a pure static site — files are deployed as-is.
-> No npm, no bundler, no framework. If a build tool is ever needed, it requires explicit developer approval.
+> ⚠️ **Build step (added Plan 59, 2026-09-14):** the site is still authored as pure static
+> HTML/CSS/JS — no framework, no bundler. But Cloudflare Pages now runs one build step
+> before publishing, approved by the developer specifically for Plan 59 (Datacodex content
+> cards):
+>
+> | Setting | Value |
+> |---------|-------|
+> | Build command | `node scripts/build-cards.mjs` |
+> | Build output directory | `dist/` (gitignored — generated fresh on every build, never tracked) |
+> | Root directory | (empty — repo root) |
+> | Node version | Pinned via Cloudflare Pages' `NODE_VERSION` environment variable (dashboard setting, not a repo file) |
+> | Trigger | Every `git push` to `main` (Cloudflare auto-deploy). A Deploy Hook to also rebuild on a Datacodex publish is deferred — see `plans/59-datacodex-cards-bridge.md` §8.ط |
+>
+> `scripts/build-cards.mjs` copies the public site into `dist/` (excluding `docs/`,
+> `plans/`, `scripts/`, `reviews/`, `secrets/`, root `.md`/`.env*` files — see
+> `EXCLUDE_ROOT_ENTRIES` in the script), fetches the Datacodex content feed, and injects
+> matching cards into pre-marked slots on specific pages only. **A failing or unreachable
+> feed always fails the build** (no fallback path) — this is deliberate, so a feed outage
+> cannot silently publish a live site with the cards feature invisibly broken. Any change
+> to this build step still requires explicit developer approval, same as before.
 
 ---
 

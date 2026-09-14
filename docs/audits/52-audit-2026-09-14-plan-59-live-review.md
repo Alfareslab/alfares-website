@@ -6,7 +6,7 @@
 > **Consultant 2:** Cloud OPUS  
 > **Executor:** Sonnet  
 > **Final authority and manual relay:** Ahmed  
-> **Audit status:** Active — Gate 4 closed by Ahmed; Group 7 implemented and locally verified, pushed to `preview/dist-output`; Gate 5 open
+> **Audit status:** Group 8 (production deploy + verification) executed and confirmed clean; transitional empty-feed flag removed. Plan 59 complete.
 
 ## Current Handoff
 
@@ -659,6 +659,45 @@ This resolves the region-page/breakpoint/no-regression portion of the "still ope
 
 **Drift status:** None.
 
+## Sonnet Execution Entry 14 — Group 8: Production Deploy and Verification
+
+**Scope:** Gate 5 approved by Ahmed ("موافق"). Merged `preview/dist-output` into `main` (`git merge --ff-only`, clean fast-forward `f9a470a..49d8f45`, no merge commit, no conflicts) and pushed to `origin/main`. Cloudflare Pages auto-deployed; Ahmed confirmed build success on the dashboard (not independently visible to this executor). Removed the transitional empty-feed flag. `main`, Cloudflare dashboard, and `_headers`/`_redirects` untouched beyond the plain `git push`.
+
+### Pre-deploy baseline (8-a)
+
+Recorded status/redirect/canonical/hreflang/title/description/first-h1 for 32 production URLs (30+ required) before touching `main`: homepage AR/EN, all 12 AR + 12 EN service pages, `about-lab`/`privacy-policy` AR/EN, `sitemap.xml`, `robots.txt` — both the legacy `.html` path and its clean-URL redirect target for each. Saved to `docs/audits/53-audit-2026-09-14-baseline-production-pre-deploy.md`, with `sitemap.xml`/`robots.txt` bytes and SHA-256 checksums archived under `docs/audits/baseline-2026-09-14/`. Everything was healthy; the only pre-existing quirk noted (unrelated to Plan 59) was the `.html` → clean-URL 308 pattern already in place sitewide, and a pre-existing empty meta description on `data-recovery-saudi-arabia`.
+
+### Deploy (8-b)
+
+```
+git switch main
+git merge --ff-only preview/dist-output   →  Fast-forward f9a470a..49d8f45, 32 files changed, 0 conflicts
+git push origin main                       →  19a0b32..49d8f45  main -> main
+```
+
+### Post-deploy verification (8-c)
+
+Re-ran the identical 32-URL check against live production and diffed byte-for-byte against the 8-a baseline:
+
+- **Zero deviation** in status/redirect/canonical/hreflang/title/description/h1 across all 32 URLs (`diff` = 0 lines both ways).
+- `sitemap.xml` and `robots.txt`: SHA-256 identical before/after (`bdffa2fc…` and `507e7c30…`).
+- Cards render in raw HTML source (curl, no JS) on exactly the 8 expected pages: `hdd-data-recovery` AR/EN, `ssd-nvme-data-recovery` AR/EN, `data-recovery-makkah` AR/EN, `data-recovery-saudi-arabia` AR/EN — each with a real `<article class="datacodex-card">`, a local (non-hotlinked) `.webp` image confirmed `200 image/webp`, and an `explore` JSON-LD `ItemList` block (`publisher.name: "Datacodex"`, no `author`, no `mainEntityOfPage` pointing at Al-Fares). The other 10 service pages carry zero rendered card markup — only the shared `datacodex-cards.css` `<link>`, which loads site-wide as expected.
+- Homepage AR/EN: zero card trace beyond the same CSS `<link>` — matches the "no live `case` item yet" expectation exactly.
+- `X-Robots-Tag` absent on every one of the 32 real site URLs (pages, sitemap, robots) — confirmed clean.
+- No status/canonical/hreflang/title/description/h1 change anywhere → none of Plan 59's rollback triggers fired. No rollback performed or needed.
+
+### Correction filed mid-verification — cached 200s on doc paths, not a deploy defect
+
+Initial 8-c pass flagged `project-context.md`, `master-constitution.md`, `changelog.md`, `.env.example`, and `plans/59-datacodex-cards-bridge.md` returning `200` instead of `404` on `alfareslab.com`, with `x-robots-tag: noindex` present, and read this as a structural Cloudflare Pages misconfiguration (serving repo root instead of `dist/`) — filed as a stop-and-report security finding. Ahmed corrected this with direct evidence: the production deployment alias itself (`https://e59685c1.alfares-website.pages.dev/project-context.md`) returns `404`, and the same URL on `alfareslab.com` with a cache-busting query param also returns `404` — only the un-parameterized `alfareslab.com` URL returned `200`, with `Age: ~72000`/`~27000` (hours-old) and `Cache-Control: public, s-maxage=604800`, proving a stale edge-cache entry predating this deploy, not a live serving-path defect. No secrets are exposed either way (`docs/cloudflare_Token.md`-equivalent never entered git per Plan 60's `git log --all` check; `.env.example` is a placeholder template). `docs/audits/54-audit-2026-09-14-post-deploy-verification.md` was corrected in place — the original observed numbers were kept, only the diagnosis was rewritten — per Ahmed's explicit instruction not to delete the original finding. No rollback performed; manual cache purge left as an optional, non-urgent developer action.
+
+### Transitional flag removal (8-d)
+
+Removed `DATACODEX_ALLOW_EMPTY_FEED` / `allowEmptyFeedOnFailure` / `log.transitionalEmptyFeedUsed` entirely from `scripts/build-cards.mjs` — a failing or unreachable feed now always throws and fails the build, with no path that could silently publish a live site with the cards feature invisibly broken. `scripts/build-cards.test.mjs` updated: the single transitional-flag test replaced with three explicit failure-mode tests (network failure, non-2xx response, malformed JSON), each asserting `runBuild()` rejects. **108/108 tests pass.** Committed (`12d41cc`) and pushed to `origin/main` directly (git push stalled once on an expired credential-manager session; retried and succeeded — `49d8f45..12d41cc`).
+
+**Progress:** Plan 59 Group 8 complete. All 8 groups done, deployed to production, and verified. Plan 59 is complete.
+
+**Drift status:** None.
+
 ## Requirements for the Proposed v3.3 Documentation Revision
 
 1. Inventory the full repository root and classify each entry as public, excluded, or requiring Ahmed's decision.
@@ -677,3 +716,4 @@ This resolves the region-page/breakpoint/no-regression portion of the "still ope
 | Date | Status | Note |
 |------|--------|------|
 | 2026-09-14 | None | Review remains limited to Plan 59 architecture, publication safety, execution order, and Google indexing protection |
+| 2026-09-14 | None | Group 8 (production deploy + verification + flag removal) complete, clean, no rollback triggers fired. Plan 59 closed |

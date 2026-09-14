@@ -5,6 +5,28 @@
 
 ---
 
+## [1.3.0] — 2026-09-14 (Plan 59 — Datacodex Content Cards, Deployed to Production)
+
+### Added
+- New Cloudflare Pages build step: `node scripts/build-cards.mjs` → gitignored `dist/`. Fetches the Datacodex content feed at build time and injects matching cards into pre-marked HTML slots — no client-side JS, no runtime API calls. Cards are plain HTML in the page source with a local (mirrored, non-hotlinked) image and a self-contained JSON-LD `ItemList` block (`publisher: Datacodex`, no `author`, no `mainEntityOfPage` pointing at Al-Fares).
+- `assets/css/datacodex-cards.css` — card styling, loaded on every page; four responsive breakpoints, no `box-shadow`, no `[dir]`-specific rules.
+- Cards wired into 10 topic-matched service pages + 2 region pages ("latest regardless of topic") + a homepage "latest documented work" strip, each AR+EN — 24 target slots total. A page renders a card only when the live feed has a matching item; zero matches means zero HTML output, not even the marker comments (Section 5.1 contract). Today (2026-09-14) 8 of the 24 slots have a live match: `hdd-data-recovery`, `ssd-nvme-data-recovery`, `data-recovery-makkah`, `data-recovery-saudi-arabia` — AR+EN each.
+- `scripts/build-cards.test.mjs` — 108 tests covering feed contract validation, dedupe, slot injection/removal, byte-for-byte build determinism, marker cardinality across all tracked source pages, and build-failure modes.
+
+### Changed
+- `master-constitution.md` → v1.3.2: documented the new build step (command, output directory, Node version pinning, trigger, exclusion list) under § 2 Technology Stack — supersedes the previous "no build step required" note.
+- Deployed via `git merge --ff-only preview/dist-output` into `main` (clean fast-forward `f9a470a..49d8f45`, no merge commit) — full pre/post-deploy verification across 32 production URLs found **zero deviation** in status, redirect target, canonical, hreflang, title, description, or H1; `sitemap.xml`/`robots.txt` confirmed byte-identical (SHA-256) before and after.
+
+### Removed
+- **Transitional empty-feed build flag** (`DATACODEX_ALLOW_EMPTY_FEED` / `allowEmptyFeedOnFailure` / `log.transitionalEmptyFeedUsed`), which had allowed the very first production build to proceed with 0 cards if the feed was unreachable. Now removed entirely: a failing or unreachable Datacodex feed **always fails the build**, protecting the live site from a silent, invisible loss of the cards feature.
+
+### Verified
+- No `X-Robots-Tag` on any of the 32 production URLs checked (pages, `sitemap.xml`, `robots.txt`).
+- No change to any already-indexed page's canonical, hreflang, title, description, or H1 — the proven Google indexing baseline (`master-constitution.md` § 5.6) is untouched.
+- Full audit trail: `docs/audits/52-audit-2026-09-14-plan-59-live-review.md` (execution log, Sonnet Execution Entry 14), `docs/audits/53-audit-2026-09-14-baseline-production-pre-deploy.md` (pre-deploy baseline), `docs/audits/54-audit-2026-09-14-post-deploy-verification.md` (post-deploy verification).
+
+---
+
 ## Unreleased — 2026-09-14 (Plan 59 Governance and Indexing Priority)
 
 ### Changed
