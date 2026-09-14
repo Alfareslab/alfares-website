@@ -28,6 +28,8 @@ import {
   REPO_ROOT,
   DIST_DIR,
   TOPIC_MAP,
+  HOMEPAGE_MAP,
+  REGION_PAGE_MAP,
   validateItemShape,
   validateFeedPayload,
   checkNoDuplicateUrls,
@@ -40,6 +42,7 @@ import {
   isSafeAbsoluteHttpsUrl,
   safeJsonLdStringify,
   selectForTopicPage,
+  selectLatestItems,
   distributeSlots,
   resolveFeedRaw,
   resolveImageToDist,
@@ -139,6 +142,10 @@ before(async () => {
     { id: 'post:en:ssd-1', title: 'SSD fixture title', cardSummary: 'SSD fixture summary', image: 'https://datacodexlab.com/fixtures/ssd-1.png', url: 'https://datacodexlab.com/en/posts/ssd-1/', topics: ['ssd-nvme'], lang: 'en', type: 'post', publishedAt: '2026-09-05T00:00:00.000Z', hasVideo: false },
     { id: 'post:ar:unknown-1', title: 'موضوع غير معروف', cardSummary: 'ملخص', image: 'https://datacodexlab.com/fixtures/unknown-1.png', url: 'https://datacodexlab.com/ar/posts/unknown-1/', topics: ['unknown-topic-xyz'], lang: 'ar', type: 'post', publishedAt: '2026-09-11T00:00:00.000Z', hasVideo: false },
     { id: 'post:ar:database-1', title: 'عنوان قاعدة بيانات', cardSummary: 'ملخص قاعدة بيانات', image: 'https://datacodexlab.com/fixtures/database-1.png', url: 'https://datacodexlab.com/ar/posts/database-1/', topics: ['database-erp'], lang: 'ar', type: 'post', publishedAt: '2026-09-09T00:00:00.000Z', hasVideo: false },
+    { id: 'case:ar:latest-1', title: 'Case fixture 1', cardSummary: 'Case summary 1', image: 'https://datacodexlab.com/fixtures/case-ar-1.png', url: 'https://datacodexlab.com/ar/posts/case-ar-1/', topics: ['homepage-case'], lang: 'ar', type: 'case', publishedAt: '2026-09-14T00:00:00.000Z', hasVideo: false },
+    { id: 'case:ar:latest-2', title: 'Case fixture 2', cardSummary: 'Case summary 2', image: 'https://datacodexlab.com/fixtures/case-ar-2.png', url: 'https://datacodexlab.com/ar/posts/case-ar-2/', topics: ['homepage-case'], lang: 'ar', type: 'case', publishedAt: '2026-09-13T00:00:00.000Z', hasVideo: false },
+    { id: 'case:ar:latest-3', title: 'Case fixture 3', cardSummary: 'Case summary 3', image: 'https://datacodexlab.com/fixtures/case-ar-3.png', url: 'https://datacodexlab.com/ar/posts/case-ar-3/', topics: ['homepage-case'], lang: 'ar', type: 'case', publishedAt: '2026-09-12T00:00:00.000Z', hasVideo: false },
+    { id: 'case:ar:latest-4', title: 'Case fixture 4', cardSummary: 'Case summary 4', image: 'https://datacodexlab.com/fixtures/case-ar-4.png', url: 'https://datacodexlab.com/ar/posts/case-ar-4/', topics: ['homepage-case'], lang: 'ar', type: 'case', publishedAt: '2026-09-01T00:00:00.000Z', hasVideo: false },
   ];
   feedFixturePath = path.join(fixtureDir, 'feed.json');
   await fs.writeFile(feedFixturePath, JSON.stringify({ schemaVersion: 2, items }, null, 2));
@@ -518,6 +525,35 @@ describe('full build — dist/ contract and card selection', () => {
     assert.equal(report.injectedPerPage['hdd-internal:ar:footer'], 2, '4 eligible items — only 3 shown total, 4th dropped');
   });
 
+  test('homepage selection is latest-first, case-only, and capped at three', () => {
+    assert.equal(report.injectedPerPage['homepage:ar:latest'], 3);
+    assert.equal(report.injectedPerPage['homepage:en:latest'], 1);
+  });
+
+  test('homepage strip renders the approved wrapper, localized heading, and only case cards', async () => {
+    const html = await fs.readFile(path.join(DIST_DIR, HOMEPAGE_MAP.ar), 'utf8');
+    const markerContent = html.match(/<!-- datacodex-cards:begin topic="homepage" slot="latest" -->([\s\S]*?)<!-- datacodex-cards:end topic="homepage" slot="latest" -->/);
+    assert.ok(markerContent?.[1].includes('datacodex-homepage-strip'));
+    assert.equal((markerContent[1].match(/datacodex-card--homepage/g) || []).length, 3);
+    assert.ok(markerContent[1].includes('Case fixture 1'));
+    assert.equal(markerContent[1].includes('Case fixture 4'), false, 'the fourth case must be dropped by the cap');
+    const englishHtml = await fs.readFile(path.join(DIST_DIR, HOMEPAGE_MAP.en), 'utf8');
+    assert.equal(englishHtml.includes('SSD fixture title'), false, 'post items must not enter the homepage strip');
+    assert.ok(markerContent[1].includes('assets/images/datacodex-cards/'), 'root homepage image href must be root-relative by depth');
+  });
+
+  test('region pages use latest content regardless of topic or type, capped and distributed 1+2', async () => {
+    assert.equal(report.injectedPerPage['region-makkah:ar:intro'], 1);
+    assert.equal(report.injectedPerPage['region-makkah:ar:footer'], 2);
+    assert.equal(report.injectedPerPage['region-saudi:en:intro'], 1);
+    assert.equal(report.injectedPerPage['region-saudi:en:footer'], 1);
+    const html = await fs.readFile(path.join(DIST_DIR, REGION_PAGE_MAP['region-makkah'].ar), 'utf8');
+    assert.ok(html.includes('Case fixture 1'));
+    assert.ok(html.includes('Case fixture 2'));
+    assert.ok(html.includes('Case fixture 3'));
+    assert.equal(html.includes('Case fixture 4'), false);
+  });
+
   test('multi-topic item appears on both of its topic pages', () => {
     assert.equal(report.injectedPerPage['hdd-internal:en:intro'], 1);
     assert.equal(report.injectedPerPage['ssd-nvme:en:intro'], 1);
@@ -647,6 +683,30 @@ describe('full build — dist/ contract and card selection', () => {
     assert.notEqual(trackedContent, distContent);
   });
 
+  test('Group 7 empty feed removes homepage and region marker pairs with no wrapper residue', async () => {
+    const emptyFeedPath = path.join(fixtureDir, 'empty-feed.json');
+    await fs.writeFile(emptyFeedPath, JSON.stringify({ schemaVersion: 2, items: [] }));
+    await runBuild({ feedFixturePath: emptyFeedPath, imagesFixtureDir, imagesFixtureManifest });
+
+    for (const [lang, rel] of Object.entries(HOMEPAGE_MAP)) {
+      const html = await fs.readFile(path.join(DIST_DIR, rel), 'utf8');
+      assert.equal(html.includes(beginMarker('homepage', 'latest')), false, `homepage ${lang} begin marker must be absent`);
+      assert.equal(html.includes(endMarker('homepage', 'latest')), false, `homepage ${lang} end marker must be absent`);
+      assert.equal(html.includes('datacodex-homepage-strip'), false, `homepage ${lang} wrapper must be absent`);
+    }
+
+    for (const [pageId, pages] of Object.entries(REGION_PAGE_MAP)) {
+      for (const lang of ['ar', 'en']) {
+        const html = await fs.readFile(path.join(DIST_DIR, pages[lang]), 'utf8');
+        for (const slot of ['intro', 'footer', 'explore']) {
+          assert.equal(html.includes(beginMarker(pageId, slot)), false);
+          assert.equal(html.includes(endMarker(pageId, slot)), false);
+        }
+        assert.equal(html.includes('datacodex-card-group'), false);
+      }
+    }
+  });
+
   test('cleanup', async () => {
     await removeDist();
   });
@@ -713,8 +773,7 @@ describe('direct CLI execution', () => {
 });
 
 // ---------------------------------------------------------------------------
-// 11. Marker cardinality — every topic-matched page has exactly 2 begin/end
-//     pairs (intro + footer); region pages have none (Group 7, deferred, D13).
+// 11. Marker cardinality — every build surface has exactly its approved marker pairs.
 // ---------------------------------------------------------------------------
 
 describe('marker cardinality in tracked source files', () => {
@@ -733,17 +792,23 @@ describe('marker cardinality in tracked source files', () => {
     }
   }
 
-  const regionPages = [
-    'services/data-recovery-makkah.html',
-    'services/data-recovery-saudi-arabia.html',
-    'en/services/data-recovery-makkah.html',
-    'en/services/data-recovery-saudi-arabia.html',
-  ];
-  for (const rel of regionPages) {
-    test(`region page ${rel} carries no datacodex-cards markers yet (deferred to Group 7, D13)`, async () => {
+  for (const [pageId, pages] of Object.entries(REGION_PAGE_MAP)) {
+    for (const lang of ['ar', 'en']) {
+      test(`${pageId} (${lang}): exactly one begin/end pair for all three region slots`, async () => {
+        const content = await fs.readFile(path.join(REPO_ROOT, pages[lang]), 'utf8');
+        for (const slot of ['intro', 'footer', 'explore']) {
+          assert.equal(content.split(beginMarker(pageId, slot)).length - 1, 1);
+          assert.equal(content.split(endMarker(pageId, slot)).length - 1, 1);
+        }
+      });
+    }
+  }
+
+  for (const [lang, rel] of Object.entries(HOMEPAGE_MAP)) {
+    test(`homepage (${lang}): exactly one latest-strip begin/end pair`, async () => {
       const content = await fs.readFile(path.join(REPO_ROOT, rel), 'utf8');
-      assert.equal(content.includes('datacodex-cards:begin'), false);
-      assert.equal(content.includes('datacodex-cards:end'), false);
+      assert.equal(content.split(beginMarker('homepage', 'latest')).length - 1, 1);
+      assert.equal(content.split(endMarker('homepage', 'latest')).length - 1, 1);
     });
   }
 });

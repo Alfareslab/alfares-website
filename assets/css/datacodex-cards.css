@@ -151,6 +151,85 @@
   color: var(--color-primary-dark);
 }
 
+/* Homepage strip (Group 7). The cards retain the same reference treatment; only
+   their responsive layout changes to the approved 1/2/3-column presentation. */
+.datacodex-homepage-strip {
+  background: var(--color-bg-secondary);
+}
+
+.datacodex-homepage-strip__header {
+  text-align: center;
+  margin-block-end: var(--spacing-md);
+}
+
+.datacodex-homepage-strip__title {
+  margin-block-end: 0.4rem;
+  color: var(--color-text);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.datacodex-homepage-strip__source {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
+.datacodex-homepage-strip__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-sm);
+}
+
+.datacodex-homepage-strip__footer {
+  text-align: center;
+  margin-block-start: var(--spacing-md);
+}
+
+.datacodex-homepage-strip__cta {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background var(--transition-fast);
+}
+
+.datacodex-homepage-strip__cta:hover {
+  background: var(--color-text);
+}
+
+@media (min-width: 700px) {
+  .datacodex-card--homepage {
+    flex-direction: column;
+  }
+
+  .datacodex-card--homepage .datacodex-card__media {
+    flex: 0 0 auto;
+    align-self: stretch;
+    width: 100%;
+  }
+
+  .datacodex-card--homepage .datacodex-card__content {
+    justify-content: flex-start;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 999px) {
+  .datacodex-homepage-strip__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .datacodex-homepage-strip__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 /* ===== Mobile (< 700px): media-row, not stacked ===== */
 @media (max-width: 699px) {
   .datacodex-card__media {
@@ -184,7 +263,8 @@
   .datacodex-card,
   .datacodex-card__image,
   .datacodex-card__cta,
-  .datacodex-explore__link {
+  .datacodex-explore__link,
+  .datacodex-homepage-strip__cta {
     transition: none;
   }
   .datacodex-card:hover .datacodex-card__image {

@@ -25,13 +25,12 @@
  *     extended by Ahmed's explicit Entry 11 rule — only when the page has at least one
  *     rendered card in "intro" or "footer"; otherwise it is fully absent, not even a
  *     comment, exactly like an empty "intro"/"footer" slot.
+ *   - Group 7: a homepage strip containing the latest three `case` items per language,
+ *     plus the latest three items regardless of topic/type on the two region pages.
+ *     The same dist-only marker replacement and empty-state guarantees apply.
  *
  * Explicitly OUT of scope for this file:
- *   - Group 7 (homepage strip + region pages `data-recovery-makkah` /
- *     `data-recovery-saudi-arabia`, whose selection rule is "latest regardless of
- *     topic", not topic matching) — those two service pages intentionally carry no
- *     markers yet and are not touched by this script.
- *   - Any Cloudflare setting, `_headers`, `_redirects`, `index.html`, `en/index.html`.
+ *   - Any Cloudflare setting, `_headers`, or `_redirects`.
  *
  * No external dependencies — Node.js built-ins only (Guarantee-compatible with the
  * "no build tooling" baseline in Section 3).
@@ -127,6 +126,18 @@ export const TOPIC_MAP = {
   'dvr-nvr': { ar: 'services/dvr-nvr-data-recovery.html', en: 'en/services/dvr-nvr-data-recovery.html' },
   ransomware: { ar: 'services/ransomware-data-recovery.html', en: 'en/services/ransomware-data-recovery.html' },
   'database-erp': { ar: 'services/database-erp-recovery.html', en: 'en/services/database-erp-recovery.html' },
+};
+
+export const HOMEPAGE_MAP = { ar: 'index.html', en: 'en/index.html' };
+export const REGION_PAGE_MAP = {
+  'region-makkah': {
+    ar: 'services/data-recovery-makkah.html',
+    en: 'en/services/data-recovery-makkah.html',
+  },
+  'region-saudi': {
+    ar: 'services/data-recovery-saudi-arabia.html',
+    en: 'en/services/data-recovery-saudi-arabia.html',
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -401,6 +412,15 @@ export function selectForTopicPage(items, topicId, lang) {
     .sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
 }
 
+/** Latest-first selection for surfaces that do not use topic matching (Group 7). */
+export function selectLatestItems(items, lang, { type, limit = 3 } = {}) {
+  return items
+    .filter((item) => item.lang === lang && (type === undefined || item.type === type))
+    .slice()
+    .sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt))
+    .slice(0, limit);
+}
+
 /** 1 card in "intro", up to 2 in "footer" — zero items in a slot means that slot's
  *  injected content is empty (Section 5.1: absence from source, not display:none). */
 export function distributeSlots(sortedItems) {
@@ -429,6 +449,7 @@ export const CARD_COPY = {
     dateLocale: 'ar-SA-u-nu-latn',
     ariaVideoSuffix: '، يتضمن فيديو',
     ariaDestination: '، التوثيق الكامل على Datacodex',
+    homepageTitle: '\u0623\u062d\u062f\u062b \u0645\u0627 \u0648\u062b\u0651\u0642\u0646\u0627\u0647',
   },
   en: {
     preamble: 'From our documented work on Datacodex',
@@ -440,6 +461,7 @@ export const CARD_COPY = {
     dateLocale: 'en-US',
     ariaVideoSuffix: ', includes video',
     ariaDestination: ', full documentation on Datacodex',
+    homepageTitle: 'Our latest documented work',
   },
 };
 
@@ -453,7 +475,7 @@ function formatCardDate(publishedAtIso, locale) {
  *  `target="_blank"` (Group 6). A video badge replaces a fake play button; it never
  *  claims playback happens here. The accessible name on the <article> states the
  *  destination is Datacodex and whether a video is involved (Group 6). */
-export function renderCard(item, localImageHref, lang) {
+export function renderCard(item, localImageHref, lang, variant = '') {
   const copy = CARD_COPY[lang];
   const title = escapeHtml(item.title);
   const summary = escapeHtml(item.cardSummary);
@@ -470,8 +492,9 @@ export function renderCard(item, localImageHref, lang) {
   const imgTag = localImageHref
     ? `<img class="datacodex-card__image" src="${escapeAttr(localImageHref)}" alt="${alt}" loading="lazy">`
     : '';
+  const className = variant === '' ? 'datacodex-card' : `datacodex-card datacodex-card--${variant}`;
   return (
-    `<article class="datacodex-card" aria-label="${ariaLabel}">` +
+    `<article class="${className}" aria-label="${ariaLabel}">` +
     `<div class="datacodex-card__media">${imgTag}${videoBadge}</div>` +
     `<div class="datacodex-card__content">` +
     `<span class="datacodex-card__preamble">${escapeHtml(copy.preamble)}</span>` +
@@ -502,9 +525,7 @@ export function renderCardGroup(cardsHtml, lang) {
  *  rule extending Section 5.1 to this slot): an empty `items` array here must never
  *  happen in practice, but returns '' defensively so the marker still gets stripped
  *  like any other empty slot rather than ever emitting a dead link with no context. */
-export function renderExploreBlock(items, lang) {
-  if (items.length === 0) return '';
-  const copy = CARD_COPY[lang];
+function renderItemListJsonLd(items) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -521,11 +542,38 @@ export function renderExploreBlock(items, lang) {
       },
     })),
   };
+  return `<script type="application/ld+json">${safeJsonLdStringify(jsonLd)}</script>`;
+}
+
+export function renderExploreBlock(items, lang) {
+  if (items.length === 0) return '';
+  const copy = CARD_COPY[lang];
   return (
-    `<script type="application/ld+json">${safeJsonLdStringify(jsonLd)}</script>` +
+    renderItemListJsonLd(items) +
     `<div class="datacodex-explore">` +
     `<a class="datacodex-explore__link" href="${escapeAttr(copy.exploreHref)}">${escapeHtml(copy.exploreText)}</a>` +
     `</div>`
+  );
+}
+
+/** Homepage-only wrapper. It reuses the approved card DOM and adds only layout and
+ *  section framing. Empty input removes the complete marker pair from dist. */
+export function renderHomepageStrip(cardsHtml, items, lang) {
+  if (items.length === 0 || cardsHtml === '') return '';
+  const copy = CARD_COPY[lang];
+  return (
+    `${renderItemListJsonLd(items)}<section class="datacodex-homepage-strip section" aria-labelledby="datacodex-latest-title">` +
+    `<div class="container">` +
+    `<header class="datacodex-homepage-strip__header">` +
+    `<h2 class="datacodex-homepage-strip__title" id="datacodex-latest-title">${escapeHtml(copy.homepageTitle)}</h2>` +
+    `<p class="datacodex-homepage-strip__source">${escapeHtml(copy.groupNote)}</p>` +
+    `</header>` +
+    `<div class="datacodex-homepage-strip__grid">${cardsHtml}</div>` +
+    `<footer class="datacodex-homepage-strip__footer">` +
+    `<a class="datacodex-homepage-strip__cta" href="${escapeAttr(copy.exploreHref)}">${escapeHtml(copy.exploreText)}</a>` +
+    `</footer>` +
+    `</div>` +
+    `</section>`
   );
 }
 
@@ -706,9 +754,31 @@ function newLog() {
   };
 }
 
+function imageHrefForPage(pageRelPath, localImageName) {
+  const directoryDepth = pageRelPath.split('/').length - 1;
+  return `${'../'.repeat(directoryDepth)}${CARDS_IMAGE_SUBDIR.replace(/\\/g, '/')}/${localImageName}`;
+}
+
+async function renderItemsForPage(items, pageRelPath, lang, variant, imageOptions) {
+  const rendered = [];
+  for (const item of items) {
+    const destDir = path.join(DIST_DIR, CARDS_IMAGE_SUBDIR);
+    const baseName = imageBaseNameForId(item.id);
+    const localImageName = await resolveImageToDist({
+      url: item.image,
+      destDir,
+      baseName,
+      ...imageOptions,
+    });
+    rendered.push(renderCard(item, imageHrefForPage(pageRelPath, localImageName), lang, variant));
+  }
+  return rendered.join('');
+}
+
 /**
  * Runs the full build: resolves the feed, validates it, builds dist/, injects cards
- * into the 10 topic-matched service pages (AR+EN). Returns a report object.
+ * into the topic-matched service pages, homepage strip, and region pages (AR+EN).
+ * Returns a report object.
  *
  * options:
  *   - feedFixturePath, imagesFixtureDir, imagesFixtureManifest: deterministic test inputs
@@ -769,6 +839,13 @@ export async function runBuild(options = {}) {
   log.rootCopied = copyResult.copied;
   log.rootExcluded = copyResult.excluded;
 
+  const imageOptions = {
+    imagesFixtureDir,
+    imagesFixtureManifest,
+    timeoutMs,
+    fetchImpl,
+  };
+
   for (const [topicId, pages] of Object.entries(TOPIC_MAP)) {
     for (const lang of ['ar', 'en']) {
       const pageRelPath = pages[lang];
@@ -777,23 +854,8 @@ export async function runBuild(options = {}) {
       const { intro, footer } = distributeSlots(selected);
 
       for (const [slot, slotItems] of [['intro', intro], ['footer', footer]]) {
-        const rendered = [];
-        for (const item of slotItems) {
-          const destDir = path.join(DIST_DIR, CARDS_IMAGE_SUBDIR);
-          const baseName = imageBaseNameForId(item.id);
-          const localImageName = await resolveImageToDist({
-            url: item.image,
-            destDir,
-            baseName,
-            imagesFixtureDir,
-            imagesFixtureManifest,
-            timeoutMs,
-            fetchImpl,
-          });
-          const localImageHref = `${lang === 'en' ? '../../' : '../'}${CARDS_IMAGE_SUBDIR.replace(/\\/g, '/')}/${localImageName}`;
-          rendered.push(renderCard(item, localImageHref, lang));
-        }
-        const html = renderCardGroup(rendered.join(''), lang);
+        const cardsHtml = await renderItemsForPage(slotItems, pageRelPath, lang, '', imageOptions);
+        const html = renderCardGroup(cardsHtml, lang);
         await injectSlot(distFilePath, topicId, slot, html);
         log.injectedPerPage[`${topicId}:${lang}:${slot}`] = slotItems.length;
       }
@@ -804,6 +866,37 @@ export async function runBuild(options = {}) {
       const exploreHtml = renderExploreBlock(allSelected, lang);
       await injectSlot(distFilePath, topicId, 'explore', exploreHtml);
       log.injectedPerPage[`${topicId}:${lang}:explore`] = allSelected.length > 0 ? 1 : 0;
+    }
+  }
+
+  for (const lang of ['ar', 'en']) {
+    const pageRelPath = HOMEPAGE_MAP[lang];
+    const selected = selectLatestItems(items, lang, { type: 'case', limit: 3 });
+    const cardsHtml = await renderItemsForPage(selected, pageRelPath, lang, 'homepage', imageOptions);
+    const stripHtml = renderHomepageStrip(cardsHtml, selected, lang);
+    await injectSlot(path.join(DIST_DIR, pageRelPath), 'homepage', 'latest', stripHtml);
+    log.injectedPerPage[`homepage:${lang}:latest`] = selected.length;
+  }
+
+  for (const [pageId, pages] of Object.entries(REGION_PAGE_MAP)) {
+    for (const lang of ['ar', 'en']) {
+      const pageRelPath = pages[lang];
+      const selected = selectLatestItems(items, lang, { limit: 3 });
+      const { intro, footer } = distributeSlots(selected);
+
+      for (const [slot, slotItems] of [['intro', intro], ['footer', footer]]) {
+        const cardsHtml = await renderItemsForPage(slotItems, pageRelPath, lang, '', imageOptions);
+        await injectSlot(path.join(DIST_DIR, pageRelPath), pageId, slot, renderCardGroup(cardsHtml, lang));
+        log.injectedPerPage[`${pageId}:${lang}:${slot}`] = slotItems.length;
+      }
+
+      await injectSlot(
+        path.join(DIST_DIR, pageRelPath),
+        pageId,
+        'explore',
+        renderExploreBlock(selected, lang),
+      );
+      log.injectedPerPage[`${pageId}:${lang}:explore`] = selected.length > 0 ? 1 : 0;
     }
   }
 

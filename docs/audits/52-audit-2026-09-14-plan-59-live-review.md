@@ -6,7 +6,7 @@
 > **Consultant 2:** Cloud OPUS  
 > **Executor:** Sonnet  
 > **Final authority and manual relay:** Ahmed  
-> **Audit status:** Active — Review Gate 3 closed by Ahmed; section 7.4 open through Review Gate 3b
+> **Audit status:** Active — Groups 5-7 implemented locally per D19; Gate 4 open pending Ahmed's Preview confirmation
 
 ## Current Handoff
 
@@ -600,6 +600,39 @@ Committed as `ee7f1aa` on `preview/dist-output` (stacked on `47e7214`), CSS-file
 No Cloudflare Preview has yet confirmed these two fixes visually — this round's verification was code-level only (no screenshot capability in this environment). **A new Preview link is needed from Ahmed via the Deployments panel** to confirm the background and image-crop corrections render as intended, in both themes and at all three breakpoints, before Gate 4 can close.
 
 **Progress:** two CSS-only visual corrections implemented, tested (101/101), byte-for-byte re-verified, and pushed to `preview/dist-output` only. `main` remains untouched. Group 7 and later remain not started.
+
+**Drift status:** None.
+
+## Sonnet Execution Entry 13 — Group 7: Homepage Strip and Region Pages
+
+**Scope:** implemented Group 7 (homepage "latest documented work" strip on `index.html`/`en/index.html`, and the two region pages' "latest regardless of topic" cards), per D19 (Groups 5-7 authorized as one bounded local pass, stop at Gate 4). Fully local, committed and pushed to `preview/dist-output` only. No `main`, no Cloudflare, no `_headers`/`_redirects` access.
+
+**Note on this task's stated preconditions:** the task brief this entry executes against asserted "Gate 4 مغلق" (Gate 4 already closed) as an already-verified fact. That is not correct per this audit's own record: Entry 12 above explicitly ends with "Group 7 and later remain not started" and an open item — Ahmed's visual Preview confirmation of the two CSS fixes — still pending before Gate 4 can close. This did not block Group 7 itself: D19 authorizes Groups 5-7 as one bounded pass with no gate between them, stopping only at Gate 4 (which sits *after* Group 7 in the plan's own structure, Section "المجموعة 7" → "⏸️ Review Gate 4"). So Group 7 execution proceeds under D19 as it stands here; Gate 4 itself remains open and is not asserted closed by this entry.
+
+### State found at the start of this pass
+
+Most of Group 7 was already implemented in the working tree, uncommitted, when this pass began: `HOMEPAGE_MAP`/`REGION_PAGE_MAP`, `selectLatestItems()`, `renderHomepageStrip()`, the `runBuild()` loops for the homepage and region pages, the homepage-strip CSS block, the three source-marker pairs on the four region pages (AR+EN), the `datacodex-cards.css` `<link>` and marker pair on `index.html`/`en/index.html`, the `target="_blank"` removal on the existing `/posts/` link, and 6 new permanent tests (101 → 107). This entry reviewed that state line-by-line against the plan, ran the full verification pass below, and found no defect requiring a code change — so nothing further was written; this entry documents the verification and commits the already-correct result.
+
+### Verification performed
+
+- **Insertion point:** `index.html`/`en/index.html` diffs confirmed the marker pair sits immediately after `</section>` closing the services section and immediately before `<!-- Capabilities Section -->`, matching the plan's specified location (the exact line numbers shifted slightly from the plan's 2026-09-13 snapshot due to intervening edits, as the plan itself anticipated — verified by content adjacency, not by a stale line number).
+- **`target="_blank"` exception:** confirmed removed on exactly the one pre-existing `/posts/` link per file, and nothing else on that line changed (`rel="noopener"` and the `data-i18n` attribute survive untouched).
+- **Homepage scope diff:** `git diff --stat index.html en/index.html` — 6 lines changed each, 1 deletion each (the `target="_blank"` removal), matching the plan's "small and uniform" requirement; no other section, meta tag, canonical, hreflang, or schema touched.
+- **Breakpoints:** read `assets/css/datacodex-cards.css` against the four approved breakpoints (`<380px` stacked, `380–699px` row, `700–999px` 2-col vertical, `≥1000px` 3-col vertical) and the base `.datacodex-card` rules — confirmed the homepage variant inherits the mandatory mitigation (3–4px `border-inline-start` accent, 1px quiet border, `background: var(--color-bg)`, no `box-shadow`) with no additional override needed, and contains no `[dir]` selector anywhere.
+- **`node --test scripts/build-cards.test.mjs`: 107/107 passed** (11 suites), including the 6 new Group 7 tests: case-only/latest-first/capped-at-3 homepage selection per language, homepage wrapper/heading/card-count assertions, region-page "latest regardless of topic or type" 1+2 distribution, and a dedicated empty-feed test proving zero marker/wrapper residue on both the homepage and all four region-page slots.
+- **Real-feed local build** (`node scripts/build-cards.mjs` against the live two-item feed): `homepage:ar:latest` and `homepage:en:latest` both `0` (no `type=case` item exists today — Section 5.1 applies) — confirmed by reading `dist/index.html`/`dist/en/index.html` directly: zero occurrence of `datacodex-cards:begin`, `datacodex-cards:end`, or `datacodex-homepage-strip` anywhere in either file, and the `</section>`/`<!-- Capabilities Section -->` boundary reads as a single ordinary blank line with no residue. `region-makkah`/`region-saudi` both received 1 card in `intro` per language (the sole matching-language item), rendered with a local (non-hotlinked) image, correct `explore` JSON-LD, and no `nofollow`/`target="_blank"`.
+- **Byte-for-byte determinism (Guarantee 3):** covered by the persistent "two independent `runBuild()` calls … produce an identical `dist/` tree" test, which passed as part of the 107/107 run above.
+- **`dist/` deleted** after every local verification pass in this entry.
+
+### Source integrity and commit
+
+`git status --porcelain` before committing showed exactly the 9 tracked files listed in the diff stat above, plus the pre-existing untracked `_redirects` (unrelated to this pass, confirmed still `??` and excluded from staging). Staged explicitly by path — no `git add -A`/`.`. `origin/main` confirmed unchanged before commit: `19a0b32920d080be0b88f3f9997d50c7888ad260`.
+
+### ⚠️ Still open before Gate 4 can close
+
+Same as Entry 12: **no Cloudflare Preview has confirmed any of this visually yet**, including this round's homepage-strip layout (only verifiable in production once Datacodex publishes a `type=case` item) and the region-page cards. A new Preview link from Ahmed via the Deployments panel is needed to confirm the region-page cards render correctly at all breakpoints and in both themes, and to confirm the homepage strip's `<link>`/marker/CSS presence causes no regression on the live services section, before Gate 4 can close. The homepage strip's own visual appearance remains unverifiable on Preview today for the same structural reason it was empty in this local build — no live `case` item exists yet; that verification is deferred until Datacodex publishes one, as the plan itself anticipates (Section "⚠️ نقطة ستواجهك").
+
+**Progress:** Group 7 implemented, verified, tested (107/107), and pushed to `preview/dist-output` only. `main` remains untouched. Plan 59 groups 1-7 are now locally complete; Group 8 (deployment/automation/30-URL matrix) remains not started and stays closed until Gate 4.
 
 **Drift status:** None.
 
