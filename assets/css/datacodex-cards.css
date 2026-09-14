@@ -23,7 +23,7 @@
   align-items: stretch;
   border: 1px solid var(--color-border);
   border-inline-start: 4px solid var(--color-primary);
-  background: var(--color-bg-secondary);
+  background: var(--color-bg);
   border-radius: var(--radius-md);
   overflow: hidden;
   margin-block-end: var(--spacing-sm);
@@ -36,22 +36,28 @@
 
 .datacodex-card:hover {
   border-color: var(--color-primary);
-  background: var(--color-bg-tertiary);
+  background: var(--color-bg-secondary);
 }
 
-/* Media side */
+/* Media side — the wrapper carries its own aspect-ratio (not the card's stretched
+   height): `height: 100%` on the image previously overrode `aspect-ratio` because the
+   row's default `align-items: stretch` forced the wrapper to the card's full height
+   (driven by the taller text content), so the image cropped far beyond 16:9. Opting
+   the wrapper out of stretch and giving *it* the ratio reserves the correct space
+   before load (no CLS) and keeps a true 16:9 image regardless of how tall the text
+   side is; the wrapper is vertically centered when the content side is taller. */
 .datacodex-card__media {
   flex: 0 0 34%;
+  align-self: center;
   position: relative;
   overflow: hidden;
-  min-height: 180px;
+  aspect-ratio: 16 / 9;
 }
 
 .datacodex-card__image {
   display: block;
   width: 100%;
   height: 100%;
-  aspect-ratio: 16 / 9;
   object-fit: cover;
   transition: transform 180ms ease-in-out;
 }
@@ -149,7 +155,7 @@
 @media (max-width: 699px) {
   .datacodex-card__media {
     flex: 0 0 32%;
-    min-height: 140px;
+    /* aspect-ratio (base rule) reserves the space at this width too — no min-height needed */
   }
   .datacodex-card__content {
     padding: 16px 18px;
@@ -164,8 +170,9 @@
   }
   .datacodex-card__media {
     flex: 0 0 auto;
+    align-self: stretch;
     width: 100%;
-    min-height: 160px;
+    /* aspect-ratio (base rule) gives the correct height for the full-width image */
   }
   .datacodex-card__content {
     width: 100%;
