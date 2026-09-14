@@ -567,6 +567,42 @@ Committed as `c486831` on `preview/dist-output` (stacked on `9f843db`) and pushe
 
 **Drift status:** None.
 
+## Sonnet Execution Entry 12 — Visual Corrections After Ahmed's Preview Review
+
+**Scope:** two targeted, CSS-only visual fixes to `assets/css/datacodex-cards.css` after Ahmed's manual preview of deployment `32162bb7`. Nothing else touched — no markup, no `scripts/build-cards.mjs`, no tracked HTML page.
+
+### Fix 1 — card background deviated from the approved prototype
+
+The stylesheet used `background: var(--color-bg-secondary)` by default and `var(--color-bg-tertiary)` on hover. The approved prototype (`docs/research/prototype-homepage-strip.html`, `.doc-card`) uses `var(--color-bg)` — the same background as the page — and the plan states literally: "no heavy shadow and **no colored background**." A visibly grey box read as an inserted content card, contradicting the governing rule that the card must look deliberately unlike a content card, with the effect strongest in dark mode (a light block inside a dark page).
+
+**Fix:** default background is now `var(--color-bg)` (matches the page, no distinct box); hover changes to `var(--color-bg-secondary)` — a light, perceptible change without a default-state box. Reasoned through both light and dark token values in `base.css`; no live-browser screenshot tool was available in this environment to capture a rendered image, so this was verified by code inspection (confirmed both themes redefine `--color-bg`/`--color-bg-secondary` consistently, no override needed) rather than a visual screenshot — flagged explicitly below.
+
+### Fix 2 — image cropped far past 16:9
+
+`.datacodex-card__image` had `height: 100%` together with `aspect-ratio: 16/9`; `height: 100%` won, because the row's default `align-items: stretch` forced `.datacodex-card__media` to the card's full height (driven by the taller text column), so the image stretched vertically and `object-fit: cover` cropped it far beyond its intended ratio — in the preview, only a narrow slice of the drive photo was visible.
+
+**Fix:** moved `aspect-ratio: 16/9` onto `.datacodex-card__media` itself (the wrapper, not the `<img>`) and opted the wrapper out of stretch with `align-self: center`. The wrapper now always sizes itself as a true 16:9 box from its own width — reserving the exact space before the image loads (no CLS, since `aspect-ratio` is CSS-only and doesn't wait on the image's intrinsic dimensions) — and sits vertically centered within a taller card rather than being force-stretched. The `<img>` keeps `width: 100%; height: 100%; object-fit: cover;` to fill that now-correctly-sized box. Removed the now-redundant `min-height: 180px` (desktop) / `140px` (≥380–699px) — the ratio reserves the space on its own at every width — and added `align-self: stretch` at the `<380px` column-stacked breakpoint so the full-width image still spans the row correctly there. Reviewed all three breakpoints (`<380px` stacked, `380–699px` media-row, `≥700px` 34/66) against the same rule set; none needed a different fix.
+
+### Verification
+
+- `node --test scripts/build-cards.test.mjs`: **101/101 passed** (CSS-only change; run as a full regression check regardless).
+- `node scripts/build-cards.mjs` against the live feed, spot-checked the built HTML/CSS logic for an Arabic and an English page — no live-browser screenshot tool is available in this session, so this was a code-level check (computed CSS rules, token values, breakpoint math), not a rendered screenshot. Flagged to the developer as a limitation; visual confirmation depends on the new Preview link.
+- Byte-for-byte determinism re-run with the fixed-fixture methodology (`diff -r dist-run-1 dist-run-2`): **no differences.**
+- `git diff --stat services/ en/services/`: **empty** — zero source HTML pages touched this round.
+- `dist/` deleted after verification.
+
+### Delivery
+
+Committed as `ee7f1aa` on `preview/dist-output` (stacked on `47e7214`), CSS-file-only (`assets/css/datacodex-cards.css`, `+14/-7`). The push hung silently on this machine's Git Credential Manager auth prompt for several minutes across three attempts; work was paused and the developer was asked to check for a stuck sign-in dialog rather than retried blindly. After the developer confirmed and completed the prompt, the push succeeded: `47e7214..ee7f1aa preview/dist-output -> preview/dist-output`. `origin/main` was confirmed unchanged before and after (`19a0b32920d080be0b88f3f9997d50c7888ad260` both times).
+
+### ⚠️ Still open before any merge to main
+
+No Cloudflare Preview has yet confirmed these two fixes visually — this round's verification was code-level only (no screenshot capability in this environment). **A new Preview link is needed from Ahmed via the Deployments panel** to confirm the background and image-crop corrections render as intended, in both themes and at all three breakpoints, before Gate 4 can close.
+
+**Progress:** two CSS-only visual corrections implemented, tested (101/101), byte-for-byte re-verified, and pushed to `preview/dist-output` only. `main` remains untouched. Group 7 and later remain not started.
+
+**Drift status:** None.
+
 ## Requirements for the Proposed v3.3 Documentation Revision
 
 1. Inventory the full repository root and classify each entry as public, excluded, or requiring Ahmed's decision.
