@@ -556,24 +556,86 @@ describe('full build — dist/ contract and card selection', () => {
     assert.ok(region[1].trim().length > 0, 'a filled slot must keep non-empty content between its markers');
   });
 
-  test('tracked source still carries both markers after the build ran (source untouched — Guarantee 4)', async () => {
+  test('tracked source still carries all three markers after the build ran (source untouched — Guarantee 4)', async () => {
     const trackedPath = path.join(REPO_ROOT, 'services', 'laptop-pc-data-recovery.html');
     const trackedContent = await fs.readFile(trackedPath, 'utf8');
-    for (const slot of ['intro', 'footer']) {
+    for (const slot of ['intro', 'footer', 'explore']) {
       assert.ok(trackedContent.includes(beginMarker('laptop-pc', slot)), `tracked source must still contain the begin marker for ${slot}`);
       assert.ok(trackedContent.includes(endMarker('laptop-pc', slot)), `tracked source must still contain the end marker for ${slot}`);
     }
   });
 
-  test('page with zero matching items on every slot: zero datacodex-cards trace anywhere in its dist output', async () => {
+  test('page with zero matching items on every slot: zero datacodex-cards trace anywhere in its dist output, including "explore" (Ahmed Entry 11 rule)', async () => {
     const html = await fs.readFile(path.join(DIST_DIR, 'services', 'laptop-pc-data-recovery.html'), 'utf8');
-    assert.equal(html.includes('datacodex-cards'), false, 'a page with no matching items on any slot must carry no marker trace at all');
+    // Note: the page's own <link ... href="assets/css/datacodex-cards.css"> legitimately
+    // contains the substring "datacodex-cards" (the stylesheet is unconditional, per
+    // Ahmed's Entry 11 approval), so the assertion below checks the marker syntax
+    // ("datacodex-cards:begin"/"...:end") specifically, not the bare substring.
+    for (const slot of ['intro', 'footer', 'explore']) {
+      assert.equal(html.includes(beginMarker('laptop-pc', slot)), false, `no begin marker for ${slot} may survive`);
+      assert.equal(html.includes(endMarker('laptop-pc', slot)), false, `no end marker for ${slot} may survive`);
+    }
+    assert.equal(html.includes('datacodex-explore'), false, 'the explore link/JSON-LD must not render when the page has zero cards');
+    assert.equal(html.includes('"CreativeWork"'), false, 'no card JSON-LD should exist on a page with zero cards (the page keeps its own unrelated BreadcrumbList schema)');
   });
 
-  test('rendered card content is HTML-escaped in real dist output', async () => {
+  test('page with at least one card: "explore" link renders once, before the final CTA, with no nofollow/target', async () => {
+    const html = await fs.readFile(path.join(DIST_DIR, 'services', 'hdd-data-recovery.html'), 'utf8');
+    assert.ok(html.includes(beginMarker('hdd-internal', 'explore')));
+    assert.ok(html.includes(endMarker('hdd-internal', 'explore')));
+    const exploreIdx = html.indexOf('datacodex-explore__link');
+    const ctaIdx = html.indexOf('class="service-cta"');
+    assert.ok(exploreIdx > -1 && ctaIdx > -1 && exploreIdx < ctaIdx, 'the explore link must sit before the final CTA block');
+    const linkMatch = html.match(/<a class="datacodex-explore__link" href="[^"]*">[^<]*<\/a>/);
+    assert.ok(linkMatch, 'explore link markup must be present');
+    assert.equal(linkMatch[0].includes('rel="nofollow"'), false);
+    assert.equal(linkMatch[0].includes('target="_blank"'), false);
+  });
+
+  test('JSON-LD: ItemList/ListItem/CreativeWork shape, publisher is Datacodex, no author or mainEntityOfPage pointing at Alfares', async () => {
+    const html = await fs.readFile(path.join(DIST_DIR, 'services', 'hdd-data-recovery.html'), 'utf8');
+    // The page already carries its own (pre-existing, unrelated) JSON-LD blocks —
+    // including a BreadcrumbList that also uses "itemListElement" — so find the one
+    // this build emits by its distinctive "CreativeWork" type instead.
+    const scripts = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+    const match = scripts.map(m => m[1]).find(text => text.includes('"CreativeWork"'));
+    assert.ok(match, 'expected a card ItemList JSON-LD script block on a page with at least one card');
+    const data = JSON.parse(match);
+    assert.equal(data['@type'], 'ItemList');
+    assert.ok(Array.isArray(data.itemListElement) && data.itemListElement.length > 0);
+    for (const listItem of data.itemListElement) {
+      assert.equal(listItem['@type'], 'ListItem');
+      assert.equal(listItem.item['@type'], 'CreativeWork');
+      assert.equal(listItem.item.publisher.name, 'Datacodex');
+    }
+    assert.equal(match.includes('"author"'), false, 'must never assert Alfares (or anyone) as author of Datacodex content');
+    assert.equal(match.includes('mainEntityOfPage'), false, 'must never point mainEntityOfPage at Alfares');
+    assert.equal(match.includes('alfareslab.com'), false, 'the JSON-LD must not claim Alfares ownership of Datacodex content');
+  });
+
+  test('video badge renders only for items with hasVideo: true — no fake circular play button ever', async () => {
     const html = await fs.readFile(path.join(DIST_DIR, 'en', 'services', 'hdd-data-recovery.html'), 'utf8');
-    assert.equal(html.includes('Multi Topic Title <b>'), false);
-    assert.ok(html.includes('Multi Topic Title &lt;b&gt;'));
+    assert.ok(html.includes('datacodex-card__video-badge'), 'the multi-topic fixture item has hasVideo: true and must show the badge');
+    assert.equal(html.includes('▶ Video on Datacodex'), true);
+    const noVideoHtml = await fs.readFile(path.join(DIST_DIR, 'services', 'database-erp-recovery.html'), 'utf8');
+    assert.equal(noVideoHtml.includes('datacodex-card__video-badge'), false, 'the database-erp fixture item has hasVideo: false');
+  });
+
+  test('card CTA link carries no rel="nofollow" and no target="_blank" (Group 6)', async () => {
+    const html = await fs.readFile(path.join(DIST_DIR, 'services', 'hdd-data-recovery.html'), 'utf8');
+    const ctaMatches = html.match(/<a class="datacodex-card__cta"[^>]*>/g) || [];
+    assert.ok(ctaMatches.length > 0);
+    for (const tag of ctaMatches) {
+      assert.equal(tag.includes('rel="nofollow"'), false);
+      assert.equal(tag.includes('target="_blank"'), false);
+    }
+  });
+
+  test('rendered card HTML is escaped in real dist output (JSON-LD deliberately carries the raw value instead — it is a script/JSON string, not HTML)', async () => {
+    const html = await fs.readFile(path.join(DIST_DIR, 'en', 'services', 'hdd-data-recovery.html'), 'utf8');
+    const cardRegion = html.match(/<!-- datacodex-cards:begin topic="hdd-internal" slot="intro" -->([\s\S]*?)<!-- datacodex-cards:end topic="hdd-internal" slot="intro" -->/)[1];
+    assert.equal(cardRegion.includes('Multi Topic Title <b>'), false);
+    assert.ok(cardRegion.includes('Multi Topic Title &lt;b&gt;'));
   });
 
   test('tracked source file is untouched by the build (D04 / Guarantee 4)', async () => {
@@ -658,10 +720,10 @@ describe('direct CLI execution', () => {
 describe('marker cardinality in tracked source files', () => {
   for (const [topicId, pages] of Object.entries(TOPIC_MAP)) {
     for (const lang of ['ar', 'en']) {
-      test(`${topicId} (${lang}): exactly one begin/end pair for "intro" and for "footer"`, async () => {
+      test(`${topicId} (${lang}): exactly one begin/end pair for "intro", "footer" and "explore"`, async () => {
         const filePath = path.join(REPO_ROOT, pages[lang]);
         const content = await fs.readFile(filePath, 'utf8');
-        for (const slot of ['intro', 'footer']) {
+        for (const slot of ['intro', 'footer', 'explore']) {
           const beginCount = content.split(beginMarker(topicId, slot)).length - 1;
           const endCount = content.split(endMarker(topicId, slot)).length - 1;
           assert.equal(beginCount, 1, `expected exactly one begin marker for ${topicId}/${slot} in ${pages[lang]}`);

@@ -2,26 +2,31 @@
 /**
  * Plan 59 — Datacodex Cards Bridge — build script.
  *
- * Scope of this file as of 2026-09-14 (Ahmed's approval to execute Groups 3-4 only,
- * per docs/audits/52-audit-2026-09-14-plan-59-live-review.md, "Sonnet Execution Entry
- * — Groups 3-4"):
+ * Scope as of 2026-09-14 (Ahmed's approval, per docs/audits/52-audit-2026-09-14-plan-59-
+ * live-review.md, "Sonnet Execution Entry — Groups 3-4" through "Entry 11"):
  *
  *   - Group 3: fetch + validate the Datacodex feed contract, apply the failure policy
  *     (plans/59-datacodex-cards-bridge.md, Section 5), build the independent `dist/`
- *     output directory per the Group 2 root inventory (copy-all-plus-exclusions), and
- *     inject sanitized card placeholders into the 10 topic-matched service pages
- *     (Arabic + English) via idempotent marker replacement.
- *   - Group 4: only the two position markers per topic-matched service page — the
- *     actual marker <!-- comments --> live in the tracked HTML source files, added as
- *     one-time source edits (Guarantee 4, Section 6). This script never mutates a
+ *     output directory per the Group 2 root inventory (copy-all-plus-exclusions).
+ *   - Group 4: the "intro"/"footer" position markers per topic-matched service page —
+ *     the actual marker <!-- comments --> live in the tracked HTML source files, added
+ *     as one-time source edits (Guarantee 4, Section 6). This script never mutates a
  *     tracked file; it only rewrites the copies already placed in `dist/`.
+ *   - Group 5: final card visual design (CSS in assets/css/datacodex-cards.css, a
+ *     separate stylesheet by design for rollback isolation — see Section "المجموعة 3"
+ *     of the plan and Ahmed's Entry 11 approval; not merged into service-pages.css).
+ *   - Group 6: binding copy/link rules (no `rel="nofollow"`, no `target="_blank"`, the
+ *     approved CTA/preamble/explore-button copy, video badge instead of a fake play
+ *     button, and the JSON-LD `ItemList → ListItem → CreativeWork` schema with
+ *     `publisher: Datacodex` and no `author`/`mainEntityOfPage` pointing at Alfares).
+ *   - A third per-page marker, `slot="explore"`, added as a one-time source edit to the
+ *     same 20 tracked pages (Ahmed's Entry 11 approval): renders the page-wide "explore
+ *     the full documentation log" link plus the JSON-LD block, but — per Section 5.1,
+ *     extended by Ahmed's explicit Entry 11 rule — only when the page has at least one
+ *     rendered card in "intro" or "footer"; otherwise it is fully absent, not even a
+ *     comment, exactly like an empty "intro"/"footer" slot.
  *
- * Explicitly OUT of scope for this file right now (forbidden by the current pass):
- *   - Group 5 (final card visual design/CSS) and Group 6 (button copy, nofollow/
- *     target rules, JSON-LD ItemList schema) — the card markup rendered below is a
- *     plain, sanitized PLACEHOLDER only, clearly labelled as such, so the pipeline
- *     (marker injection, sanitization, byte-for-byte determinism, failure policy) can
- *     be proven without pre-empting the visual design decision.
+ * Explicitly OUT of scope for this file:
  *   - Group 7 (homepage strip + region pages `data-recovery-makkah` /
  *     `data-recovery-saudi-arabia`, whose selection rule is "latest regardless of
  *     topic", not topic matching) — those two service pages intentionally carry no
@@ -125,9 +130,11 @@ export const TOPIC_MAP = {
 };
 
 // ---------------------------------------------------------------------------
-// Position markers (Group 4) — idempotent BEGIN/END comment pairs.
-// Two slots per page: "intro" (after the intro paragraph(s), before the first <h2>)
-// and "footer" (immediately before the final CTA block, <div class="service-cta">).
+// Position markers (Group 4 + Entry 11) — idempotent BEGIN/END comment pairs.
+// Three slots per page: "intro" (after the intro paragraph(s), before the first <h2>),
+// "footer" (immediately before the final CTA block, <div class="service-cta">), and
+// "explore" (right after "footer", still before the CTA — the page-wide "explore the
+// full log" link + JSON-LD, gated on "intro" or "footer" having rendered a card).
 // Distribution (Section 7, Group 4): 1 card in "intro", up to 2 cards in "footer".
 // ---------------------------------------------------------------------------
 
@@ -404,29 +411,120 @@ export function distributeSlots(sortedItems) {
 }
 
 // ---------------------------------------------------------------------------
-// Card placeholder rendering — PLACEHOLDER ONLY, see file header. No CSS, no
-// JSON-LD, no Group 6 copy rules. Sanitizes every field.
+// Card rendering (Group 5 visual design + Group 6 binding copy rules).
+// Sanitizes every field. Markup/classes correspond to assets/css/datacodex-cards.css.
 // ---------------------------------------------------------------------------
 
-export function renderCardPlaceholder(item, localImageHref) {
+/** Approved bilingual copy (Group 6) — every string here is a binding decision from
+ *  the plan, not a placeholder. `dateLocale` uses `-u-nu-latn` so Arabic dates print
+ *  with Western digits, matching the rest of the site's body copy. */
+export const CARD_COPY = {
+  ar: {
+    preamble: 'من توثيق أعمالنا على Datacodex',
+    cta: 'اطّلع على التوثيق الكامل على Datacodex',
+    videoBadge: '▶ فيديو على Datacodex',
+    groupNote: 'من مدونتنا التقنية — داتا كودكس لاب',
+    exploreText: 'استكشف سجل التوثيق الكامل على Datacodex',
+    exploreHref: 'https://datacodexlab.com/posts/',
+    dateLocale: 'ar-SA-u-nu-latn',
+    ariaVideoSuffix: '، يتضمن فيديو',
+    ariaDestination: '، التوثيق الكامل على Datacodex',
+  },
+  en: {
+    preamble: 'From our documented work on Datacodex',
+    cta: 'View the full documentation on Datacodex',
+    videoBadge: '▶ Video on Datacodex',
+    groupNote: 'From our technical blog — Datacodex Lab',
+    exploreText: 'Explore the full documentation log on Datacodex',
+    exploreHref: 'https://datacodexlab.com/en/posts/',
+    dateLocale: 'en-US',
+    ariaVideoSuffix: ', includes video',
+    ariaDestination: ', full documentation on Datacodex',
+  },
+};
+
+function formatCardDate(publishedAtIso, locale) {
+  return new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })
+    .format(new Date(publishedAtIso));
+}
+
+/** One "inline reference" card — the approved design (Section "المجموعة 5"):
+ *  citation/reference language, not a banner. No `rel="nofollow"`, no
+ *  `target="_blank"` (Group 6). A video badge replaces a fake play button; it never
+ *  claims playback happens here. The accessible name on the <article> states the
+ *  destination is Datacodex and whether a video is involved (Group 6). */
+export function renderCard(item, localImageHref, lang) {
+  const copy = CARD_COPY[lang];
   const title = escapeHtml(item.title);
   const summary = escapeHtml(item.cardSummary);
   const href = escapeAttr(item.url);
   const alt = escapeAttr(item.title);
   const dateIso = escapeAttr(item.publishedAt);
-  const dateText = escapeHtml(item.publishedAt.slice(0, 10));
+  const dateText = escapeHtml(formatCardDate(item.publishedAt, copy.dateLocale));
+  const ariaLabel = escapeAttr(
+    `${copy.preamble}${item.hasVideo ? copy.ariaVideoSuffix : ''}${copy.ariaDestination}`
+  );
+  const videoBadge = item.hasVideo
+    ? `<span class="datacodex-card__video-badge" aria-hidden="true">${escapeHtml(copy.videoBadge)}</span>`
+    : '';
   const imgTag = localImageHref
-    ? `<img src="${escapeAttr(localImageHref)}" alt="${alt}" loading="lazy">`
+    ? `<img class="datacodex-card__image" src="${escapeAttr(localImageHref)}" alt="${alt}" loading="lazy">`
     : '';
   return (
-    `<div class="datacodex-card-pending" data-datacodex-id="${escapeAttr(item.id)}">` +
-    `<!-- PLACEHOLDER pending Group 5 (visual design) / Group 6 (copy + JSON-LD rules) — ` +
-    `content only, for build-pipeline validation. -->` +
-    `${imgTag}` +
-    `<p class="datacodex-card-title">${title}</p>` +
-    `<p class="datacodex-card-summary">${summary}</p>` +
-    `<time class="datacodex-card-date" datetime="${dateIso}">${dateText}</time>` +
-    `<a class="datacodex-card-link" href="${href}">${title}</a>` +
+    `<article class="datacodex-card" aria-label="${ariaLabel}">` +
+    `<div class="datacodex-card__media">${imgTag}${videoBadge}</div>` +
+    `<div class="datacodex-card__content">` +
+    `<span class="datacodex-card__preamble">${escapeHtml(copy.preamble)}</span>` +
+    `<p class="datacodex-card__title">${title}</p>` +
+    `<p class="datacodex-card__summary">${summary}</p>` +
+    `<time class="datacodex-card__date" datetime="${dateIso}">${dateText}</time>` +
+    `<a class="datacodex-card__cta" href="${href}">${escapeHtml(copy.cta)}</a>` +
+    `</div>` +
+    `</article>`
+  );
+}
+
+/** Wraps one slot's concatenated card(s) with the small trailing group note
+ *  (Group 6: "سطر صغير أسفل كل مجموعة"). Empty input stays empty — Section 5.1
+ *  applies to the group as a whole, not just the individual cards inside it. */
+export function renderCardGroup(cardsHtml, lang) {
+  if (cardsHtml === '') return '';
+  const copy = CARD_COPY[lang];
+  return (
+    `<div class="datacodex-card-group">${cardsHtml}` +
+    `<p class="datacodex-card-group__note">${escapeHtml(copy.groupNote)}</p>` +
+    `</div>`
+  );
+}
+
+/** The page-wide "explore the full log" link + JSON-LD (Group 6). Gated by the
+ *  caller on "at least one card rendered anywhere on the page" (Ahmed's Entry 11
+ *  rule extending Section 5.1 to this slot): an empty `items` array here must never
+ *  happen in practice, but returns '' defensively so the marker still gets stripped
+ *  like any other empty slot rather than ever emitting a dead link with no context. */
+export function renderExploreBlock(items, lang) {
+  if (items.length === 0) return '';
+  const copy = CARD_COPY[lang];
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'CreativeWork',
+        name: item.title,
+        url: item.url,
+        image: item.image,
+        datePublished: item.publishedAt,
+        publisher: { '@type': 'Organization', name: 'Datacodex' },
+      },
+    })),
+  };
+  return (
+    `<script type="application/ld+json">${safeJsonLdStringify(jsonLd)}</script>` +
+    `<div class="datacodex-explore">` +
+    `<a class="datacodex-explore__link" href="${escapeAttr(copy.exploreHref)}">${escapeHtml(copy.exploreText)}</a>` +
     `</div>`
   );
 }
@@ -679,7 +777,6 @@ export async function runBuild(options = {}) {
       const { intro, footer } = distributeSlots(selected);
 
       for (const [slot, slotItems] of [['intro', intro], ['footer', footer]]) {
-        let html = '';
         const rendered = [];
         for (const item of slotItems) {
           const destDir = path.join(DIST_DIR, CARDS_IMAGE_SUBDIR);
@@ -694,12 +791,19 @@ export async function runBuild(options = {}) {
             fetchImpl,
           });
           const localImageHref = `${lang === 'en' ? '../../' : '../'}${CARDS_IMAGE_SUBDIR.replace(/\\/g, '/')}/${localImageName}`;
-          rendered.push(renderCardPlaceholder(item, localImageHref));
+          rendered.push(renderCard(item, localImageHref, lang));
         }
-        html = rendered.join('');
+        const html = renderCardGroup(rendered.join(''), lang);
         await injectSlot(distFilePath, topicId, slot, html);
         log.injectedPerPage[`${topicId}:${lang}:${slot}`] = slotItems.length;
       }
+
+      // "explore" (Entry 11): page-wide link + JSON-LD, gated on at least one
+      // rendered card anywhere on the page — never on "intro" or "footer" alone.
+      const allSelected = [...intro, ...footer];
+      const exploreHtml = renderExploreBlock(allSelected, lang);
+      await injectSlot(distFilePath, topicId, 'explore', exploreHtml);
+      log.injectedPerPage[`${topicId}:${lang}:explore`] = allSelected.length > 0 ? 1 : 0;
     }
   }
 
