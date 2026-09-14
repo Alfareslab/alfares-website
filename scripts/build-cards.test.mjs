@@ -428,21 +428,23 @@ describe('network and build failure policy', () => {
     assert.equal(result.ok, false);
     assert.match(result.reason, /not valid JSON/);
   });
-  test('runBuild throws on feed network failure by default', async () => {
+  // Group 8 (post-launch): the transitional empty-feed flag is gone entirely — a
+  // failing or unreachable feed must always fail the build, with no fallback path
+  // that would silently publish a live site with zero cards.
+  test('runBuild throws on feed network failure — no empty-feed fallback', async () => {
     const failingFetch = async () => { throw new Error('down'); };
-    await assert.rejects(() => runBuild({ fetchImpl: failingFetch, allowEmptyFeedOnFailure: false, timeoutMs: 500 }));
+    await assert.rejects(() => runBuild({ fetchImpl: failingFetch, timeoutMs: 500 }));
     await removeDist();
   });
-  test('runBuild succeeds with 0 items when the transitional flag is set', async () => {
-    const failingFetch = async () => { throw new Error('down'); };
-    try {
-      const report = await runBuild({ fetchImpl: failingFetch, allowEmptyFeedOnFailure: true, timeoutMs: 500 });
-      assert.equal(report.transitionalEmptyFeedUsed, true);
-      assert.equal(report.itemsReceived, 0);
-      assert.ok(Object.values(report.injectedPerPage).every((n) => n === 0), 'Section 5.1: every slot must be empty');
-    } finally {
-      await removeDist();
-    }
+  test('runBuild throws on non-2xx feed response — no empty-feed fallback', async () => {
+    const http500Fetch = async () => ({ ok: false, status: 500 });
+    await assert.rejects(() => runBuild({ fetchImpl: http500Fetch, timeoutMs: 500 }));
+    await removeDist();
+  });
+  test('runBuild throws on malformed feed JSON — no empty-feed fallback', async () => {
+    const badJsonFetch = async () => ({ ok: true, status: 200, text: async () => '{not valid json' });
+    await assert.rejects(() => runBuild({ fetchImpl: badJsonFetch, timeoutMs: 500 }));
+    await removeDist();
   });
   test('runBuild throws when a selected item image cannot be resolved', async () => {
     const badManifest = { 'https://datacodexlab.com/fixtures/hdd-1.png': 'DOES-NOT-EXIST.png' };

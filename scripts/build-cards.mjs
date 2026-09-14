@@ -749,7 +749,6 @@ function newLog() {
     exclusionReasons: 'see EXCLUDE_ROOT_ENTRIES (Group 2, Section 2.1) — deny-list, not sampled',
     rootCopied: [],
     rootExcluded: [],
-    transitionalEmptyFeedUsed: false,
     errors: [],
   };
 }
@@ -782,15 +781,17 @@ async function renderItemsForPage(items, pageRelPath, lang, variant, imageOption
  *
  * options:
  *   - feedFixturePath, imagesFixtureDir, imagesFixtureManifest: deterministic test inputs
- *   - allowEmptyFeedOnFailure: transitional pre-launch flag (Section 5) — default false
  *   - fetchImpl: injectable for tests
+ *
+ * A failing or unreachable feed always fails the build (throws) — there is no
+ * empty-feed fallback. This is deliberate: a silent zero-cards build would publish
+ * a live site with the cards feature invisibly broken (Plan 59, Group 8).
  */
 export async function runBuild(options = {}) {
   const {
     feedFixturePath,
     imagesFixtureDir,
     imagesFixtureManifest,
-    allowEmptyFeedOnFailure = false,
     fetchImpl = fetch,
     timeoutMs = DEFAULT_TIMEOUT_MS,
   } = options;
@@ -805,13 +806,7 @@ export async function runBuild(options = {}) {
 
   let items = [];
   if (!feedResult.ok) {
-    if (allowEmptyFeedOnFailure) {
-      log.transitionalEmptyFeedUsed = true;
-      log.errors.push(`feed fetch failed (transitional flag active, proceeding with 0 items): ${feedResult.reason}`);
-      items = [];
-    } else {
-      throw new Error(`BUILD FAILED — feed fetch/validation error: ${feedResult.reason}`);
-    }
+    throw new Error(`BUILD FAILED — feed fetch/validation error: ${feedResult.reason}`);
   } else {
     const validated = validateFeedPayload(feedResult.raw);
     if (!validated.ok) {
@@ -908,7 +903,6 @@ export async function runBuild(options = {}) {
 // ---------------------------------------------------------------------------
 
 async function main() {
-  const allowEmptyFeedOnFailure = process.env.DATACODEX_ALLOW_EMPTY_FEED === '1';
   const feedFixturePath = process.env.DATACODEX_FEED_FIXTURE || undefined;
   const imagesFixtureDir = process.env.DATACODEX_IMAGES_FIXTURE_DIR || undefined;
   let imagesFixtureManifest;
@@ -924,7 +918,6 @@ async function main() {
       feedFixturePath,
       imagesFixtureDir,
       imagesFixtureManifest,
-      allowEmptyFeedOnFailure,
     });
     console.log(JSON.stringify({ ok: true, report }, null, 2));
     process.exitCode = 0;
