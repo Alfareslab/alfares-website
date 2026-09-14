@@ -6,7 +6,7 @@
 > **Consultant 2:** Cloud OPUS  
 > **Executor:** Sonnet  
 > **Final authority and manual relay:** Ahmed  
-> **Audit status:** Active — Groups 5-7 implemented locally per D19; Gate 4 open pending Ahmed's Preview confirmation
+> **Audit status:** Active — Gate 4 closed by Ahmed; Group 7 implemented and locally verified, pushed to `preview/dist-output`; Gate 5 open
 
 ## Current Handoff
 
@@ -603,13 +603,23 @@ No Cloudflare Preview has yet confirmed these two fixes visually — this round'
 
 **Drift status:** None.
 
+## Ahmed Approval — Gate 4 Closure and Group 7 Opening
+
+"أنا أحمد، أعتمد نتيجة المجموعتين 5 و6 وأغلق Review Gate 4. عاينت الكارت بصرياً على النشرة 02f0ab64 بعد التصليحين (ee7f1aa): الخلفية عادت إلى --color-bg بلا صندوق، والصورة بنسبة 16/9 حقيقية. التصميم معتمد بصيغته الحالية. وأفتح المجموعة 7 (الصفحة الرئيسية وصفحتا المناطق) لسونت. التنفيذ محلي، والدفع على فرع preview/dist-output وحده. ممنوع الدمج في main أو لمسه، وممنوع Production، وممنوع المجموعة 8، وممنوع لمس Cloudflare أو _headers أو _redirects — حتى مراجعة النتيجة وإغلاق Gate 5."
+
+**Note on timing:** this approval was given by Ahmed directly and predates Entry 13 below, but the written record of it reached this audit only after Entry 13 was already filed. Entry 13's own flag — that Gate 4 had not been recorded as closed anywhere in this audit, and that Group 7 proceeded under D19's Groups-5-7-as-one-bounded-pass authorization rather than a closed Gate 4 — was correct at the time it was written and is preserved below as filed. This entry backfills the missing record; it does not correct an error in Entry 13's flag, only a gap in this audit's paper trail.
+
 ## Sonnet Execution Entry 13 — Group 7: Homepage Strip and Region Pages
 
 **Scope:** implemented Group 7 (homepage "latest documented work" strip on `index.html`/`en/index.html`, and the two region pages' "latest regardless of topic" cards), per D19 (Groups 5-7 authorized as one bounded local pass, stop at Gate 4). Fully local, committed and pushed to `preview/dist-output` only. No `main`, no Cloudflare, no `_headers`/`_redirects` access.
 
 **Note on this task's stated preconditions:** the task brief this entry executes against asserted "Gate 4 مغلق" (Gate 4 already closed) as an already-verified fact. That is not correct per this audit's own record: Entry 12 above explicitly ends with "Group 7 and later remain not started" and an open item — Ahmed's visual Preview confirmation of the two CSS fixes — still pending before Gate 4 can close. This did not block Group 7 itself: D19 authorizes Groups 5-7 as one bounded pass with no gate between them, stopping only at Gate 4 (which sits *after* Group 7 in the plan's own structure, Section "المجموعة 7" → "⏸️ Review Gate 4"). So Group 7 execution proceeds under D19 as it stands here; Gate 4 itself remains open and is not asserted closed by this entry.
 
-### State found at the start of this pass
+### Correction (filed after Entry 13's original text) — Group 7 was written in this same pass, not inherited from an earlier one
+
+The paragraph below, as originally filed, described Group 7 as already implemented and uncommitted "when this pass began," implying it was the product of some earlier, separate execution round. An independent check contradicts that: immediately after Groups 5-6 closed, `git status --porcelain` was run and returned only `?? _redirects` — no Group 7 file or diff existed in the working tree at that point. Group 7's code, CSS, markers, and tests were therefore produced **within this same execution turn**, almost certainly in an earlier stage of it, and then re-encountered by this same entry after a context-window compression made that earlier stage look like pre-existing state rather than this turn's own output. The verification, test results, and commit recorded below are unaffected and remain accurate — only the claim of *when and by what* the code was written was wrong, corrected here without altering the entry.
+
+### State found at the start of this pass (as originally filed — see correction above)
 
 Most of Group 7 was already implemented in the working tree, uncommitted, when this pass began: `HOMEPAGE_MAP`/`REGION_PAGE_MAP`, `selectLatestItems()`, `renderHomepageStrip()`, the `runBuild()` loops for the homepage and region pages, the homepage-strip CSS block, the three source-marker pairs on the four region pages (AR+EN), the `datacodex-cards.css` `<link>` and marker pair on `index.html`/`en/index.html`, the `target="_blank"` removal on the existing `/posts/` link, and 6 new permanent tests (101 → 107). This entry reviewed that state line-by-line against the plan, ran the full verification pass below, and found no defect requiring a code change — so nothing further was written; this entry documents the verification and commits the already-correct result.
 
@@ -632,7 +642,20 @@ Most of Group 7 was already implemented in the working tree, uncommitted, when t
 
 Same as Entry 12: **no Cloudflare Preview has confirmed any of this visually yet**, including this round's homepage-strip layout (only verifiable in production once Datacodex publishes a `type=case` item) and the region-page cards. A new Preview link from Ahmed via the Deployments panel is needed to confirm the region-page cards render correctly at all breakpoints and in both themes, and to confirm the homepage strip's `<link>`/marker/CSS presence causes no regression on the live services section, before Gate 4 can close. The homepage strip's own visual appearance remains unverifiable on Preview today for the same structural reason it was empty in this local build — no live `case` item exists yet; that verification is deferred until Datacodex publishes one, as the plan itself anticipates (Section "⚠️ نقطة ستواجهك").
 
-**Progress:** Group 7 implemented, verified, tested (107/107), and pushed to `preview/dist-output` only. `main` remains untouched. Plan 59 groups 1-7 are now locally complete; Group 8 (deployment/automation/30-URL matrix) remains not started and stays closed until Gate 4.
+### Independent Preview verification — deployment 9a8426b0
+
+The items above that *are* verifiable today were confirmed on Preview deployment `9a8426b0`:
+
+- Homepage AR and EN: zero trace (no marker, no `ItemList`) — matches the empty-feed expectation exactly.
+- The pre-existing `/posts/` link: `target="_blank"` confirmed absent; `rel="noopener"` and the rest of the line unchanged.
+- All four region pages: `200`, each showing exactly one card plus one explore/"documentation log" link.
+- `node --test scripts/build-cards.test.mjs`: 107/107.
+- Homepage-strip CSS: all four breakpoints confirmed correct, zero `box-shadow`, and no `[dir]` selector outside comments.
+- Homepage source diff: three lines changed, one deletion, matching the small/uniform requirement.
+
+This resolves the region-page/breakpoint/no-regression portion of the "still open" item above. The homepage strip's own visual rendering remains the one item still deferred, for the structural reason already stated (no live `case` item exists yet) — unrelated to and unaffected by this Preview check.
+
+**Progress:** Group 7 implemented, verified, tested (107/107), and pushed to `preview/dist-output` only. `main` remains untouched. Plan 59 groups 1-7 are now locally complete; Group 8 (deployment/automation/30-URL matrix) remains not started and stays closed until Gate 5 (per the Ahmed Approval entry above, which reopens Group 7 under Gate 4's closure and gates Group 8 behind Gate 5).
 
 **Drift status:** None.
 
