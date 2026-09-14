@@ -144,6 +144,23 @@ function markerRegion(topicId, slot) {
   return new RegExp(`(${begin})([\\s\\S]*?)(${end})`);
 }
 
+// Section 5.1 (empty-state behavior): zero matching items means zero HTML output —
+// not even the marker comments themselves survive in dist. This matches the whole
+// marker line(s), including the leading indentation before BEGIN and the trailing
+// newline after END, so removing it leaves no blank line or stray whitespace behind.
+// The tracked source keeps both markers untouched; only the dist copy is stripped.
+// Also swallows one immediately-following blank-only line: the tracked source
+// wraps every marker pair in a blank line above and below (a normal paragraph
+// gap), so consuming only the marker's own line would leave those two blank
+// lines sitting adjacent — a double gap that reads as a blank line where the
+// markers used to be. Eating one trailing blank line restores the ordinary
+// single-blank-line spacing instead.
+function markerLineRegion(topicId, slot) {
+  const begin = beginMarker(topicId, slot).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const end = endMarker(topicId, slot).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`[ \\t]*${begin}[\\s\\S]*?${end}[ \\t]*\\r?\\n?(?:[ \\t]*\\r?\\n)?`);
+}
+
 // ---------------------------------------------------------------------------
 // Sanitization utilities (Group 3 checklist item — mechanism only; the final visual
 // design/copy is Group 5/6, out of scope here).
@@ -566,7 +583,9 @@ export async function injectSlot(distFilePath, topicId, slot, html) {
   if (!regex.test(original)) {
     throw new Error(`markers not found for topic="${topicId}" slot="${slot}" in ${distFilePath}`);
   }
-  const updated = original.replace(regex, (_m, begin, _mid, end) => `${begin}${html}${end}`);
+  const updated = html === ''
+    ? original.replace(markerLineRegion(topicId, slot), '')
+    : original.replace(regex, (_m, begin, _mid, end) => `${begin}${html}${end}`);
   await fs.writeFile(distFilePath, updated, 'utf8');
 }
 

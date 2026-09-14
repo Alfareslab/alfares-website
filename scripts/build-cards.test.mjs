@@ -539,10 +539,35 @@ describe('full build — dist/ contract and card selection', () => {
     assert.ok(report.unknownTopicsEncountered.includes('unknown-topic-xyz'));
   });
 
-  test('empty slot is truly empty between markers — no wrapper, no placeholder', async () => {
+  test('empty slot (Section 5.1): the whole marker pair is removed from dist — no begin, no end, no residue', async () => {
     const html = await fs.readFile(path.join(DIST_DIR, 'services', 'laptop-pc-data-recovery.html'), 'utf8');
-    const region = html.match(/<!-- datacodex-cards:begin topic="laptop-pc" slot="intro" -->([\s\S]*?)<!-- datacodex-cards:end topic="laptop-pc" slot="intro" -->/);
-    assert.equal(region[1].trim(), '');
+    assert.equal(html.includes(beginMarker('laptop-pc', 'intro')), false);
+    assert.equal(html.includes(endMarker('laptop-pc', 'intro')), false);
+    assert.equal(html.includes(beginMarker('laptop-pc', 'footer')), false);
+    assert.equal(html.includes(endMarker('laptop-pc', 'footer')), false);
+    assert.equal(/\n[ \t]*\n[ \t]*\n/.test(html), false, 'removing the markers must not leave a doubled blank line behind');
+  });
+
+  test('filled slot: begin/end markers and rendered card content survive intact in dist', async () => {
+    const html = await fs.readFile(path.join(DIST_DIR, 'services', 'hdd-data-recovery.html'), 'utf8');
+    assert.ok(html.includes(beginMarker('hdd-internal', 'intro')));
+    assert.ok(html.includes(endMarker('hdd-internal', 'intro')));
+    const region = html.match(/<!-- datacodex-cards:begin topic="hdd-internal" slot="intro" -->([\s\S]*?)<!-- datacodex-cards:end topic="hdd-internal" slot="intro" -->/);
+    assert.ok(region[1].trim().length > 0, 'a filled slot must keep non-empty content between its markers');
+  });
+
+  test('tracked source still carries both markers after the build ran (source untouched — Guarantee 4)', async () => {
+    const trackedPath = path.join(REPO_ROOT, 'services', 'laptop-pc-data-recovery.html');
+    const trackedContent = await fs.readFile(trackedPath, 'utf8');
+    for (const slot of ['intro', 'footer']) {
+      assert.ok(trackedContent.includes(beginMarker('laptop-pc', slot)), `tracked source must still contain the begin marker for ${slot}`);
+      assert.ok(trackedContent.includes(endMarker('laptop-pc', slot)), `tracked source must still contain the end marker for ${slot}`);
+    }
+  });
+
+  test('page with zero matching items on every slot: zero datacodex-cards trace anywhere in its dist output', async () => {
+    const html = await fs.readFile(path.join(DIST_DIR, 'services', 'laptop-pc-data-recovery.html'), 'utf8');
+    assert.equal(html.includes('datacodex-cards'), false, 'a page with no matching items on any slot must carry no marker trace at all');
   });
 
   test('rendered card content is HTML-escaped in real dist output', async () => {
