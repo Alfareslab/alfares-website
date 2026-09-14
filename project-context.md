@@ -1,5 +1,5 @@
 # 🧠 Project Context — Al-Fares Lab Website
-> **Last Updated:** 2026-07-10
+> **Last Updated:** 2026-09-14
 > **Current Version:** v1.2.5
 > **Status:** 🚀 LIVE — Post-audit: 26/50 GSC-known URLs indexed, 4 pages manual-indexing requested 2026-07-09 — Plan 57 (footer quote-corruption fix) code-complete, pending developer's browser verification and deploy
 
@@ -18,6 +18,10 @@ Al-Fares Lab website (`alfareslab.com`) is a static bilingual (AR + EN) single-p
 > **Repository state (2026-09-13, Plan 60):** the working tree is clean for the first time in months — 68 Syncthing `sync-conflict` copies and the stale `scratch/`/`temp_archive/` folders are gone, `.gitignore` now blocks them from returning, and all plans and SEO documents are tracked. The local branch was renamed `master` → `main` and now tracks `origin/main`, the Cloudflare Pages production branch; it previously tracked the obsolete `origin/prelaunch-2026-05-06`. No live site file changed. External backup of everything removed: `F:/Myprojects/Alfareslab_backup_2026-09-13/`. This was the prerequisite for Plan 59.
 >
 > **Full indexing/SEO history:** `docs/indexing/00-seo-indexing-master-playbook.md` (compiled 2026-07-10) — every indexing plan and audit from Plan 37 (2026-05-01) onward, what worked, what failed and why, the Plan 54 root-cause deep dive, and a reusable playbook for future projects. Read this before starting any new SEO/indexing work on this project.
+>
+> **Plan 59 operating governance (2026-09-14):** Ahmed established a strict three-role workflow: Codex is the manager/reviewer, Cloud OPUS is Consultant 2, and Sonnet is the executor. Ahmed manually transfers conversations among them and is the only person who may reassign or expand a role through an explicit written instruction. Reviews must remain proportional to proven risk and must not become loops over minor documentation or preference differences. Preserving the proven Google indexing baseline is the project's primary release constraint. This governance update changed documentation only; no live-site code or deployment configuration was changed.
+>
+> **Living audit rule (2026-09-14):** every active plan has one compact living audit file. Plan 59 uses `docs/audits/52-audit-2026-09-14-plan-59-live-review.md`. Codex owns drift control and must state the drift status in every plan summary. Cloud OPUS independently confirmed the Gate 2 blocker and supports a separate staging output directory, subject to a documentation-only Plan 59 v3.3 revision and Ahmed's approval. No Plan 59 implementation is authorized by this record.
 
 ### What Works ✅
 
@@ -99,7 +103,7 @@ Al-Fares Lab website (`alfareslab.com`) is a static bilingual (AR + EN) single-p
 | **56** | Indexing & SEO Fix Plan — built from Plan 55 audit (CTR, page speed, schema depth, GBP, colloquial keywords) | 🔴 Pending |
 | **57** | Fix — `en/index.html` footer smart-quote corruption (2026-07-09) | ✅ Complete — verified, committed (`a3dbf00`), deployed to Production, confirmed live |
 | **58** | Live Google Reviews Sync — replace 21 stale hardcoded reviews (last dated 2025-01-15) + static "4.8" rating with a weekly GitHub Action. **Pivoted 2026-07-15 (v3.0.0) from Places API to Business Profile API** — developer wants zero Google Cloud billing/card linkage, so the plan now uses free OAuth 2.0 (Refresh Token) instead of a Places API key, gaining access to all ~100 real reviews (paginated) instead of just 5 | 🟡 Group 1 (OAuth setup) in progress — blocked on Google's GBP API Access Request approval (Case ID 2-9252000041078, submitted 2026-07-23, 7-10 business days) |
-| **59** | Datacodex Cards Bridge — build-time injection of content cards from `datacodexlab.com/feed.json` into service pages (spec handed over 2026-09-13, v3.0.0) | 🟡 Draft — awaiting developer approval; blocked on Cloudflare settings snapshot |
+| **59** | Datacodex Cards Bridge — build-time injection of content cards from `datacodexlab.com/feed.json` into service pages (current spec v3.2.0) | ⏸️ Gate 2 paused — `_redirects` 404 rewrite is unsupported; consultant supports a staging-output design for a documentation-only v3.3 revision pending Ahmed's approval |
 | **60** | Repository Cleanup — remove Syncthing sync-conflict copies, resolve deployment branch (2026-09-13) | ✅ Complete |
 
 ### Plan 46 Progress (Bilingual Routing & Reconciliation)

@@ -138,7 +138,8 @@ Alfareslab_2026/                          ← Project root
 │       └── alfareslab.com-Coverage-Drilldown-2026-07-09/ ← Raw GSC CSV export (single-issue: Crawled - not indexed)
 │
 ├── 📂 docs/audits/                       ← Audit findings
-│   └── 51-pre-launch-audit-v2-findings.md ← Plan 51 pre-launch audit v2
+│   ├── 51-pre-launch-audit-v2-findings.md ← Plan 51 pre-launch audit v2
+│   └── 52-audit-2026-09-14-plan-59-live-review.md ← Living review, evidence, gate status, and handoffs for active Plan 59
 │
 ├── 📂 scripts/                           ← Helper scripts
 │   └── serve-local.bat                   ← Batch script to run local server
@@ -152,7 +153,7 @@ Alfareslab_2026/                          ← Project root
 │   ├── 55-audit-2026-06-20-indexing-status.md   ← Complete: Indexing audit — 5 phases
 │   ├── 57-fix-2026-07-09-en-footer-smart-quotes.md ← Complete: footer smart-quote corruption fixed and deployed 2026-07-10
 │   ├── 58-live-google-reviews-sync.md         ← Drafted: scheduled GitHub Action to replace stale hardcoded reviews with live Google Places data
-│   ├── 59-datacodex-cards-bridge.md           ← Draft: build-time content cards from datacodexlab.com/feed.json into service pages (spec v3.0.0, 2026-09-13)
+│   ├── 59-datacodex-cards-bridge.md           ← Active review: build-time content cards; spec v3.2.0 paused at Gate 2 pending v3.3 architecture revision
 │   └── 60-fix-2026-09-13-repo-cleanup-sync-conflicts.md ← Complete: sync-conflict cleanup + branch resolution (prerequisite for Plan 59)
 │
 ├── 📂 docs/reviews/                      ← Review decisions

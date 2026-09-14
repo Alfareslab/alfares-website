@@ -1,5 +1,5 @@
 # 📜 Master Constitution — Al-Fares Lab Website
-> **Version:** 1.2.2
+> **Version:** 1.3.1
 > **Created:** 2026-05-01
 > **Domain:** alfareslab.com
 > **Project:** Alfareslab_2026
@@ -126,6 +126,19 @@ Alfareslab_2026/
 ---
 
 ## 5. SEO & Indexing Policy (Rule 8)
+
+### 5.0 Google Indexing Is the Primary Release Constraint
+
+Preserving the site's established Google indexing, indexed URL set, and proven clean-URL behavior is the highest project-level release priority. When this priority conflicts with visual polish, refactoring, documentation convenience, build convenience, or a non-critical enhancement, indexing stability wins and the other work MUST be adapted, deferred, or rejected.
+
+No change may alter or weaken the established HTTP status behavior, clean URLs, canonical targets, hreflang relationships, robots directives, sitemap URLs, crawlability, or already-indexed page availability unless all of the following are true:
+
+1. There is concrete evidence that the existing behavior is defective.
+2. The proposed change is the smallest targeted correction.
+3. Preview verification covers the affected URLs against the live proven baseline.
+4. Ahmed gives explicit written approval before Production deployment.
+
+A change that preserves the proven indexing baseline, does not break the site, and does not violate this constitution should proceed through its normal gate without being delayed by speculative or cosmetic objections.
 
 ### 5.1 Canonical URL Rules
 
@@ -279,6 +292,67 @@ Every HTML/CSS/JS file MUST use straight ASCII quotes (`"` / `'`) only — never
 | `project-context.md` | Current state, known issues, active plans |
 | `project-key.md` | File index if files added/removed |
 | `changelog.md` | Version entry with changes |
+
+---
+
+## 11. Plan 59 Three-Role Operating Model
+
+This operating model governs the current Plan 59 work until Ahmed explicitly closes it or replaces it in writing.
+
+| Participant | Assigned authority | Prohibited without Ahmed's written instruction |
+|-------------|--------------------|-----------------------------------------------|
+| **Codex — Manager and Reviewer** | Direct the review flow, verify evidence, protect the constitution and Google indexing baseline, classify real blockers, and issue gate recommendations | Implementing Plan 59 code, acting as the executor, or taking over another participant's role |
+| **Cloud OPUS — Consultant 2** | Provide an independent architectural, Cloudflare, SEO, and risk opinion; challenge assumptions with evidence | Implementing changes, granting final approval, or overriding the manager, executor, constitution, or Ahmed |
+| **Sonnet — Executor** | Implement only the currently approved scope, produce tests and diffs, and stop at review gates | Expanding scope, silently changing approved decisions, approving its own work, or taking over review/consulting authority |
+| **Ahmed — Project Owner and Final Authority** | Grant final approval, resolve role or scope disputes, and manually relay conversations and handoffs among the three models | None within this project |
+
+No participant may cross, exchange, or expand these role boundaries unless Ahmed gives a written instruction that explicitly names the participant, temporary authority, and scope. Silence, an inferred preference, a model limitation, or another model's recommendation is not authorization.
+
+Ahmed manually transfers the conversations between Codex, Cloud OPUS, and Sonnet. Because model limits can interrupt any session, every handoff MUST be concise and self-contained: current state, verified evidence, unresolved blocker if any, exact requested action, and prohibited actions. The three roles MUST cooperate through these handoffs and must not assume that another model retains missing conversation context.
+
+---
+
+## 12. Proportional Review and Scope Discipline
+
+Review depth MUST be proportional to demonstrated risk. The team must stay focused on Plan 59's original outcome and must not create review loops over minor documentation, wording, formatting, personal preference, or attempts by one model to out-argue another.
+
+| Situation | Required behavior |
+|-----------|-------------------|
+| The change does not break the site, does not threaten the proven indexing baseline, and does not violate this constitution | Pass it through the normal gate; do not invent a blocker |
+| A documentation inconsistency does not affect execution, security, rollback, indexing, or the approved scope | Record it for the normal documentation update; do not stop implementation for it |
+| A reviewer or consultant raises a concern | Require concrete evidence, a reproducible failure, or a direct constitutional conflict before treating it as blocking |
+| An approved decision is challenged again | Do not reopen it unless new material evidence changes its risk or correctness |
+| A real site-breakage, indexing, security, rollback, or constitutional risk is proven | Stop at the current gate, document the evidence, and send the smallest decision required to Ahmed |
+
+The purpose of collaboration is to offset model limits and improve correctness, not to multiply ceremony. Reviews must converge toward a safe decision and implementation.
+
+---
+
+## 13. Living Plan Audit and Token-Efficient Handoffs
+
+Every active implementation plan MUST have exactly one parallel living audit file. The plan remains the source of approved scope and implementation steps; the audit file is the compact source of review state, evidence, material findings, gate decisions, and the next handoff.
+
+| Rule | Requirement |
+|------|-------------|
+| One living audit | Reuse one audit file for the active plan. Do not create a new file for every model response |
+| New audit threshold | Create another audit file only for a different plan or a genuinely independent audit topic |
+| Current handoff first | Keep a short `Current Handoff` section at the top with status, blocker, decision, next owner, and prohibited actions |
+| Material entries only | Record verified evidence, decisions, blockers, and scope changes; omit greetings, repeated context, full chat transcripts, and raw logs |
+| Evidence by reference | Prefer file paths, line numbers, URLs, commit IDs, and concise command results over copied source or long output |
+| Chat response | Give Ahmed a compact summary, the audit file reference, the one required next action, and the drift status |
+| Audit ownership | Codex, as manager/reviewer, owns audit coherence, prevents duplication, and keeps the active handoff current |
+
+Because Ahmed manually relays the conversations, each participant MUST update or provide a compact entry suitable for the living audit instead of producing a long chat response. No audit entry may silently change the plan; a material scope or architecture change still requires Ahmed's explicit written approval.
+
+### 13.1 Mandatory Drift Status
+
+Codex is directly responsible for detecting and stopping scope drift and review drift. Every Codex progress update, handoff, and final summary during an active plan MUST include one of these explicit statuses:
+
+- `Drift status: None` — work remains within the approved objective and proportional review.
+- `Drift status: Warning` — early movement toward unrelated work or excessive review; name it and redirect immediately.
+- `Drift status: Active` — the current activity has left the approved scope; stop it, tell Ahmed, and identify the smallest corrective action.
+
+Documentation discussion becomes drift when it no longer protects execution, security, rollback, indexing, or an explicit constitutional requirement. Model disagreement becomes review drift when it repeats an already decided point without new material evidence.
 
 ---
 

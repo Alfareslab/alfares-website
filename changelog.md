@@ -5,6 +5,19 @@
 
 ---
 
+## Unreleased — 2026-09-14 (Plan 59 Governance and Indexing Priority)
+
+### Changed
+- Updated `master-constitution.md` to v1.3.1 with the Plan 59 three-role operating model: Codex as manager/reviewer, Cloud OPUS as Consultant 2, Sonnet as executor, and Ahmed as project owner and sole written authority for role changes.
+- Documented Ahmed's manual conversation-transfer workflow so handoffs remain self-contained and cooperation can continue across model usage limits.
+- Added proportional-review and scope-discipline rules that prevent non-material documentation or preference disputes from turning into blocking review loops.
+- Elevated preservation of the proven Google indexing baseline to the primary project release constraint. Changes that preserve indexing, site function, and the constitution proceed normally; demonstrated indexing or breakage risks remain blocking.
+- Added the one-living-audit-per-active-plan rule, token-efficient handoff format, Codex audit ownership, and a mandatory drift-status line in every Codex plan summary.
+- Added `docs/audits/52-audit-2026-09-14-plan-59-live-review.md` as the compact shared review record for Plan 59.
+- Documentation-only update. No live-site code, URL, SEO metadata, Cloudflare configuration, or deployment behavior changed.
+
+---
+
 ## Unreleased — 2026-09-13 (Plan 60 — Repository Cleanup)
 
 ### Removed
