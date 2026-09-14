@@ -413,6 +413,75 @@ confirmed exactly 20 files changed, each `+6/-0`, `120 insertions(+)` total, wit
 
 الروابط النظيفة الستة لم تُثبَت في هذا الدور — السيرفر المحلي لا يحل الروابط بلا امتداد، والإثبات الوحيد الممكن لها هو Cloudflare Preview في القسم 7.4 (ب). هذا الدور أثبت **محتوى** مجلد الإخراج، ولم يُثبت **سلوك الروابط النظيفة منه**، وهو بالضبط الغرض من البوابة 3ب.
 
+## Sonnet Execution Entry 10 — Gate 3b Preview Verification and Empty-Slot Marker Fix
+
+**Scope:** independent inspection of the live Cloudflare Preview deployment at `https://581e3c3e.alfares-website.pages.dev` (Gate 3b), followed by one targeted fix to `scripts/build-cards.mjs` for a defect the inspection surfaced, its permanent tests, and an audit-only documentation entry. No HTML page was edited, no Cloudflare dashboard setting was touched, and no push or merge to `main` occurred at any point in this round.
+
+### Gate 3b Preview inspection results (deployment `581e3c3e`)
+
+All of the following passed on the independent check of the live Preview URL:
+
+- The nine clean-URL paths tested all returned 200 served from `dist/`.
+- Requesting the `.html`-suffixed form of a clean URL correctly issued a 308 redirect to the clean form; the canonical tag was unaffected by the redirect.
+- Every private/source document path tested (plan, docs, project-root Markdown, etc.) returned 404.
+- `x-robots-tag: noindex` was confirmed present on the Preview response headers, as required for a non-production deployment.
+- The card block is present in the page's own HTML source (not injected by client-side JS).
+- The card's image is served locally (200, `image/webp`, 120 KB) — zero hotlinking to `datacodexlab.com` observed anywhere on the page.
+- The card's outbound link carries neither `target="_blank"` nor `rel="nofollow"`.
+
+### The one violation found — and its correction
+
+The developer's approved decision in **Section 5.1** ("empty-state behavior") states verbatim: *zero matching items for a slot means zero HTML is printed at all — no heading, no wrapper, no footer line, no button, and no comment.*
+
+The live output violated this: an empty slot printed its BEGIN/END comment pair back-to-back with nothing between them, e.g. in `dist/services/hdd-data-recovery.html`:
+
+```
+<!-- datacodex-cards:begin topic="hdd-internal" slot="footer" --><!-- datacodex-cards:end topic="hdd-internal" slot="footer" -->
+```
+
+**Root cause:** `injectSlot()` always replaced only the content *between* the markers, keeping the markers themselves in every case — correct for a filled slot, but a direct contradiction of Section 5.1 for an empty one.
+
+**Fix applied (`scripts/build-cards.mjs`):** added `markerLineRegion()`, used only when a slot's rendered `html` is the empty string. It matches the marker line's leading indentation, the BEGIN marker, everything up to and including the END marker, the trailing line-end, and — because every marker pair in the tracked source sits between a blank line above and a blank line below (normal paragraph spacing) — one further adjacent blank line, so removing the marker line does not leave the two pre-existing blank lines sitting adjacent as a doubled gap. The tracked source files were not touched by this change; only the dist-time replacement logic changed. A filled slot's code path (markers kept, content injected between them) is untouched.
+
+### New permanent tests (added to `scripts/build-cards.test.mjs`)
+
+1. **Empty slot ⇒ zero marker trace:** asserts the dist output contains neither the BEGIN nor the END string for that slot, and that no doubled blank line was left behind.
+2. **Filled slot ⇒ markers + content intact:** asserts both markers are present in dist and that non-empty rendered content sits between them.
+3. **Tracked source untouched post-build:** re-reads the tracked source file after a full build and asserts it still contains both markers for every slot (Guarantee 4).
+4. **Fully-empty page ⇒ zero trace anywhere:** for `laptop-pc-data-recovery.html` (a page with zero matching items on both its slots), asserts the string `datacodex-cards` does not appear anywhere in its dist output.
+
+**Full suite result:** `node --test scripts/build-cards.test.mjs` — **97/97 tests passed across 11 suites** (the prior 94, minus one outdated assertion updated to match the corrected behavior, plus the four new tests above).
+
+### Byte-for-byte re-verification (Guarantee 3)
+
+Re-ran the identical fixed-fixture methodology used in Execution Entry 09 after applying the fix:
+
+```
+DATACODEX_FEED_FIXTURE=/tmp/plan59-fixture2/feed.json DATACODEX_IMAGES_FIXTURE_DIR=/tmp/plan59-fixture2/images node scripts/build-cards.mjs
+```
+
+run twice into separate snapshot directories, compared with:
+
+```
+diff -r dist-run-1 dist-run-2
+```
+
+Result: no differences reported — Guarantee 3 holds after the fix.
+
+### Source integrity and commit
+
+`git status --porcelain` after the fix showed only `scripts/build-cards.mjs` and `scripts/build-cards.test.mjs` modified; `_redirects` remained untracked (`??`). `git diff --stat services/ en/services/` was empty — the 20 service pages carry no changes beyond the Entry 09 commit already on this branch. `dist/` was deleted after every local verification pass.
+
+Committed as `8adbebb` on `preview/dist-output` (stacked on `0a74e28`) and pushed with `git push origin preview/dist-output`. `origin/main` was confirmed unchanged before and after the push (`19a0b32920d080be0b88f3f9997d50c7888ad260` both times) — no push, merge, or fast-forward to `main` occurred.
+
+### ⚠️ Explicit blocker before any merge to main
+
+**The card is still an unstyled placeholder pending Groups 5 and 6 — merging to `main` before those groups are complete would put a raw, unstyled block in the middle of every live service page.** Groups 5 (visual design) and 6 (binding copy/JSON-LD rules) remain not started and are out of scope for this round.
+
+**Progress:** Gate 3b Preview verification passed independently; the one Section 5.1 violation it surfaced is fixed, tested, and pushed to `preview/dist-output` only. Groups 5-8 remain not started; `main` remains untouched.
+
+**Drift status:** None.
+
 ## Requirements for the Proposed v3.3 Documentation Revision
 
 1. Inventory the full repository root and classify each entry as public, excluded, or requiring Ahmed's decision.
