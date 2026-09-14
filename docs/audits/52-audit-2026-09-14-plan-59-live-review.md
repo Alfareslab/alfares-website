@@ -6,7 +6,7 @@
 > **Consultant 2:** Cloud OPUS  
 > **Executor:** Sonnet  
 > **Final authority and manual relay:** Ahmed  
-> **Audit status:** Active — Review Gate 2 closed by Ahmed; Groups 3-4 open until Review Gate 3
+> **Audit status:** Active — Review Gate 3 closed by Ahmed; section 7.4 open through Review Gate 3b
 
 ## Current Handoff
 
@@ -14,16 +14,18 @@
 - **Verified blocker:** Cloudflare Pages `_redirects` supports redirect codes but not a `404` rewrite. The untracked `_redirects` proposal cannot satisfy Gate 2 reliably.
 - **Live impact:** none. The file is untracked and undeployed; representative clean URLs remain `200`, `.html` forms remain `308` to clean URLs, and current canonical/hreflang values remain aligned.
 - **Consultant result:** Cloud OPUS independently confirmed the blocker and supports generating a separate output directory that copies public files and excludes non-public repository material.
-- **Executor result:** Sonnet produced Plan 59 v3.3.1 as documentation only (`180` additions, `60` deletions cumulatively; no diff-check errors) and implemented D06-D08 plus Review Entry 03.
-- **Manager review:** passed. Gate order, exact `dist/` contract, exclusions, deterministic comparison, and the full SEO matrix now satisfy the requested corrections.
+- **Executor result:** Sonnet completed the final Review Entry 07 timestamp correction without expanding scope.
+- **Manager review:** passed. Independent replay passed 94/94 tests; strict UTC round-trip validation rejects impossible normalized values, and the live two-item build remains successful.
 - **Operational recommendation:** retain `Build watch paths = *`; the failure behavior is already intentional and no new material evidence justifies reopening that decision.
 - **Final approval:** Ahmed approved Plan 59 v3.3.1 in writing on 2026-09-14.
 - **Group 2 result:** Sonnet recorded a complete classification of 40 existing root entries plus the planned `dist/` entry, with no unresolved classification.
 - **Checkpoint:** local commit `f7537c117c72e7abc7511cb5bd7952994317fb36` contains exactly the six authorized documentation files; `_redirects` remains untracked and outside the commit.
 - **Runtime proposal:** accept `NODE_VERSION=24.20.0`. Node 24 is a mature LTS line first released in May 2025; 24.20.0 is an LTS maintenance release inside that line, and Cloudflare supports explicit Node selection through `NODE_VERSION`.
 - **Gate 2 approval:** Ahmed accepted the Group 2 result and closed Review Gate 2 in writing on 2026-09-14.
-- **Next owner:** Sonnet executes the segment from Group 3 through Group 4 and stops at Review Gate 3. Group 4 is included because the Gate 3 acceptance output requires the tracked source markers defined there.
-- **Prohibited now:** implementation code, HTML/CSS/JS changes, Cloudflare changes, `_redirects` changes or inclusion, push, or deployment.
+- **Scope decision:** the 10 Arabic + 10 English topic pages are correct for this pass. The two Arabic + two English region pages remain deferred together with their "latest regardless of topic" logic to Group 7; this is staged scope, not removal from Plan 59.
+- **Progress counter:** reached and approved Group 4 of 8; 4 groups are complete and 4 are not started. Section 7.4/Gate 3b is an additional deployment checkpoint, not a ninth group.
+- **Next owner:** Sonnet executes only Plan 59 section 7.4 on Preview, documents the output-directory rollback path and evidence, and stops at Review Gate 3b.
+- **Prohibited now:** Production, Groups 5-8, `_headers`/`_redirects` changes or inclusion, commit, push, or deployment beyond the authorized Preview verification.
 - **Drift status:** None.
 
 ## Decision Register
@@ -42,6 +44,13 @@
 | D10 | Finally approved | Ahmed approved Plan 59 v3.3.1 in writing on 2026-09-14; Sonnet may proceed with Group 2 design/inventory only |
 | D11 | Passed | Group 2 inventory, `dist/` contract, exclusions, and `NODE_VERSION=24.20.0` passed Codex review; recommend Ahmed close Gate 2 |
 | D12 | Approved | Ahmed closed Review Gate 2 and authorized the next implementation segment under Plan 59 v3.3.1 |
+| D13 | Approved interpretation | Limit the current marker pass to the 10+10 topic pages; defer the 2+2 region pages and their distinct selection logic together to Group 7 |
+| D14 | Changes required | Keep Review Gate 3 open until the four reproduced contract defects are fixed and verified |
+| D15 | Required verification | Persist a dependency-free, rerunnable test suite in the repository; chat-only or temporary test results are insufficient gate evidence |
+| D16 | Mostly passed | Correction pass closes duplicate-ID precedence, whitespace-only topics, image-name collision, and durable-test findings; Gate 3 remains open only for strict rejection of normalized impossible UTC timestamps |
+| D17 | Passed | Final timestamp correction passes independent tests and live build; recommend Ahmed close Review Gate 3 and open only section 7.4 through Gate 3b |
+| D18 | Approved | Ahmed closed Review Gate 3 and opened only section 7.4 for Preview/output-directory verification through Review Gate 3b; Production and Groups 5-8 remain closed |
+| D19 | Manager recommendation | Do not renumber or erase gates; after Gate 3b, execute Groups 5-7 as one bounded local implementation pass because the plan already places no gate between them, then stop at Gate 4. Keep Group 8 separate because it contains deployment and the 30-URL SEO matrix |
 
 ## Evidence Register
 
@@ -54,6 +63,11 @@
 | Live orphan page check | `/service-page-premium-compare.html` returns `308` to `/service-page-premium-compare` |
 | Runtime dependency check | `lang/ar.json` and `lang/en.json` are tracked and required by the translation system; they must remain in every deployment output |
 | Structured-data file reference check | No HTML or JS reference to `seo/structured-data.json` was found |
+| Group 3 live build replay | `node scripts/build-cards.mjs` completed against the two-item live feed; generated 61 output files and injected cards into the expected HDD/SSD Arabic and English pages |
+| Source marker scope | Each of the 20 topic pages contains exactly two begin/end marker pairs; the four region pages contain none and remain reserved for Group 7 |
+| Protected-file diff check | `index.html`, `en/index.html`, `_headers`, and tracked `_redirects` content are unchanged; the local `_redirects` file remains untracked |
+| Durable test discovery | No `build-cards` test file or equivalent permanent test suite exists in the working tree; only `scripts/build-cards.mjs` is present |
+| Contract regression probe | Duplicate IDs sharing one URL fail as duplicate URLs; date-only and offset timestamps pass; whitespace-only topics pass; IDs `a:b` and `a-b` map to the same image basename |
 
 ## Review Entry 01 — Codex Manager Review
 
@@ -131,6 +145,273 @@ No second Cloud OPUS review is required because v3.3.1 introduces no new archite
 - **Still closed:** Groups 5-8, Cloudflare output-directory changes, Production, deploy hook, push, and deployment.
 - **Reason Group 4 is in this segment:** the approved Gate 3 is positioned after Group 4 and requires testing generated output against the one-time tracked markers.
 - **Drift status:** None.
+
+## Sonnet Execution Entry — Groups 3-4
+
+**Scope executed:** Group 3 (`scripts/build-cards.mjs`) and Group 4 (the two position
+markers per topic-matched service page), per the Gate 2 Approval Entry above. Stopped
+at Review Gate 3 as instructed. No Cloudflare, `_headers`, `_redirects`, `index.html`,
+`en/index.html`, or Group 5+ work performed.
+
+**Files changed (all uncommitted, pending this review):**
+- `scripts/build-cards.mjs` — new, no external dependencies.
+- `.gitignore` — added `/dist/`.
+- 20 service page files (`services/*.html` + `en/services/*.html`, the 10
+  topic-matched pages only) — exactly 6 lines added to each (two marker comment
+  pairs), nothing else touched. 124 insertions / 0 deletions total across 21 files.
+
+**Scope narrowing decided by Sonnet (flagging for review):** markers were added only
+to the 10 topic-matched service pages, not to `data-recovery-makkah.html` /
+`data-recovery-saudi-arabia.html`. Those two pages use "latest regardless of topic"
+selection, which is specified under Group 7 (homepage/region pages), out of scope for
+this pass. Adding markers there without the matching selection logic seemed worse than
+deferring both together. Flagging in case Codex reads Group 4's "12+12 pages" as
+including the two region pages within this pass.
+
+**Test results (105/105 passed, 0 failed):**
+| Area | Checks | Result |
+|---|---|---|
+| Feed contract validation (schemaVersion, shape, url/image domain+https+trailing-slash, topics 1-2 non-empty, lang, type, publishedAt, hasVideo, duplicate url) | 18 | 18/18 pass |
+| Failure-policy exceptions (duplicate `id` drop-and-log; unknown topic drop-and-log) | 5 | 5/5 pass |
+| Sanitization (`escapeHtml`, `escapeAttr`, `javascript:`/non-https/wrong-domain URL rejection, JSON-LD `</script>` neutralization) | 9 | 9/9 pass |
+| Network/build failure policy (network error, HTTP≠2xx, malformed JSON, `runBuild` throws by default, transitional flag succeeds with 0 items, image failure fails build) | 7 | 7/7 pass |
+| `dist/` root copy vs. Group 2 inventory (16 Public entries present, 25 Excluded entries absent incl. self-excluded `dist/` and untracked `_redirects`) | 30 | 30/30 pass |
+| Card selection/distribution (1 intro + up to 2 footer cap, multi-topic item on 2 pages, 0-item pages fully empty between markers per Section 5.1, escaping verified in real output, tracked source left untouched) | 11 | 11/11 pass |
+| Byte-for-byte determinism (two independent full builds, identical fixed feed+image inputs, sha256 of entire `dist/` tree) | 3 | 3/3 pass |
+| Image validation, mocked live-fetch path (content-type allow/deny, oversize reject, HTTP 404 reject) | 4 | 4/4 pass |
+
+**Additional real-world verification (not part of the 105, run separately):** executed
+`node scripts/build-cards.mjs` against the actual live `https://datacodexlab.com/feed.json`
+(2 items, as documented in Section 5.1). Result: `dist/` built successfully, 16/16
+Public entries present, 15/15 Excluded entries absent, both real images downloaded and
+validated as genuine 1200×675 WebP, one card correctly injected into
+`hdd-internal`/`ssd-nvme` intro slots (AR+EN), all other 8 topic pages correctly empty.
+`dist/` was deleted afterward (git-ignored, never committed).
+
+**Bug found and fixed during testing:** the CLI entry-point guard
+(`import.meta.url === file://${process.argv[1]}`) never matched on Windows (backslash
+paths / no leading slash), so running the script directly produced no output and built
+nothing while still exiting 0. Fixed with `pathToFileURL(process.argv[1]).href`. Caught
+only by the live-feed run, not by the fixture-based unit tests (which import the
+module's functions directly and never exercise the CLI branch) — noting this gap.
+
+**Not exercised (explicitly out of scope this pass):** Cloudflare Preview, `_headers`/
+`_redirects` behavior, homepage/region-page selection logic, visual card design/CSS,
+JSON-LD ItemList emission, the 30-URL SEO matrix.
+
+No prior Codex decision (D01–D12, Review Entries 01–05, both approval entries) was
+altered by this entry.
+
+## Review Entry 06 — Codex Review of Groups 3-4
+
+**Result: changes requested — Review Gate 3 remains open.**
+
+What passed:
+
+- The script completes a real live-feed build and the `dist/` public/excluded contract passed the observed run.
+- The 20 topic-page source edits are marker-only, six added lines per file, with no deletions. The four region pages are correctly deferred to Group 7 with their different selection rule.
+- Homepage files, SEO infrastructure files, Cloudflare configuration, and all later groups remain untouched. The review-generated `dist/` directory was deleted after verification.
+
+Blocking corrections inside the currently open segment:
+
+1. `validateFeedPayload()` checks duplicate URLs before `dedupeById()` runs. A repeated ID with the same URL therefore fails the build instead of being dropped and logged as the approved exception. Deduplicate validated items by ID before enforcing URL uniqueness among the surviving IDs.
+2. `publishedAt` accepts any value understood by `Date.parse()`, including date-only and timezone-offset strings. Enforce the approved ISO 8601 UTC form ending in `Z` and reject invalid normalized dates.
+3. Topic validation accepts whitespace-only strings because it checks only `length > 0`. Validate trimmed non-empty topic values.
+4. Image basenames use only a sanitized ID, so distinct IDs such as `a:b` and `a-b` collide. Use a deterministic collision-resistant basename, for example a stable hash derived from the original ID.
+5. Add a permanent no-dependency test file using Node's built-in test runner. It must be rerunnable with one documented command and cover the reported suite plus the four regressions above, direct CLI execution on Windows, and marker cardinality.
+
+This is a focused implementation correction, not an architectural dispute. Cloud OPUS consultation is not required unless the executor presents new evidence that forces a change to the approved feed contract, output architecture, or indexing protections.
+
+**Progress at this review:** 8 groups total; 2 approved complete, 2 current and awaiting correction/re-review, 4 not started. Review Gate 3 and all later gates remain open/closed in their existing order.
+
+**Drift status:** None.
+
+## Sonnet Execution Entry — Correction Pass (Review Entry 06)
+
+**Scope executed:** the five blocking corrections listed in Review Entry 06, all
+inside `scripts/build-cards.mjs` plus one new permanent test file. Stopped again at
+Review Gate 3. No service-page marker edits, no region/homepage work, no Groups 5-8,
+no Cloudflare/`_headers`/`_redirects` change, no commit, no push.
+
+**Fixes applied:**
+1. **Duplicate-id precedence.** `validateFeedPayload()` no longer checks for
+   duplicate `url` values — it now validates shape only. A new
+   `checkNoDuplicateUrls(items)` runs in `runBuild()` *after* `dedupeById()`, so a
+   repeated id sharing one url (or even the same url) is dropped-and-logged by the
+   id rule, never reaches the url check, and the build no longer fails on it. Two
+   distinct ids sharing one url still fails the build, unchanged.
+2. **Strict ISO 8601 UTC `publishedAt`.** Added `isStrictIsoUtcTimestamp()` — a
+   regex (`^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?Z$`) plus a `Date.parse`
+   sanity check. Date-only strings, timezone-offset strings (including `+00:00`),
+   and lowercase `z` are all rejected; only a literal trailing `Z` passes.
+3. **Whitespace-only topics.** `validateItemShape()` now checks
+   `t.trim().length > 0` for every topic instead of `t.length > 0`. A topic with
+   meaningful surrounding whitespace (e.g. `" hdd-internal "`) still passes — only
+   genuinely empty-after-trim values are rejected, matching the requested scope.
+4. **Collision-resistant image basenames.** Added `imageBaseNameForId(id)` —
+   `sha256(id)` truncated to 24 hex characters — replacing the old
+   `id.replace(/[^a-zA-Z0-9_-]+/g, '-')` sanitizer that collapsed ids like `"a:b"`
+   and `"a-b"` onto the same filename. Verified against the live feed: real items
+   now produce filenames like `752920e2db5ff0d7d150142d.webp`.
+5. **Permanent test file.** `scripts/build-cards.test.mjs`, `node:test` only, no
+   external dependencies. Run with `node --test scripts/build-cards.test.mjs`.
+   88/88 tests pass. Covers the originally reported suite (contract, sanitization,
+   network/build failure policy, `dist/` inventory, card distribution/escaping,
+   byte-for-byte determinism), all four regressions above with dedicated cases, a
+   real subprocess run of `node scripts/build-cards.mjs` (the exact mechanism that
+   hid the earlier Windows CLI entry-point bug from fixture-only tests), and marker
+   cardinality (exactly one begin/end pair per slot on all 20 topic pages, zero
+   markers on the 4 region pages).
+
+**Re-verification after the fixes:**
+- `node --test scripts/build-cards.test.mjs` → 88 pass, 0 fail (11 suites).
+- `node scripts/build-cards.mjs` rerun against the live feed → succeeds identically
+  (2 real items, same `hdd-internal`/`ssd-nvme` injection pattern as the prior run),
+  16/16 Public entries present, real WebP images downloaded and now named by hash.
+  `dist/` deleted afterward — git-ignored, never committed.
+- `git diff --stat` on the 20 topic-page source files is unchanged from the prior
+  pass (still exactly 6 insertions, 0 deletions each) — this correction pass touched
+  no tracked HTML.
+
+**Not touched:** any file outside `scripts/build-cards.mjs` (new: `scripts/build-cards.test.mjs`).
+No prior Codex decision (D01–D15, Review Entries 01–06, all approval entries) was
+altered by this entry.
+
+## Review Entry 07 — Codex Review of the Correction Pass
+
+**Result: mostly passed; one targeted correction remains and Review Gate 3 stays open.**
+
+- Independently ran `node --test scripts/build-cards.test.mjs`: 88/88 passed across 11 suites with no external dependencies.
+- Independently ran `node scripts/build-cards.mjs` against the live two-item feed: build succeeded, produced 61 files, copied all 16 public root entries, excluded all 25 denied entries, generated two hash-named WebP files, and injected the expected Arabic/English HDD and SSD cards. The review-generated `dist/` was deleted afterward.
+- Confirmed duplicate-ID handling now precedes duplicate-URL enforcement, whitespace-only topics are rejected, and raw-ID hashing prevents the reproduced filename collision.
+- The permanent tests cover direct CLI execution and exact marker cardinality; no marker, homepage, region-page, Cloudflare, `_headers`, or `_redirects` change was introduced by this correction pass.
+- One reproducible contract defect remains in `isStrictIsoUtcTimestamp()`: regex plus `Date.parse()` accepts normalized impossible values. Observed: `2026-02-30T00:00:00Z` returns true and normalizes into March; `2026-01-01T24:00:00Z` returns true and normalizes into the next day. The function must compare parsed UTC components or canonicalized output to the supplied components and reject both cases. Add permanent regression tests for at least these two values.
+
+No Cloud OPUS consultation is required because this is a proven local validation defect with no architecture, deployment, or SEO-baseline decision.
+
+**Progress:** reached Group 4 of 8; Groups 1-2 are approved complete, Groups 3-4 remain current under Gate 3, and Groups 5-8 remain not started.
+
+**Drift status:** None.
+
+## Review Entry 08 — Final Review of Groups 3-4
+
+**Result: passed; recommend Ahmed close Review Gate 3.**
+
+- Inspected the final `isStrictIsoUtcTimestamp()` implementation: it extracts every numeric UTC component, builds the timestamp, and compares every round-tripped UTC field to the input. This rejects calendar/time normalization while preserving valid leap dates and 1-3 digit fractional seconds.
+- Independently ran `node --test scripts/build-cards.test.mjs`: 94/94 tests passed across 11 suites, including the six new strict-date cases and the full existing regression/build suite.
+- Independently ran `node scripts/build-cards.mjs` against the live two-item feed: success, 16 public entries copied, 25 entries excluded, 61 output files, two hash-named WebP assets, and expected HDD/SSD injection in both languages.
+- Confirmed the 20 service-page diffs remain exactly six insertions and zero deletions each. No homepage, region page, Cloudflare, `_headers`, `_redirects`, later group, commit, push, or deployment change was introduced by the final correction.
+- Deleted the review-generated `dist/` after verification. `git diff --check` reports no errors; line-ending notices are non-blocking working-tree warnings.
+
+No blocker remains inside Groups 3-4. No Cloud OPUS consultation is required because the approved architecture and indexing safeguards did not change. If Ahmed closes Gate 3, the next executable scope is only section 7.4 through Review Gate 3b; Production and Groups 5-8 remain closed.
+
+**Progress:** reached Group 4 of 8. Four groups are implemented and manager-reviewed; two are formally approved until Ahmed closes Gate 3; four groups remain not started.
+
+**Drift status:** None.
+
+## Sonnet Execution Entry 09 — Section 7.4 (a) Local Verification
+
+**Scope:** local-only verification per the developer's Section 7.4 (a) instructions. No git commit, no git push, no branch creation, no Cloudflare dashboard access, no `_headers`/`_redirects` edits, no Groups 5-8, no HTML page edits, no `scripts/build-cards.mjs` edits.
+
+**1) Local build:** `node scripts/build-cards.mjs` succeeded on the first run (`"ok": true`, `"errors": []`); `dist/` was confirmed to exist afterward.
+
+**2) Positive inventory** — every item confirmed present inside `dist/`:
+
+| Item | Status |
+|---|---|
+| index.html | ✅ Present |
+| en/ | ✅ Present |
+| services/ | ✅ Present |
+| en/services/ | ✅ Present |
+| assets/ | ✅ Present |
+| lang/ | ✅ Present |
+| _headers | ✅ Present |
+| robots.txt | ✅ Present |
+| sitemap.xml | ✅ Present |
+| manifest.json | ✅ Present |
+| alfares_logo.png | ✅ Present |
+| 404.html | ✅ Present |
+| about-lab.html | ✅ Present |
+| privacy-policy.html | ✅ Present |
+| lang/ar.json | ✅ Present |
+| lang/en.json | ✅ Present |
+
+**3) Negative inventory** — every item confirmed absent from `dist/`:
+
+| Item | Status |
+|---|---|
+| plans/, docs/, prompts/, reviews/, scripts/, secrets/ | ✅ Absent |
+| .git/, .claude/, .vite/, .env.example | ✅ Absent |
+| dist/ (self-nesting) | ✅ Absent |
+| master-constitution.md, project-context.md, project-key.md, changelog.md, README.md, DEPLOYMENT.md | ✅ Absent |
+| BUGFIX_*, DELIVERY_README*, TEST_REPORT_*, VERIFICATION_* (wildcard search) | ✅ Absent |
+| _redirects (untracked repo-root file) | ✅ Absent — also named explicitly in the build's own `rootExcluded` report entry |
+
+**4) Dotfile handling:** inspected `scripts/build-cards.mjs` directly — root copying uses `fs.readdir(REPO_ROOT, { withFileTypes: true })` plus `fs.cp(..., { recursive: true })` (real Node fs APIs that enumerate dotfiles), filtered by the explicit `EXCLUDE_ROOT_ENTRIES` deny-list and an `.env*` prefix check — not shell `cp -r *` glob semantics that silently skip dotfiles. No vulnerability found.
+
+**5) Seventeen-link matrix (local static server, `python -m http.server` on `dist/`):**
+
+| Link | Result |
+|---|---|
+| / | 200 |
+| /services/hdd-data-recovery | 404 on the local server → 200 confirmed via explicit `.html` |
+| /services/ssd-nvme-data-recovery | 404 on the local server → 200 confirmed via explicit `.html` |
+| /en/services/hdd-data-recovery | 404 on the local server → 200 confirmed via explicit `.html` |
+| /en/services/ssd-nvme-data-recovery | 404 on the local server → 200 confirmed via explicit `.html` |
+| /about-lab | 404 on the local server → 200 confirmed via explicit `.html` |
+| /privacy-policy | 404 on the local server → 200 confirmed via explicit `.html` |
+| /assets/css/base.css | 200 |
+| /lang/ar.json | 200 |
+| /lang/en.json | 200 |
+| /sitemap.xml | 200 |
+| /robots.txt | 200 |
+| /plans/59-datacodex-cards-bridge.md | 404 (expected) |
+| /project-context.md | 404 (expected) |
+| /master-constitution.md | 404 (expected) |
+| /.env.example | 404 (expected) |
+| /reviews/01-review-alfares-service-pages-strategy.md | 404 (expected) |
+
+The six clean-URL 404s came from `python -m http.server` not resolving extensionless paths, not from missing output — re-requesting each with an explicit `.html` suffix returned 200, confirming the files exist and are servable.
+
+**6) Byte-for-byte determinism test (Guarantee 3):** built a fixed local fixture (`feed.json` with two items + two placeholder images + `manifest.json`) and ran the build twice against the identical captured input, with no live fetch between runs:
+
+```
+DATACODEX_FEED_FIXTURE=/tmp/plan59-fixture/feed.json DATACODEX_IMAGES_FIXTURE_DIR=/tmp/plan59-fixture/images node scripts/build-cards.mjs
+```
+
+Each run's `dist/` was snapshotted to its own directory, then compared with:
+
+```
+diff -r dist-run-1 dist-run-2
+```
+
+Result: no differences reported. A second, independent confirmation compared a full SHA-256 manifest of every file in both trees (`find ... | sort | xargs sha256sum`, then `diff run1.sha256 run2.sha256`) across all 61 files: manifests identical.
+
+**7) Cards in source, not injected by JS:** opened `dist/services/hdd-data-recovery.html` and confirmed the card HTML sits directly in the file body between the `datacodex-cards:begin`/`:end` comment markers, not injected at runtime. The image reference is a local path (`src="../assets/images/datacodex-cards/9bcf016cc68037f1da1b063f.webp"`), and the referenced file was confirmed on disk as a genuine 1200×675 WebP (120 KB). The file's only `datacodexlab.com` occurrence is the card's `<a href="https://datacodexlab.com/posts/...">` link to the original article — not an image hotlink.
+
+**8) Source untouched:**
+
+```
+git status --porcelain
+```
+
+matched the pre-existing session-start state exactly (the same 20 service-page files, `.gitignore`, the audit file, the plan file, and the three untracked new script/redirects files) — no new changes were introduced by any build run.
+
+```
+git diff --stat services/ en/services/
+```
+
+confirmed exactly 20 files changed, each `+6/-0`, `120 insertions(+)` total, with no deviation.
+
+**9) Cleanup:** `dist/` was deleted after verification and confirmed gone; the temporary fixture directory was also removed.
+
+**Progress:** Section 7.4 (a) local verification complete. No commit, no push, no Cloudflare dashboard access, no `_headers`/`_redirects` edit, and no HTML page edit occurred during this execution round.
+
+**Drift status:** None.
+
+### قيد التحقق المتبقي
+
+الروابط النظيفة الستة لم تُثبَت في هذا الدور — السيرفر المحلي لا يحل الروابط بلا امتداد، والإثبات الوحيد الممكن لها هو Cloudflare Preview في القسم 7.4 (ب). هذا الدور أثبت **محتوى** مجلد الإخراج، ولم يُثبت **سلوك الروابط النظيفة منه**، وهو بالضبط الغرض من البوابة 3ب.
 
 ## Requirements for the Proposed v3.3 Documentation Revision
 

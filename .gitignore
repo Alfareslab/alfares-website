@@ -13,3 +13,7 @@ temp_archive/
 
 # Credential files - defensive, must never enter git
 **/cloudflare_Token.md
+
+# Plan 59 — independent build output directory (Cloudflare build target), generated
+# only, never committed. Self-excluded from its own copy source (D07).
+/dist/
